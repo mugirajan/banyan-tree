@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your trusted source for expert healthcare services and car information. Providing personalized care, advanced treatments, and reliable car dealing to help you achieve better health.">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/fav.svg">
+    <title>GoRental - Car Rental HTML Template</title>
+    <link rel="stylesheet" href="assets/css/plugins/plugins.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnifying-popup.css">
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/rt-icon.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="home-one overflow-x-visible">
+    <div class="loader-wrapper">
+        <div class="loader">
+        </div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <div class="search-input-area">
+        <div class="container">
+            <div class="search-input-inner">
+                <div class="input-div">
+                    <input class="search-input autocomplete" type="text" placeholder="Search by keyword or #">
+                    <button><i class="far fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="close" class="search-close-icon"><i class="far fa-times"></i></div>
+    </div>
+    <div id="anywhere-home">
+    </div>
+    <!-- progress area start -->
+    <div class="progress-wrap">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+    <!-- progress area end -->
+    <!-- header area start -->
+    <header class="header-one header-three header-inner header--sticky">
+        <div class="header-top">
+            <div class="container">
+                <div class="inner">
+                    <div class="logo-area">
+                        <a href="index.html"><img src="assets/images/logo/logo.svg" width="180" alt=""></a>
+                    </div>
+                    <div class="get-touch-area">
+                        <div class="map-area">
+                            <div class="icon">
+                                <i class="fa-sharp fa-solid fa-phone"></i>
+                            </div>
+                            <div class="text">
+                                <p>Call Us Now</p>
+                                <a href="call-to:12505550199">+12505550199</a>
+                            </div>
+                        </div>
+                        <div class="map-area">
+                            <div class="icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div class="text">
+                                <p>Send US Email</p>
+                                <a href="mail-to:gorental@gmail.com">gorental@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="map-area">
+                            <div class="icon">
+                                <i class="fa-sharp fa-solid fa-location-dot"></i>
+                            </div>
+                            <div class="text">
+                                <p>Our Location</p>
+                                <a href="#">M5T 2L9 Toronto, Canada</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-area">
+                        <a href="account.html" class="rts__btn">
+                            <div class="rts__btn__wrap rts-btn-sm">
+                                <span class="rts__btn__txt-one">Sign In <svg width="13" height="13" viewBox="0 0 13 13"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.61969 11.96H6.49969C6.28415 11.96 6.10969 11.7856 6.10969 11.57C6.10969 11.3545 6.28415 11.18 6.49969 11.18H9.61969C10.2649 11.18 10.7897 10.6552 10.7897 10.01V2.99004C10.7897 2.34485 10.2649 1.82004 9.61969 1.82004H6.49969C6.28415 1.82004 6.10969 1.64558 6.10969 1.43004C6.10969 1.2145 6.28415 1.04004 6.49969 1.04004H9.61969C10.6949 1.04004 11.5697 1.91481 11.5697 2.99004V10.01C11.5697 11.0853 10.6949 11.96 9.61969 11.96ZM8.33542 6.22431L6.38542 4.27431C6.23306 4.12195 5.98632 4.12195 5.83396 4.27431C5.6816 4.42667 5.6816 4.67341 5.83396 4.82577L7.11823 6.11004H1.81969C1.60415 6.11004 1.42969 6.2845 1.42969 6.50004C1.42969 6.71558 1.60415 6.89004 1.81969 6.89004H7.11823L5.83396 8.17431C5.6816 8.32667 5.6816 8.57341 5.83396 8.72577C5.91014 8.80195 6.00985 8.84004 6.10969 8.84004C6.20953 8.84004 6.30924 8.80195 6.38542 8.72577L8.33542 6.77577C8.48778 6.62341 8.48778 6.37667 8.33542 6.22431Z"
+                                        fill="#555555" />
+                                </svg>
+                            </span>
+                                <span class="rts__btn__txt-two">Sign In <svg width="13" height="13" viewBox="0 0 13 13"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.61969 11.96H6.49969C6.28415 11.96 6.10969 11.7856 6.10969 11.57C6.10969 11.3545 6.28415 11.18 6.49969 11.18H9.61969C10.2649 11.18 10.7897 10.6552 10.7897 10.01V2.99004C10.7897 2.34485 10.2649 1.82004 9.61969 1.82004H6.49969C6.28415 1.82004 6.10969 1.64558 6.10969 1.43004C6.10969 1.2145 6.28415 1.04004 6.49969 1.04004H9.61969C10.6949 1.04004 11.5697 1.91481 11.5697 2.99004V10.01C11.5697 11.0853 10.6949 11.96 9.61969 11.96ZM8.33542 6.22431L6.38542 4.27431C6.23306 4.12195 5.98632 4.12195 5.83396 4.27431C5.6816 4.42667 5.6816 4.67341 5.83396 4.82577L7.11823 6.11004H1.81969C1.60415 6.11004 1.42969 6.2845 1.42969 6.50004C1.42969 6.71558 1.60415 6.89004 1.81969 6.89004H7.11823L5.83396 8.17431C5.6816 8.32667 5.6816 8.57341 5.83396 8.72577C5.91014 8.80195 6.00985 8.84004 6.10969 8.84004C6.20953 8.84004 6.30924 8.80195 6.38542 8.72577L8.33542 6.77577C8.48778 6.62341 8.48778 6.37667 8.33542 6.22431Z"
+                                        fill="#555555" />
+                                </svg>
+                            </span>
+                            </div>
+                            <div class="rts__btn__icon rts-btn-sm">
+                                <span class="rts__btn__icon-one"><i class="fa-light fa-arrow-right"></i></span>
+                                <span class="rts__btn__icon-two"><i class="fa-light fa-arrow-right"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="header-wrapper-area">
+                        <div class="header-right d-block">
+                            <div class="bottom d-flex align-items-center justify-content-between">
+                                <div class="logo-area">
+                                    <a href="index.html"><img src="assets/images/logo/logo.svg" width="180" alt=""></a>
+                                </div>
+                                <div class="nav-area">
+                                    <ul class="">
+                                        <li class="has-dropdown main-nav">
+                                            <a class="main-menu" href="javascript:void(0)">Home</a>
+                                            <ul class="submenu parent-nav">
+                                                <li><a href="index.html">Home One</a></li>
+                                                <li><a href="index-two.html">Home Two</a></li>
+                                                <li><a href="index-three.html">Home Three</a></li>
+                                                <li><a href="index-four.html">Home Dark</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="main-nav">
+                                            <a class="main-menu" href="about.html">About Us</a>
+                                        </li>
+                                        <li class="main-nav has-dropdown">
+                                            <a class="main-menu" href="javascript:void(0)">Fleet</a>
+                                            <ul class="submenu parent-nav">
+                                                <li><a href="fleet.html">Fleet One</a></li>
+                                                <li><a href="fleet-two.html">Fleet Two</a></li>
+                                                <li><a href="fleet-three.html">Fleet Three</a></li>
+                                                <li><a href="fleet-single-one.html">Fleet Single</a></li>
+                                                <li><a href="fleet-single-two.html">Fleet Single Two</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="main-nav has-dropdown">
+                                            <a class="main-menu" href="javascript:void(0)">Page</a>
+                                            <ul class="submenu mega-menu parent-nav">
+                                                <li><a href="pricing.html">Pricing</a></li>
+                                                <li><a href="service.html">Service</a></li>
+                                                <li><a href="compare.html">Compare</a></li>
+                                                <li><a href="blog.html">Blog</a></li>
+                                                <li><a href="driver.html">Driver</a></li>
+                                                <li><a href="blog-two.html">Blog Two</a></li>
+                                                <li><a href="faq.html">FAQ</a></li>
+                                                <li><a href="blog-details.html">Blog Single</a></li>
+                                                <li><a href="gallery.html">Gallery</a></li>
+                                                <li><a href="calculator.html">Calculator</a></li>
+                                                <li><a href="account.html">Account</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="main-nav has-dropdown">
+                                            <a class="main-menu" href="javascript:void(0)">Shop</a>
+                                            <ul class="submenu parent-nav">
+                                                <li><a href="shop.html">Shop</a></li>
+                                                <li><a href="shop-two.html">Shop Two</a></li>
+                                                <li><a href="shop-three.html">Shop Three</a></li>
+                                                <li><a href="shop-details.html">Shop Single</a></li>
+                                                <li><a href="cart.html">Cart</a></li>
+                                                <li><a href="checkout.html">Checkout</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="main-nav"><a class="main-menu main-menu-ls" href="contact.html">Contact</a></li>
+                                    </ul>
+                                </div>
+                                <div class="bottom-right">
+                                    <div class="social-area-transparent">
+                                        <div class="search-area">
+                                            <a href="javascript:void(0)" class="search"><img src="assets/images/icon/search.svg" alt=""></a>
+                                        </div>
+                                        <ul class="header-social">
+                                            <li><a href="#"><img src="assets/images/icon/twitter-x.svg" alt=""></a></li>
+                                            <li><a href="#"><img src="assets/images/icon/linkedin.svg" alt=""></a></li>
+                                            <li><a href="#"><img src="assets/images/icon/facebook.svg" alt=""></a></li>
+                                            <li><a href="#"><img src="assets/images/icon/instagram.svg" alt=""></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="menu-btn" id="menu-btn">
+                                        <i class="fa-sharp fa-regular fa-bars"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header area end -->
+    <!-- rts breadcrumb area start -->
+    <div class="rts-breadcrumb-area @@class jarallax" data-bg-src="assets/images/breadcrumb/02.webp">
+        <div class="container">
+            <div class="breadcrumb-area-wrapper">
+                <h1 class="title">Shop</h1>
+            </div>
+        </div>
+        <div class="nav-bread-crumb">
+            <div class="nav-inner">
+                <a href="index.html">Home</a>
+                <span class="dot"></span>
+                <a href="#" class="current">Shop</a>
+            </div>
+        </div>
+    </div>
+    <!-- rts breadcrumb area end -->
+
+
+    <!-- rts shop area start -->
+    <div class="rts-shop-area inner-three rts-section-gap">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <div class="sticky-top">
+                        <div class="left-side-bar">
+                            <div class="search-area side-box">
+                                <h2>Cars Search</h2>
+                                <form action="#">
+                                    <div class="input-wrapper">
+                                        <input type="text" placeholder="Search Vehicles" required>
+                                        <button type="submit"><i class="fa-regular fa-magnifying-glass"></i></button>
+                                    </div>
+                                </form>
+                                <span class="cross"><i class="fa-light fa-xmark"></i></span>
+                            </div>
+                            <div class="car-make side-box">
+                                <h2>Car Categories</h2>
+                                <ul class="checkbox-list">
+                                    <li class="checkbox-item">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" checked>
+                                            <span>Mercedes-Benz</span>
+                                        </label>
+                                        <span>(130)</span>
+                                    </li>
+                                    <li class="checkbox-item">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox">
+                                            <span>Volkswagen</span>
+                                        </label>
+                                        <span>(80)</span>
+                                    </li>
+                                    <li class="checkbox-item">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox">
+                                            <span>Mitsubishi</span>
+                                        </label>
+                                        <span>(199)</span>
+                                    </li>
+                                    <li class="checkbox-item">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox">
+                                            <span>Honda</span>
+                                        </label>
+                                        <span>(70)</span>
+                                    </li>
+                                    <li class="checkbox-item">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox">
+                                            <span>Lamborghini</span>
+                                        </label>
+                                        <span>(160)</span>
+                                    </li>
+                                </ul>
+                                <span class="cross"><i class="fa-light fa-xmark"></i></span>
+                            </div>
+                            <div class="shop-box side-box">
+                                <h2>Car Categories</h2>
+                                <div class="single-shop-wrapper">
+                                    <div class="thumb">
+                                        <a href="shop-details.html">
+                                            <img src="assets/images/shop/1.webp" alt="shop">
+                                        </a>
+                                    </div>
+                                    <div class="content">
+                                        <ul class="star-rating">
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
+                                        </ul>
+                                        <h3 class="title">Main structure of the engine</h3>
+                                        <span class="price">$790</span>
+                                    </div>
+                                </div>
+                                <div class="single-shop-wrapper">
+                                    <div class="thumb">
+                                        <a href="shop-details.html">
+                                            <img src="assets/images/shop/2.webp" alt="shop">
+                                        </a>
+                                    </div>
+                                    <div class="content">
+                                        <ul class="star-rating">
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
+                                        </ul>
+                                        <h3 class="title">Supplies electrical power</h3>
+                                        <span class="price">$599</span>
+                                    </div>
+                                </div>
+                                <div class="single-shop-wrapper mb-0">
+                                    <div class="thumb">
+                                        <a href="shop-details.html">
+                                            <img src="assets/images/shop/1.webp" alt="shop">
+                                        </a>
+                                    </div>
+                                    <div class="content">
+                                        <ul class="star-rating">
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star"></i></li>
+                                            <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
+                                        </ul>
+                                        <h3 class="title">Car lightbulb On White Surface</h3>
+                                        <span class="price">$998</span>
+                                    </div>
+                                </div>
+                                <span class="cross"><i class="fa-light fa-xmark"></i></span>
+                            </div>
+                            <div class="car-make side-box">
+                                <h2>Parts Model</h2>
+                                <ul class="checkbox-list">
+                                    <li class="checkbox-item">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" checked>
+                                            <span>Chevrolet</span>
+                                        </label>
+                                        <span>(64)</span>
+                                    </li>
+                                    <li class="checkbox-item">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox">
+                                            <span>Ford</span>
+                                        </label>
+                                        <span>(199)</span>
+                                    </li>
+                                    <li class="checkbox-item">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox">
+                                            <span>Tesla</span>
+                                        </label>
+                                        <span>(59)</span>
+                                    </li>
+                                    <li class="checkbox-item">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox">
+                                            <span>BMW</span>
+                                        </label>
+                                        <span>(230)</span>
+                                    </li>
+                                    <li class="checkbox-item">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox">
+                                            <span>Audi</span>
+                                        </label>
+                                        <span>(30)</span>
+                                    </li>
+                                </ul>
+                                <span class="cross"><i class="fa-light fa-xmark"></i></span>
+                            </div>
+                            <div class="price-box side-box">
+                                <h2>Price</h2>
+                                <div class="slider-container">
+                                    <!-- Histogram -->
+                                    <div class="histogram">
+                                        <!-- Create bars dynamically -->
+                                        <div class="histogram-bar" style="height: 67px;"></div>
+                                        <div class="histogram-bar" style="height: 86px;"></div>
+                                        <div class="histogram-bar" style="height: 52px;"></div>
+                                        <div class="histogram-bar" style="height: 86px;"></div>
+                                        <div class="histogram-bar" style="height: 99px;"></div>
+                                        <div class="histogram-bar" style="height: 86px;"></div>
+                                        <div class="histogram-bar" style="height: 75px;"></div>
+                                        <div class="histogram-bar" style="height: 93px;"></div>
+                                        <div class="histogram-bar" style="height: 86px;"></div>
+                                        <div class="histogram-bar" style="height: 99px;"></div>
+                                        <div class="histogram-bar" style="height: 86px;"></div>
+                                        <div class="histogram-bar" style="height: 75px;"></div>
+                                        <div class="histogram-bar" style="height: 93px;"></div>
+                                        <div class="histogram-bar" style="height: 93px;"></div>
+                                        <div class="histogram-bar" style="height: 75px;"></div>
+                                        <div class="histogram-bar" style="height: 98px;"></div>
+                                        <div class="histogram-bar" style="height: 86px;"></div>
+                                        <div class="histogram-bar" style="height: 107px;"></div>
+                                        <div class="histogram-bar" style="height: 75px;"></div>
+                                        <div class="histogram-bar" style="height: 93px;"></div>
+                                        <div class="histogram-bar" style="height: 102px;"></div>
+                                        <div class="histogram-bar" style="height: 52px;"></div>
+                                        <div class="histogram-bar" style="height: 86px;"></div>
+                                        <div class="histogram-bar" style="height: 94px;"></div>
+                                        <div class="histogram-bar" style="height: 75px;"></div>
+                                        <div class="histogram-bar" style="height: 86px;"></div>
+                                    </div>
+
+                                    <!-- Range Slider -->
+                                    <div class="range-slider">
+                                        <div class="track"></div>
+                                        <div class="range" id="range"></div>
+                                        <input type="range" id="minRange" min="0" max="100" value="20">
+                                        <input type="range" id="maxRange" min="0" max="100" value="80">
+                                    </div>
+
+                                    <!-- Price Labels -->
+                                    <div class="price-labels">
+                                        <span id="minPrice">$500</span>
+                                        <span id="maxPrice">$5000</span>
+                                    </div>
+                                </div>
+                                <span class="cross"><i class="fa-light fa-xmark"></i></span>
+                            </div>
+                            <div class="car-make side-box">
+                                <h2>Rating</h2>
+                                <div class="checkbox-list">
+                                    <div class="checkbox-item">
+                                        <div class="checkbox-label">
+                                            <input type="checkbox" checked>
+                                            <div class="stars">
+                                                <i class="fa-sharp fa-solid fa-star"></i>
+                                                <i class="fa-sharp fa-solid fa-star"></i>
+                                                <i class="fa-sharp fa-solid fa-star"></i>
+                                                <i class="fa-sharp fa-solid fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <span>(64)</span>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <div class="checkbox-label">
+                                            <input type="checkbox">
+                                            <div class="stars">
+                                                <i class="fa-sharp fa-solid fa-star"></i>
+                                                <i class="fa-sharp fa-solid fa-star"></i>
+                                                <i class="fa-sharp fa-solid fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <span>(199)</span>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <div class="checkbox-label">
+                                            <input type="checkbox">
+                                            <div class="stars">
+                                                <i class="fa-sharp fa-solid fa-star"></i>
+                                                <i class="fa-sharp fa-solid fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <span>(59)</span>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <div class="checkbox-label">
+                                            <input type="checkbox">
+                                            <div class="stars">
+                                                <i class="fa-sharp fa-solid fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <span>(230)</span>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <div class="checkbox-label">
+                                            <input type="checkbox">
+                                            <div class="stars">
+                                                <i class="fa-sharp fa-solid fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                                <i class="fa-sharp fa-light fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <span>(30)</span>
+                                    </div>
+                                </div>
+                                <span class="cross"><i class="fa-light fa-xmark"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="right">
+                        <div class="rts-shop-list-wrapper">
+                            <div class="row g-5">
+                                <div class="col-md-6">
+                                    <div class="shopr-wrapper">
+                                        <div class="image-area">
+                                            <a href="shop-details.html"><img src="assets/images/portfolio/11.webp" alt=""></a>
+                                        </div>
+                                        <div class="content-area">
+                                            <ul class="star-rating">
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
+                                            </ul>
+                                            <h2 class="title "><a href="shop-details.html">Car Parts Gears and Equipment</a>
+                                            </h2>
+                                            <p class="">$400</p>
+                                        </div>
+                                        <div class="button-area">
+                                            <a href="cart.html" class="rts-link-btn">
+                                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.08816 14.2228H7.08917C7.09001 14.2228 7.09085 14.2226 7.09169 14.2226H18.7773C19.065 14.2226 19.318 14.0318 19.397 13.7552L21.9751 4.73176C22.0307 4.53723 21.9918 4.32809 21.8701 4.16662C21.7482 4.00516 21.5577 3.91015 21.3555 3.91015H5.60171L5.14097 1.83675C5.07535 1.54184 4.81384 1.33203 4.51172 1.33203H0.644531C0.288528 1.33203 0 1.62056 0 1.97656C0 2.33256 0.288528 2.62109 0.644531 2.62109H3.99475C4.07632 2.98851 6.19958 12.5433 6.32177 13.093C5.63679 13.3908 5.15625 14.0738 5.15625 14.8672C5.15625 15.9333 6.02368 16.8008 7.08984 16.8008H18.7773C19.1333 16.8008 19.4219 16.5122 19.4219 16.1562C19.4219 15.8002 19.1333 15.5117 18.7773 15.5117H7.08984C6.73451 15.5117 6.44531 15.2225 6.44531 14.8672C6.44531 14.5124 6.7335 14.2237 7.08816 14.2228ZM20.5009 5.19922L18.2911 12.9336H7.60681L5.88806 5.19922H20.5009Z" fill="white" />
+                                                    <path d="M6.44531 18.7344C6.44531 19.8005 7.31274 20.668 8.37891 20.668C9.44507 20.668 10.3125 19.8005 10.3125 18.7344C10.3125 17.6682 9.44507 16.8008 8.37891 16.8008C7.31274 16.8008 6.44531 17.6682 6.44531 18.7344ZM8.37891 18.0898C8.73424 18.0898 9.02344 18.379 9.02344 18.7344C9.02344 19.0897 8.73424 19.3789 8.37891 19.3789C8.02357 19.3789 7.73437 19.0897 7.73437 18.7344C7.73437 18.379 8.02357 18.0898 8.37891 18.0898Z" fill="white" />
+                                                    <path d="M15.5547 18.7344C15.5547 19.8005 16.4221 20.668 17.4883 20.668C18.5544 20.668 19.4219 19.8005 19.4219 18.7344C19.4219 17.6682 18.5544 16.8008 17.4883 16.8008C16.4221 16.8008 15.5547 17.6682 15.5547 18.7344ZM17.4883 18.0898C17.8436 18.0898 18.1328 18.379 18.1328 18.7344C18.1328 19.0897 17.8436 19.3789 17.4883 19.3789C17.1329 19.3789 16.8437 19.0897 16.8437 18.7344C16.8437 18.379 17.1329 18.0898 17.4883 18.0898Z" fill="white" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="shopr-wrapper">
+                                        <div class="image-area">
+                                            <a href="shop-details.html"><img src="assets/images/portfolio/12.webp" alt=""></a>
+                                        </div>
+                                        <div class="content-area">
+                                            <ul class="star-rating">
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
+                                            </ul>
+                                            <h2 class="title "><a href="shop-details.html">Power Steering Pump</a>
+                                            </h2>
+                                            <p class="">$599</p>
+                                        </div>
+                                        <div class="button-area">
+                                            <a href="cart.html" class="rts-link-btn">
+                                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.08816 14.2228H7.08917C7.09001 14.2228 7.09085 14.2226 7.09169 14.2226H18.7773C19.065 14.2226 19.318 14.0318 19.397 13.7552L21.9751 4.73176C22.0307 4.53723 21.9918 4.32809 21.8701 4.16662C21.7482 4.00516 21.5577 3.91015 21.3555 3.91015H5.60171L5.14097 1.83675C5.07535 1.54184 4.81384 1.33203 4.51172 1.33203H0.644531C0.288528 1.33203 0 1.62056 0 1.97656C0 2.33256 0.288528 2.62109 0.644531 2.62109H3.99475C4.07632 2.98851 6.19958 12.5433 6.32177 13.093C5.63679 13.3908 5.15625 14.0738 5.15625 14.8672C5.15625 15.9333 6.02368 16.8008 7.08984 16.8008H18.7773C19.1333 16.8008 19.4219 16.5122 19.4219 16.1562C19.4219 15.8002 19.1333 15.5117 18.7773 15.5117H7.08984C6.73451 15.5117 6.44531 15.2225 6.44531 14.8672C6.44531 14.5124 6.7335 14.2237 7.08816 14.2228ZM20.5009 5.19922L18.2911 12.9336H7.60681L5.88806 5.19922H20.5009Z" fill="white" />
+                                                    <path d="M6.44531 18.7344C6.44531 19.8005 7.31274 20.668 8.37891 20.668C9.44507 20.668 10.3125 19.8005 10.3125 18.7344C10.3125 17.6682 9.44507 16.8008 8.37891 16.8008C7.31274 16.8008 6.44531 17.6682 6.44531 18.7344ZM8.37891 18.0898C8.73424 18.0898 9.02344 18.379 9.02344 18.7344C9.02344 19.0897 8.73424 19.3789 8.37891 19.3789C8.02357 19.3789 7.73437 19.0897 7.73437 18.7344C7.73437 18.379 8.02357 18.0898 8.37891 18.0898Z" fill="white" />
+                                                    <path d="M15.5547 18.7344C15.5547 19.8005 16.4221 20.668 17.4883 20.668C18.5544 20.668 19.4219 19.8005 19.4219 18.7344C19.4219 17.6682 18.5544 16.8008 17.4883 16.8008C16.4221 16.8008 15.5547 17.6682 15.5547 18.7344ZM17.4883 18.0898C17.8436 18.0898 18.1328 18.379 18.1328 18.7344C18.1328 19.0897 17.8436 19.3789 17.4883 19.3789C17.1329 19.3789 16.8437 19.0897 16.8437 18.7344C16.8437 18.379 17.1329 18.0898 17.4883 18.0898Z" fill="white" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="shopr-wrapper">
+                                        <div class="image-area">
+                                            <a href="shop-details.html"><img src="assets/images/portfolio/13.webp" alt=""></a>
+                                        </div>
+                                        <div class="content-area">
+                                            <ul class="star-rating">
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
+                                            </ul>
+                                            <h2 class="title "><a href="shop-details.html">High-Performance Tires</a>
+                                            </h2>
+                                            <p class="">$545</p>
+                                        </div>
+                                        <div class="button-area">
+                                            <a href="cart.html" class="rts-link-btn">
+                                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.08816 14.2228H7.08917C7.09001 14.2228 7.09085 14.2226 7.09169 14.2226H18.7773C19.065 14.2226 19.318 14.0318 19.397 13.7552L21.9751 4.73176C22.0307 4.53723 21.9918 4.32809 21.8701 4.16662C21.7482 4.00516 21.5577 3.91015 21.3555 3.91015H5.60171L5.14097 1.83675C5.07535 1.54184 4.81384 1.33203 4.51172 1.33203H0.644531C0.288528 1.33203 0 1.62056 0 1.97656C0 2.33256 0.288528 2.62109 0.644531 2.62109H3.99475C4.07632 2.98851 6.19958 12.5433 6.32177 13.093C5.63679 13.3908 5.15625 14.0738 5.15625 14.8672C5.15625 15.9333 6.02368 16.8008 7.08984 16.8008H18.7773C19.1333 16.8008 19.4219 16.5122 19.4219 16.1562C19.4219 15.8002 19.1333 15.5117 18.7773 15.5117H7.08984C6.73451 15.5117 6.44531 15.2225 6.44531 14.8672C6.44531 14.5124 6.7335 14.2237 7.08816 14.2228ZM20.5009 5.19922L18.2911 12.9336H7.60681L5.88806 5.19922H20.5009Z" fill="white" />
+                                                    <path d="M6.44531 18.7344C6.44531 19.8005 7.31274 20.668 8.37891 20.668C9.44507 20.668 10.3125 19.8005 10.3125 18.7344C10.3125 17.6682 9.44507 16.8008 8.37891 16.8008C7.31274 16.8008 6.44531 17.6682 6.44531 18.7344ZM8.37891 18.0898C8.73424 18.0898 9.02344 18.379 9.02344 18.7344C9.02344 19.0897 8.73424 19.3789 8.37891 19.3789C8.02357 19.3789 7.73437 19.0897 7.73437 18.7344C7.73437 18.379 8.02357 18.0898 8.37891 18.0898Z" fill="white" />
+                                                    <path d="M15.5547 18.7344C15.5547 19.8005 16.4221 20.668 17.4883 20.668C18.5544 20.668 19.4219 19.8005 19.4219 18.7344C19.4219 17.6682 18.5544 16.8008 17.4883 16.8008C16.4221 16.8008 15.5547 17.6682 15.5547 18.7344ZM17.4883 18.0898C17.8436 18.0898 18.1328 18.379 18.1328 18.7344C18.1328 19.0897 17.8436 19.3789 17.4883 19.3789C17.1329 19.3789 16.8437 19.0897 16.8437 18.7344C16.8437 18.379 17.1329 18.0898 17.4883 18.0898Z" fill="white" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="shopr-wrapper">
+                                        <div class="image-area">
+                                            <a href="shop-details.html"><img src="assets/images/portfolio/14.webp" alt=""></a>
+                                        </div>
+                                        <div class="content-area">
+                                            <ul class="star-rating">
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
+                                            </ul>
+                                            <h2 class="title "><a href="shop-details.html">Micrometer with check ring</a>
+                                            </h2>
+                                            <p class="">$790</p>
+                                        </div>
+                                        <div class="button-area">
+                                            <a href="cart.html" class="rts-link-btn">
+                                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.08816 14.2228H7.08917C7.09001 14.2228 7.09085 14.2226 7.09169 14.2226H18.7773C19.065 14.2226 19.318 14.0318 19.397 13.7552L21.9751 4.73176C22.0307 4.53723 21.9918 4.32809 21.8701 4.16662C21.7482 4.00516 21.5577 3.91015 21.3555 3.91015H5.60171L5.14097 1.83675C5.07535 1.54184 4.81384 1.33203 4.51172 1.33203H0.644531C0.288528 1.33203 0 1.62056 0 1.97656C0 2.33256 0.288528 2.62109 0.644531 2.62109H3.99475C4.07632 2.98851 6.19958 12.5433 6.32177 13.093C5.63679 13.3908 5.15625 14.0738 5.15625 14.8672C5.15625 15.9333 6.02368 16.8008 7.08984 16.8008H18.7773C19.1333 16.8008 19.4219 16.5122 19.4219 16.1562C19.4219 15.8002 19.1333 15.5117 18.7773 15.5117H7.08984C6.73451 15.5117 6.44531 15.2225 6.44531 14.8672C6.44531 14.5124 6.7335 14.2237 7.08816 14.2228ZM20.5009 5.19922L18.2911 12.9336H7.60681L5.88806 5.19922H20.5009Z" fill="white" />
+                                                    <path d="M6.44531 18.7344C6.44531 19.8005 7.31274 20.668 8.37891 20.668C9.44507 20.668 10.3125 19.8005 10.3125 18.7344C10.3125 17.6682 9.44507 16.8008 8.37891 16.8008C7.31274 16.8008 6.44531 17.6682 6.44531 18.7344ZM8.37891 18.0898C8.73424 18.0898 9.02344 18.379 9.02344 18.7344C9.02344 19.0897 8.73424 19.3789 8.37891 19.3789C8.02357 19.3789 7.73437 19.0897 7.73437 18.7344C7.73437 18.379 8.02357 18.0898 8.37891 18.0898Z" fill="white" />
+                                                    <path d="M15.5547 18.7344C15.5547 19.8005 16.4221 20.668 17.4883 20.668C18.5544 20.668 19.4219 19.8005 19.4219 18.7344C19.4219 17.6682 18.5544 16.8008 17.4883 16.8008C16.4221 16.8008 15.5547 17.6682 15.5547 18.7344ZM17.4883 18.0898C17.8436 18.0898 18.1328 18.379 18.1328 18.7344C18.1328 19.0897 17.8436 19.3789 17.4883 19.3789C17.1329 19.3789 16.8437 19.0897 16.8437 18.7344C16.8437 18.379 17.1329 18.0898 17.4883 18.0898Z" fill="white" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="shopr-wrapper">
+                                        <div class="image-area">
+                                            <a href="shop-details.html"><img src="assets/images/portfolio/15.webp" alt=""></a>
+                                        </div>
+                                        <div class="content-area">
+                                            <ul class="star-rating">
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
+                                            </ul>
+                                            <h2 class="title "><a href="shop-details.html">Car Parts Mufflers And Pipes</a>
+                                            </h2>
+                                            <p class="">$270</p>
+                                        </div>
+                                        <div class="button-area">
+                                            <a href="cart.html" class="rts-link-btn">
+                                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.08816 14.2228H7.08917C7.09001 14.2228 7.09085 14.2226 7.09169 14.2226H18.7773C19.065 14.2226 19.318 14.0318 19.397 13.7552L21.9751 4.73176C22.0307 4.53723 21.9918 4.32809 21.8701 4.16662C21.7482 4.00516 21.5577 3.91015 21.3555 3.91015H5.60171L5.14097 1.83675C5.07535 1.54184 4.81384 1.33203 4.51172 1.33203H0.644531C0.288528 1.33203 0 1.62056 0 1.97656C0 2.33256 0.288528 2.62109 0.644531 2.62109H3.99475C4.07632 2.98851 6.19958 12.5433 6.32177 13.093C5.63679 13.3908 5.15625 14.0738 5.15625 14.8672C5.15625 15.9333 6.02368 16.8008 7.08984 16.8008H18.7773C19.1333 16.8008 19.4219 16.5122 19.4219 16.1562C19.4219 15.8002 19.1333 15.5117 18.7773 15.5117H7.08984C6.73451 15.5117 6.44531 15.2225 6.44531 14.8672C6.44531 14.5124 6.7335 14.2237 7.08816 14.2228ZM20.5009 5.19922L18.2911 12.9336H7.60681L5.88806 5.19922H20.5009Z" fill="white" />
+                                                    <path d="M6.44531 18.7344C6.44531 19.8005 7.31274 20.668 8.37891 20.668C9.44507 20.668 10.3125 19.8005 10.3125 18.7344C10.3125 17.6682 9.44507 16.8008 8.37891 16.8008C7.31274 16.8008 6.44531 17.6682 6.44531 18.7344ZM8.37891 18.0898C8.73424 18.0898 9.02344 18.379 9.02344 18.7344C9.02344 19.0897 8.73424 19.3789 8.37891 19.3789C8.02357 19.3789 7.73437 19.0897 7.73437 18.7344C7.73437 18.379 8.02357 18.0898 8.37891 18.0898Z" fill="white" />
+                                                    <path d="M15.5547 18.7344C15.5547 19.8005 16.4221 20.668 17.4883 20.668C18.5544 20.668 19.4219 19.8005 19.4219 18.7344C19.4219 17.6682 18.5544 16.8008 17.4883 16.8008C16.4221 16.8008 15.5547 17.6682 15.5547 18.7344ZM17.4883 18.0898C17.8436 18.0898 18.1328 18.379 18.1328 18.7344C18.1328 19.0897 17.8436 19.3789 17.4883 19.3789C17.1329 19.3789 16.8437 19.0897 16.8437 18.7344C16.8437 18.379 17.1329 18.0898 17.4883 18.0898Z" fill="white" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="shopr-wrapper">
+                                        <div class="image-area">
+                                            <a href="shop-details.html"><img src="assets/images/portfolio/16.webp" alt=""></a>
+                                        </div>
+                                        <div class="content-area">
+                                            <ul class="star-rating">
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
+                                            </ul>
+                                            <h2 class="title "><a href="shop-details.html">Car Gears Machine part</a>
+                                            </h2>
+                                            <p class="">$699</p>
+                                        </div>
+                                        <div class="button-area">
+                                            <a href="cart.html" class="rts-link-btn">
+                                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.08816 14.2228H7.08917C7.09001 14.2228 7.09085 14.2226 7.09169 14.2226H18.7773C19.065 14.2226 19.318 14.0318 19.397 13.7552L21.9751 4.73176C22.0307 4.53723 21.9918 4.32809 21.8701 4.16662C21.7482 4.00516 21.5577 3.91015 21.3555 3.91015H5.60171L5.14097 1.83675C5.07535 1.54184 4.81384 1.33203 4.51172 1.33203H0.644531C0.288528 1.33203 0 1.62056 0 1.97656C0 2.33256 0.288528 2.62109 0.644531 2.62109H3.99475C4.07632 2.98851 6.19958 12.5433 6.32177 13.093C5.63679 13.3908 5.15625 14.0738 5.15625 14.8672C5.15625 15.9333 6.02368 16.8008 7.08984 16.8008H18.7773C19.1333 16.8008 19.4219 16.5122 19.4219 16.1562C19.4219 15.8002 19.1333 15.5117 18.7773 15.5117H7.08984C6.73451 15.5117 6.44531 15.2225 6.44531 14.8672C6.44531 14.5124 6.7335 14.2237 7.08816 14.2228ZM20.5009 5.19922L18.2911 12.9336H7.60681L5.88806 5.19922H20.5009Z" fill="white" />
+                                                    <path d="M6.44531 18.7344C6.44531 19.8005 7.31274 20.668 8.37891 20.668C9.44507 20.668 10.3125 19.8005 10.3125 18.7344C10.3125 17.6682 9.44507 16.8008 8.37891 16.8008C7.31274 16.8008 6.44531 17.6682 6.44531 18.7344ZM8.37891 18.0898C8.73424 18.0898 9.02344 18.379 9.02344 18.7344C9.02344 19.0897 8.73424 19.3789 8.37891 19.3789C8.02357 19.3789 7.73437 19.0897 7.73437 18.7344C7.73437 18.379 8.02357 18.0898 8.37891 18.0898Z" fill="white" />
+                                                    <path d="M15.5547 18.7344C15.5547 19.8005 16.4221 20.668 17.4883 20.668C18.5544 20.668 19.4219 19.8005 19.4219 18.7344C19.4219 17.6682 18.5544 16.8008 17.4883 16.8008C16.4221 16.8008 15.5547 17.6682 15.5547 18.7344ZM17.4883 18.0898C17.8436 18.0898 18.1328 18.379 18.1328 18.7344C18.1328 19.0897 17.8436 19.3789 17.4883 19.3789C17.1329 19.3789 16.8437 19.0897 16.8437 18.7344C16.8437 18.379 17.1329 18.0898 17.4883 18.0898Z" fill="white" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="shopr-wrapper">
+                                        <div class="image-area">
+                                            <a href="shop-details.html"><img src="assets/images/portfolio/39.webp" alt=""></a>
+                                        </div>
+                                        <div class="content-area">
+                                            <ul class="star-rating">
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
+                                            </ul>
+                                            <h2 class="title "><a href="shop-details.html">Internal Combustion Engine</a>
+                                            </h2>
+                                            <p class="">$790</p>
+                                        </div>
+                                        <div class="button-area">
+                                            <a href="cart.html" class="rts-link-btn">
+                                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.08816 14.2228H7.08917C7.09001 14.2228 7.09085 14.2226 7.09169 14.2226H18.7773C19.065 14.2226 19.318 14.0318 19.397 13.7552L21.9751 4.73176C22.0307 4.53723 21.9918 4.32809 21.8701 4.16662C21.7482 4.00516 21.5577 3.91015 21.3555 3.91015H5.60171L5.14097 1.83675C5.07535 1.54184 4.81384 1.33203 4.51172 1.33203H0.644531C0.288528 1.33203 0 1.62056 0 1.97656C0 2.33256 0.288528 2.62109 0.644531 2.62109H3.99475C4.07632 2.98851 6.19958 12.5433 6.32177 13.093C5.63679 13.3908 5.15625 14.0738 5.15625 14.8672C5.15625 15.9333 6.02368 16.8008 7.08984 16.8008H18.7773C19.1333 16.8008 19.4219 16.5122 19.4219 16.1562C19.4219 15.8002 19.1333 15.5117 18.7773 15.5117H7.08984C6.73451 15.5117 6.44531 15.2225 6.44531 14.8672C6.44531 14.5124 6.7335 14.2237 7.08816 14.2228ZM20.5009 5.19922L18.2911 12.9336H7.60681L5.88806 5.19922H20.5009Z" fill="white" />
+                                                    <path d="M6.44531 18.7344C6.44531 19.8005 7.31274 20.668 8.37891 20.668C9.44507 20.668 10.3125 19.8005 10.3125 18.7344C10.3125 17.6682 9.44507 16.8008 8.37891 16.8008C7.31274 16.8008 6.44531 17.6682 6.44531 18.7344ZM8.37891 18.0898C8.73424 18.0898 9.02344 18.379 9.02344 18.7344C9.02344 19.0897 8.73424 19.3789 8.37891 19.3789C8.02357 19.3789 7.73437 19.0897 7.73437 18.7344C7.73437 18.379 8.02357 18.0898 8.37891 18.0898Z" fill="white" />
+                                                    <path d="M15.5547 18.7344C15.5547 19.8005 16.4221 20.668 17.4883 20.668C18.5544 20.668 19.4219 19.8005 19.4219 18.7344C19.4219 17.6682 18.5544 16.8008 17.4883 16.8008C16.4221 16.8008 15.5547 17.6682 15.5547 18.7344ZM17.4883 18.0898C17.8436 18.0898 18.1328 18.379 18.1328 18.7344C18.1328 19.0897 17.8436 19.3789 17.4883 19.3789C17.1329 19.3789 16.8437 19.0897 16.8437 18.7344C16.8437 18.379 17.1329 18.0898 17.4883 18.0898Z" fill="white" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="shopr-wrapper">
+                                        <div class="image-area">
+                                            <a href="shop-details.html"><img src="assets/images/portfolio/40.webp" alt=""></a>
+                                        </div>
+                                        <div class="content-area">
+                                            <ul class="star-rating">
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star"></i></li>
+                                                <li><i class="rt-icon-star-sharp-half-stroke"></i></li>
+                                            </ul>
+                                            <h2 class="title "><a href="shop-details.html">Auto Parts on a Workshop
+                                                    Table</a>
+                                            </h2>
+                                            <p class="">$270</p>
+                                        </div>
+                                        <div class="button-area">
+                                            <a href="cart.html" class="rts-link-btn">
+                                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.08816 14.2228H7.08917C7.09001 14.2228 7.09085 14.2226 7.09169 14.2226H18.7773C19.065 14.2226 19.318 14.0318 19.397 13.7552L21.9751 4.73176C22.0307 4.53723 21.9918 4.32809 21.8701 4.16662C21.7482 4.00516 21.5577 3.91015 21.3555 3.91015H5.60171L5.14097 1.83675C5.07535 1.54184 4.81384 1.33203 4.51172 1.33203H0.644531C0.288528 1.33203 0 1.62056 0 1.97656C0 2.33256 0.288528 2.62109 0.644531 2.62109H3.99475C4.07632 2.98851 6.19958 12.5433 6.32177 13.093C5.63679 13.3908 5.15625 14.0738 5.15625 14.8672C5.15625 15.9333 6.02368 16.8008 7.08984 16.8008H18.7773C19.1333 16.8008 19.4219 16.5122 19.4219 16.1562C19.4219 15.8002 19.1333 15.5117 18.7773 15.5117H7.08984C6.73451 15.5117 6.44531 15.2225 6.44531 14.8672C6.44531 14.5124 6.7335 14.2237 7.08816 14.2228ZM20.5009 5.19922L18.2911 12.9336H7.60681L5.88806 5.19922H20.5009Z" fill="white" />
+                                                    <path d="M6.44531 18.7344C6.44531 19.8005 7.31274 20.668 8.37891 20.668C9.44507 20.668 10.3125 19.8005 10.3125 18.7344C10.3125 17.6682 9.44507 16.8008 8.37891 16.8008C7.31274 16.8008 6.44531 17.6682 6.44531 18.7344ZM8.37891 18.0898C8.73424 18.0898 9.02344 18.379 9.02344 18.7344C9.02344 19.0897 8.73424 19.3789 8.37891 19.3789C8.02357 19.3789 7.73437 19.0897 7.73437 18.7344C7.73437 18.379 8.02357 18.0898 8.37891 18.0898Z" fill="white" />
+                                                    <path d="M15.5547 18.7344C15.5547 19.8005 16.4221 20.668 17.4883 20.668C18.5544 20.668 19.4219 19.8005 19.4219 18.7344C19.4219 17.6682 18.5544 16.8008 17.4883 16.8008C16.4221 16.8008 15.5547 17.6682 15.5547 18.7344ZM17.4883 18.0898C17.8436 18.0898 18.1328 18.379 18.1328 18.7344C18.1328 19.0897 17.8436 19.3789 17.4883 19.3789C17.1329 19.3789 16.8437 19.0897 16.8437 18.7344C16.8437 18.379 17.1329 18.0898 17.4883 18.0898Z" fill="white" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rts-btn-wrapper inner-one">
+                                <a href="#" class="rts__btn btn-primary">Load More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- rts shop area end -->
+
+    <!-- rts cta area start -->
+    <section class="rts-cta-area inner-cta">
+        <div class="container">
+            <div class="cta-inner">
+                <h2 class="title">If you have any questions Please Call.</h2>
+                <div class="contact">
+                    <a href="call-to:+16544521505">
+                        <img src="assets/images/cta/call.svg" alt="">
+                        +1-654-452-1505</a>
+                </div>
+                <img class="shape one" src="assets/images/cta/round.svg" alt="">
+                <img class="shape two" src="assets/images/cta/line.svg" alt="">
+            </div>
+        </div>
+    </section>
+    <!-- rts cta area end -->
+
+    <!-- rts footer area start -->
+    <footer class="rts-footer-area footer-bg footer-inner" id="rts-footer" data-bg-src="assets/images/footer/footer-bg.webp">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-wrapper-style-between">
+                        <div class="single-wized logo-area">
+                            <a href="index.html" class="logo">
+                                <img src="assets/images/logo/footer-logo.svg" width="180" alt="">
+                            </a>
+                            <p class="desc">Don't miss out on the latest updates, exclusive offers, and insider news. Join
+                                our community and get everything</p>
+                            <form action="#">
+                                <input type="email" placeholder="Enter your email" required>
+                                <button type="submit">Subscribe</button>
+                            </form>
+                        </div>
+                        <div class="single-wized">
+                            <h3 class="title">Useful Links</h3>
+                            <div class="body">
+                                <ul class="nav-bottom">
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="driver.html">Driver</a></li>
+                                    <li><a href="pricing.html">Pricing</a></li>
+                                    <li><a href="compare.html">Compare</a></li>
+                                    <li><a href="shop.html">Shop</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="single-wized get-in-touch">
+                            <h3 class="title">Contact Us</h3>
+                            <div class="body">
+                                <ul class="get-touch">
+                                    <li class="map-area">
+                                        <div class="icon">
+                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M15.9688 12.1562L15.2188 15.3125C15.125 15.7812 14.75 16.0938 14.2812 16.0938C6.40625 16.0625 0 9.65625 0 1.78125C0 1.3125 0.28125 0.9375 0.75 0.84375L3.90625 0.09375C4.34375 0 4.8125 0.25 5 0.65625L6.46875 4.0625C6.625 4.46875 6.53125 4.9375 6.1875 5.1875L4.5 6.5625C5.5625 8.71875 7.3125 10.4688 9.5 11.5312L10.875 9.84375C11.125 9.53125 11.5938 9.40625 12 9.5625L15.4062 11.0312C15.8125 11.25 16.0625 11.7188 15.9688 12.1562Z" fill="white" />
+                                            </svg>
+                                        </div>
+                                        <div class="text">
+                                            <p>Call Us Now</p>
+                                            <a href="tel:12505550199">+12505550199</a>
+                                        </div>
+                                    </li>
+                                    <li class="map-area">
+                                        <div class="icon">
+                                            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14.5 0C15.3125 0 16 0.6875 16 1.5C16 2 15.75 2.4375 15.375 2.71875L8.59375 7.8125C8.21875 8.09375 7.75 8.09375 7.375 7.8125L0.59375 2.71875C0.21875 2.4375 0 2 0 1.5C0 0.6875 0.65625 0 1.5 0H14.5ZM6.78125 8.625C7.5 9.15625 8.46875 9.15625 9.1875 8.625L16 3.5V10C16 11.125 15.0938 12 14 12H2C0.875 12 0 11.125 0 10V3.5L6.78125 8.625Z" fill="white" />
+                                            </svg>
+                                        </div>
+                                        <div class="text">
+                                            <p>Send US Email</p>
+                                            <a href="mailto:gorental@gmail.com">GoRental@gmail.com</a>
+                                        </div>
+                                    </li>
+                                    <li class="map-area">
+                                        <div class="icon">
+                                            <svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.25 15.625C3.625 13.5938 0 8.75 0 6C0 2.6875 2.65625 0 6 0C9.3125 0 12 2.6875 12 6C12 8.75 8.34375 13.5938 6.71875 15.625C6.34375 16.0938 5.625 16.0938 5.25 15.625ZM6 8C7.09375 8 8 7.125 8 6C8 4.90625 7.09375 4 6 4C4.875 4 4 4.90625 4 6C4 7.125 4.875 8 6 8Z" fill="white" />
+                                            </svg>
+                                        </div>
+                                        <div class="text">
+                                            <p>Our Location</p>
+                                            <a href="#">M5T 2L9 Toronto, Canada</a>
+                                        </div>
+                                    </li>
+                                    <li class="map-area">
+                                        <div class="icon">
+                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M8.33334 0C6.68516 0 5.07399 0.488742 3.70358 1.40442C2.33318 2.3201 1.26507 3.62159 0.634341 5.1443C0.0036107 6.66702 -0.161417 8.34258 0.160126 9.95909C0.48167 11.5756 1.27534 13.0605 2.44078 14.2259C3.60622 15.3913 5.09108 16.185 6.70758 16.5065C8.32409 16.8281 9.99965 16.6631 11.5224 16.0323C13.0451 15.4016 14.3466 14.3335 15.2622 12.9631C16.1779 11.5927 16.6667 9.98151 16.6667 8.33333C16.6641 6.12397 15.7854 4.00582 14.2231 2.44357C12.6608 0.881313 10.5427 0.00252759 8.33334 0ZM11.4225 11.4225C11.3451 11.4999 11.2533 11.5613 11.1522 11.6032C11.0511 11.6451 10.9427 11.6666 10.8333 11.6666C10.7239 11.6666 10.6155 11.6451 10.5144 11.6032C10.4133 11.5613 10.3215 11.4999 10.2441 11.4225L7.74412 8.9225C7.66672 8.84515 7.60531 8.75331 7.56343 8.65221C7.52154 8.55112 7.49999 8.44276 7.5 8.33333V3.33333C7.5 3.11232 7.5878 2.90036 7.74408 2.74408C7.90036 2.5878 8.11232 2.5 8.33334 2.5C8.55435 2.5 8.76631 2.5878 8.92259 2.74408C9.07887 2.90036 9.16667 3.11232 9.16667 3.33333V7.98828L11.4225 10.2441C11.4999 10.3215 11.5613 10.4133 11.6032 10.5144C11.6451 10.6155 11.6666 10.7239 11.6666 10.8333C11.6666 10.9427 11.6451 11.0511 11.6032 11.1522C11.5613 11.2533 11.4999 11.3451 11.4225 11.4225Z" fill="white" />
+                                            </svg>
+                                        </div>
+                                        <div class="text">
+                                            <p>Working Hours</p>
+                                            <a href="#">Monday - Friday: 10 am - 8 pm</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright-area-inner">
+                            <p>Copyright ©
+                                <script>
+                                    document.write(
+                                        new Date().getFullYear()
+                                    )
+                                </script>
+                                All Rights Reserved by GoRental
+                            </p>
+                            <ul class="footer-social">
+                                <li>
+                                    <a href="#">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="10" cy="10" r="9.5" stroke="#FF3600" />
+                                            <path d="M10.7611 9.38745L13.7393 6H13.0335L10.4476 8.94128L8.38219 6H6L9.12328 10.4477L6 14H6.70577L9.43661 10.8939L11.6178 14H14L10.7609 9.38745H10.7611ZM9.79443 10.4869L9.47798 10.044L6.96007 6.51987H8.0441L10.0761 9.36398L10.3925 9.80687L13.0339 13.5038H11.9498L9.79443 10.4871V10.4869Z" fill="#FF3600" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.03333 8.7832H7.11041V14.203H5.03333V8.7832Z" fill="#FF3600" />
+                                            <path d="M6.05123 7.91803C6.63181 7.91803 7.10246 7.48867 7.10246 6.95902C7.10246 6.42937 6.63181 6 6.05123 6C5.47065 6 5 6.42937 5 6.95902C5 7.48867 5.47065 7.91803 6.05123 7.91803Z" fill="#FF3600" />
+                                            <path d="M12.3314 8.66016C11.9061 8.66016 11.5456 8.73762 11.2494 8.89239C10.9534 9.0473 10.661 9.30491 10.3716 9.6655V8.78262H8.43738V14.2024H10.5145V11.5996C10.5145 11.1062 10.5928 10.7645 10.7493 10.5739C10.9059 10.3834 11.1098 10.2881 11.3616 10.2881C11.5896 10.2881 11.7665 10.3588 11.8925 10.5C12.0185 10.6412 12.0812 10.8818 12.0812 11.2222V14.2024H14.1686V10.7577C14.1686 10.0432 14.006 9.51501 13.681 9.17301C13.3564 8.83101 12.9062 8.66016 12.3314 8.66016Z" fill="#FF3600" />
+                                            <circle cx="10" cy="10" r="9.5" stroke="#FF3600" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.6806 5H10.7337C10.7291 5 10.7247 5.00015 10.7204 5.00059C8.7547 5.00679 8.49798 6.37936 8.49695 7.57902C8.4943 7.59023 8.49282 7.60174 8.49282 7.61369V8.45585H7.14754C7.0661 8.45585 7 8.52195 7 8.60339V10.6803C7 10.7619 7.0661 10.8279 7.14754 10.8279H8.49282V15.3856C8.49282 15.4671 8.55892 15.5331 8.64036 15.5331H10.6037C10.6853 15.5331 10.7512 15.4671 10.7512 15.3856V10.828H12.6805C12.7621 10.828 12.828 10.7621 12.828 10.6805V8.60354C12.828 8.5221 12.7621 8.456 12.6805 8.456H10.6037V7.33956H12.6805C12.7621 7.33956 12.828 7.27346 12.828 7.19202V5.14754C12.8282 5.0661 12.7621 5 12.6806 5Z" fill="#FF3600" />
+                                            <circle cx="10" cy="10" r="9.5" stroke="#FF3600" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <mask id="mask0_1_1597" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="7" y="7" width="6" height="6">
+                                                <path d="M10.0625 7.8125C9.61749 7.8125 9.18248 7.94446 8.81247 8.19169C8.44246 8.43893 8.15407 8.79033 7.98377 9.20146C7.81347 9.6126 7.76892 10.065 7.85573 10.5015C7.94255 10.9379 8.15684 11.3388 8.47151 11.6535C8.78618 11.9682 9.18709 12.1825 9.62355 12.2693C10.06 12.3561 10.5124 12.3115 10.9235 12.1412C11.3347 11.9709 11.6861 11.6825 11.9333 11.3125C12.1805 10.9425 12.3125 10.5075 12.3125 10.0625C12.3125 9.46576 12.0754 8.89347 11.6535 8.47151C11.2315 8.04955 10.6592 7.8125 10.0625 7.8125ZM10.0625 11.1875C9.84 11.1875 9.62249 11.1215 9.43748 10.9979C9.25248 10.8743 9.10829 10.6986 9.02314 10.493C8.93799 10.2875 8.91571 10.0613 8.95912 9.84302C9.00253 9.62479 9.10967 9.42434 9.26701 9.26701C9.42434 9.10967 9.6248 9.00252 9.84302 8.95912C10.0613 8.91571 10.2875 8.93799 10.493 9.02314C10.6986 9.10828 10.8743 9.25248 10.9979 9.43748C11.1215 9.62249 11.1875 9.84 11.1875 10.0625C11.1875 10.3609 11.069 10.647 10.858 10.858C10.647 11.069 10.3609 11.1875 10.0625 11.1875Z" fill="white" />
+                                            </mask>
+                                            <g mask="url(#mask0_1_1597)">
+                                                <path d="M4.92969 39.0312C16.4629 39.0312 25.8125 29.6817 25.8125 18.1484C25.8125 6.61518 16.4629 -2.73438 4.92969 -2.73438C-6.60357 -2.73438 -15.9531 6.61518 -15.9531 18.1484C-15.9531 29.6817 -6.60357 39.0312 4.92969 39.0312Z" fill="#FF3600" />
+                                            </g>
+                                            <mask id="mask1_1_1597" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="5" y="5" width="11" height="11">
+                                                <path d="M12.875 15.125H7.25C6.65326 15.125 6.08097 14.8879 5.65901 14.466C5.23705 14.044 5 13.4717 5 12.875V7.25C5 6.65326 5.23705 6.08097 5.65901 5.65901C6.08097 5.23705 6.65326 5 7.25 5H12.875C13.4717 5 14.044 5.23705 14.466 5.65901C14.8879 6.08097 15.125 6.65326 15.125 7.25V12.875C15.125 13.4717 14.8879 14.044 14.466 14.466C14.044 14.8879 13.4717 15.125 12.875 15.125ZM7.25 6.125C6.95163 6.125 6.66548 6.24353 6.45451 6.45451C6.24353 6.66548 6.125 6.95163 6.125 7.25V12.875C6.125 13.1734 6.24353 13.4595 6.45451 13.6705C6.66548 13.8815 6.95163 14 7.25 14H12.875C13.1734 14 13.4595 13.8815 13.6705 13.6705C13.8815 13.4595 14 13.1734 14 12.875V7.25C14 6.95163 13.8815 6.66548 13.6705 6.45451C13.4595 6.24353 13.1734 6.125 12.875 6.125H7.25Z" fill="white" />
+                                            </mask>
+                                            <g mask="url(#mask1_1_1597)">
+                                                <path d="M4.92969 39.0312C16.4629 39.0312 25.8125 29.6817 25.8125 18.1484C25.8125 6.61518 16.4629 -2.73438 4.92969 -2.73438C-6.60357 -2.73438 -15.9531 6.61518 -15.9531 18.1484C-15.9531 29.6817 -6.60357 39.0312 4.92969 39.0312Z" fill="#FF3600" />
+                                            </g>
+                                            <mask id="mask2_1_1597" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="11" y="6" width="3" height="3">
+                                                <path d="M12.5938 8.23438C12.9821 8.23438 13.2969 7.91958 13.2969 7.53125C13.2969 7.14292 12.9821 6.82812 12.5938 6.82812C12.2054 6.82812 11.8906 7.14292 11.8906 7.53125C11.8906 7.91958 12.2054 8.23438 12.5938 8.23438Z" fill="white" />
+                                            </mask>
+                                            <g mask="url(#mask2_1_1597)">
+                                                <path d="M3.01291 46.9077C17.4299 46.9077 29.1171 35.2204 29.1171 20.8034C29.1171 6.38648 17.4299 -5.30078 3.01291 -5.30078C-11.4041 -5.30078 -23.0913 6.38648 -23.0913 20.8034C-23.0913 35.2204 -11.4041 46.9077 3.01291 46.9077Z" fill="#FF3600" />
+                                            </g>
+                                            <circle cx="10" cy="10" r="9.5" stroke="#FF3600" />
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- rts footer area end -->
+    <!-- header style two -->
+    <div id="side-bar" class="side-bar header-two">
+        <button class="close-icon-menu">X</button>
+        <!-- mobile menu area start -->
+        <div class="mobile-menu-main">
+            <nav class="nav-main mainmenu-nav mt--30">
+                <ul class="mainmenu metismenu" id="mobile-menu-active">
+                    <li class="has-droupdown">
+                        <a href="#" class="main">Home</a>
+                        <ul class="submenu mm-collapse">
+                            <li><a class="mobile-menu-link" href="index.html">Home One</a></li>
+                            <li><a class="mobile-menu-link" href="index-two.html">Home Two</a></li>
+                            <li><a class="mobile-menu-link" href="index-three.html">Home Three</a></li>
+                            <li><a class="mobile-menu-link" href="index-four.html">Home Dark</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="about.html" class="main">About</a></li>
+                    <li class="has-droupdown">
+                        <a href="#" class="main">Listing</a>
+                        <ul class="submenu mm-collapse">
+                            <li><a class="mobile-menu-link" href="fleet.html">Fleet One</a></li>
+                            <li><a class="mobile-menu-link" href="fleet-two.html">Fleet Two</a></li>
+                            <li><a class="mobile-menu-link" href="fleet-three.html">Fleet Three</a></li>
+                            <li><a class="mobile-menu-link" href="fleet-single-one.html">Fleet Single</a></li>
+                            <li><a class="mobile-menu-link" href="fleet-single-two.html">Fleet Single Two</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-droupdown">
+                        <a href="#" class="main">Pages</a>
+                        <ul class="submenu mm-collapse">
+                            <li><a href="pricing.html">Pricing</a></li>
+                            <li><a href="service.html">Service</a></li>
+                            <li><a href="driver.html">Driver</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="blog-two.html">Blog Two</a></li>
+                            <li><a href="blog-details.html">Blog Single</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="calculator.html">Calculator</a></li>
+                            <li><a href="gallery.html">Gallery</a></li>
+                            <li><a href="account.html">Account</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-droupdown">
+                        <a href="#" class="main">Shop</a>
+                        <ul class="submenu mm-collapse">
+                            <li><a class="mobile-menu-link" href="shop.html">Shop</a></li>
+                            <li><a class="mobile-menu-link" href="shop-two.html">Shop Two</a></li>
+                            <li><a class="mobile-menu-link" href="shop-three.html">Shop Three</a></li>
+                            <li><a class="mobile-menu-link" href="shop-details.html">Shop Single</a></li>
+                            <li><a class="mobile-menu-link" href="cart.html">Cart</a></li>
+                            <li><a class="mobile-menu-link" href="checkout.html">Checkout</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact.html" class="main">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="rts-social-style-one pl--20 mt--50">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- mobile menu area end -->
+    </div>
+    <!-- header style two End -->
+    <script src="assets/js/plugins/jquery.js"></script>
+    <script src="assets/js/plugins/jquery-ui.js"></script>
+    <script src="assets/js/vendor/waw.js"></script>
+    <script src="assets/js/plugins/counter-up.js"></script>
+    <script src="assets/js/plugins/contact-form.js"></script>
+    <script src="assets/js/plugins/swiper.js"></script>
+    <script src="assets/js/plugins/metismenu.js"></script>
+    <script src="assets/js/vendor/jarallax.js"></script>
+    <script src="assets/js/vendor/split-text.js"></script>
+    <script src="assets/js/plugins/smooth-scroll.js"></script>
+    <script src="assets/js/plugins/magnifying-popup.js"></script>
+    <script src="assets/js/plugins/isotope.js"></script>
+    <script src="assets/js/plugins/gsap.js"></script>
+    <script src="assets/js/plugins/scroll-trigger.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script src="assets/js/vendor/waypoint.js"></script>
+    <!-- main js here -->
+    <script src="assets/js/main.js"></script>
+
+
+    <script>
+        const minRange = document.getElementById('minRange');
+        const maxRange = document.getElementById('maxRange');
+        const range = document.getElementById('range');
+        const histogramBars = document.querySelectorAll('.histogram-bar');
+        const minPrice = document.getElementById('minPrice');
+        const maxPrice = document.getElementById('maxPrice');
+
+        function updateRange() {
+            const minValue = parseInt(minRange.value);
+            const maxValue = parseInt(maxRange.value);
+
+            // Update the range highlight
+            range.style.left = `${minValue}%`;
+            range.style.right = `${100 - maxValue}%`;
+
+            // Update the active bars
+            histogramBars.forEach((bar, index) => {
+                const barValue = (index / (histogramBars.length - 1)) * 100;
+                if (barValue >= minValue && barValue <= maxValue) {
+                    bar.classList.add('active');
+                } else {
+                    bar.classList.remove('active');
+                }
+            });
+
+            // Update price labels (example: mapping 0-100 to $500-$5000)
+            const minPriceValue = Math.round((minValue / 100) * (5000 - 500) + 500);
+            const maxPriceValue = Math.round((maxValue / 100) * (5000 - 500) + 500);
+            minPrice.textContent = `$${minPriceValue}`;
+            maxPrice.textContent = `$${maxPriceValue}`;
+        }
+
+        // Add event listeners
+        minRange.addEventListener('input', () => {
+            if (parseInt(minRange.value) > parseInt(maxRange.value) - 10) {
+                minRange.value = maxRange.value - 10;
+            }
+            updateRange();
+        });
+
+        maxRange.addEventListener('input', () => {
+            if (parseInt(maxRange.value) < parseInt(minRange.value) + 10) {
+                maxRange.value = parseInt(minRange.value) + 10;
+            }
+            updateRange();
+        });
+
+        // Initialize
+        updateRange();
+    </script>
+</body>

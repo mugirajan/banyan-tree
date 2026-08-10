@@ -1,0 +1,150 @@
+// FAQ Area
+
+.rts-faq__accordion {
+    margin-right: 30px;
+
+    &.accordion-two {
+        margin-right: 0;
+        margin-left: 50px;
+    }
+
+    .accordion {
+        .accordion-item {
+            padding: 18px 30px;
+            border: 1px solid rgba(#555, $alpha: .15);
+            background: transparent;
+            transition: var(--transition);
+            border-radius: 6px;
+            position: relative;
+
+            &:not(:last-child) {
+                margin-bottom: 30px;
+            }
+
+            .accordion-header {
+                .accordion-button {
+                    cursor: pointer;
+                    font-size: 18px;
+                    padding: 0;
+                    font-weight: 500;
+                    background: transparent;
+                    margin-bottom: 0;
+
+                    &:not(.collapsed) {
+                        background: transparent;
+                        color: var(--color-secondary);
+                        box-shadow: none;
+
+                        .inner-shape {
+                            padding: 0 0 60px 60px;
+                            border-bottom-left-radius: 30px;
+                            background: var(--color-white);
+                            position: absolute;
+                            right: -30px;
+                            top: -20px;
+
+                            .inner-radius {
+                                position: relative;
+                                z-index: 1;
+
+                                &::before {
+                                    content: "";
+                                    position: absolute;
+                                    width: 30px;
+                                    height: 30px;
+                                    background: transparent;
+                                    border-top-right-radius: 16px;
+                                    top: 0px;
+                                    right: 60px;
+                                    box-shadow: 10px 0 0 0 var(--color-white);
+                                }
+
+                                &::after {
+                                    content: "";
+                                    position: absolute;
+                                    width: 30px;
+                                    height: 30px;
+                                    background: transparent;
+                                    border-top-right-radius: 16px;
+                                    right: 0;
+                                    bottom: -90px;
+                                    box-shadow: 10px 0 0 0 var(--color-white);
+                                }
+                            }
+                        }
+
+                        &::after {
+                            content: '\f068';
+                            font-family: "Font Awesome 6 Pro";
+                            font-size: 14px;
+                            font-weight: 500;
+                            color: var(--color-heading);
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            background: var(--color-primary);
+                            color: var(--color-white);
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            position: absolute;
+                            top: -20px;
+                            right: -30px;
+                        }
+                    }
+
+                    &::after {
+                        content: '\2b';
+                        font-family: "Font Awesome 6 Pro";
+                        background-image: none;
+                        font-size: 22px;
+                        font-weight: 700;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: var(--color-heading);
+                    }
+
+                }
+            }
+
+            .accordion-body {
+                padding: 0;
+                padding-top: 15px;
+                max-width: 615px;
+            }
+
+            &.active {
+                background: var(--color-gray);
+                border: 1px solid transparent;
+            }
+        }
+    }
+
+    &.inner-faq {
+        .accordion {
+            .accordion-item {
+                .accordion-header {
+                    .accordion-button {
+                        
+                        &:not(.callapsed) {
+                            .inner-shape {
+                                display: none;
+                            }
+                            &::after {
+                                background: transparent;
+                                color: var(--color-heading);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.faq__image {
+    img {
+        border-radius: 10px;
+    }
+}

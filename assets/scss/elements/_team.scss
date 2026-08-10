@@ -1,0 +1,39 @@
+.single-team {
+    position: relative;
+    z-index: 1;
+    .team-thumb{
+        img {
+            border-radius: 20px;
+        }
+    }
+
+    .content {
+        padding: 14px 34px;
+        border-radius: 10px;
+        max-width: max-content;
+        width: 100%;
+        background: var(--color-primary);
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 21px;
+
+        .title {
+            color: var(--color-white);
+            font-size: 16px;
+            font-weight: var(--f-semi-bold);
+            margin-bottom: 2px;
+        }
+        a {
+            color: var(--color-white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            i {
+                transform: scaleX(-1);
+            }
+        }
+    }
+}

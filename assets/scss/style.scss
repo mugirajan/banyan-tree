@@ -1,0 +1,90 @@
+/*=================Scss Indexing=============
+  1.variables
+  2.typography
+  3.spacing
+  4.reset
+  5.forms
+  6.mixins
+  7.shortcode
+  8.animations
+  9.text-animation
+  10.dark-mode
+  11.header
+  12.nav
+  13.side_bar
+  14.mobile-menu
+  15.button
+  16.backtotop
+  17.common
+  18.dropdown
+  19.niceselect
+  20.footer
+  21.preloader
+  22.banner
+  23.about
+  24.category
+  25.carlist
+  26.process
+  27.why-choose
+  28.blog
+  29.brand
+  30.testimonials
+  31.cta
+  32.video
+  33.contact
+  34.faq
+  35.breadcrumb
+  36.team
+  37.shop
+  38.pricing
+  39.cart
+  40.responsive
+
+==============================================  */
+
+
+/* Default  */
+
+@import'default/variables';
+@import'default/typography';
+@import'default/spacing';
+@import'default/reset';
+@import'default/forms';
+@import'default/mixins';
+@import'default/shortcode';
+@import'default/animations';
+@import'default/text-animation';
+@import'default/dark-mode';
+
+
+/* elements  */
+@import'elements/header';
+@import'elements/nav';
+@import'elements/side_bar';
+@import'elements/mobile-menu';
+@import'elements/button';
+@import'elements/backtotop';
+@import'elements/common';
+@import'elements/dropdown';
+@import'elements/niceselect';
+@import'elements/footer';
+@import'elements/preloader';
+@import'elements/banner';
+@import'elements/about';
+@import'elements/category';
+@import'elements/carlist';
+@import'elements/process';
+@import'elements/why-choose';
+@import'elements/blog';
+@import'elements/brand';
+@import'elements/testimonials';
+@import'elements/cta';
+@import'elements/video';
+@import'elements/contact';
+@import'elements/faq';
+@import'elements/breadcrumb';
+@import'elements/team';
+@import'elements/shop';
+@import'elements/pricing';
+@import'elements/cart';
+@import'elements/responsive';
