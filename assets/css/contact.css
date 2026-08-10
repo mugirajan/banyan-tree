@@ -1,0 +1,549 @@
+/* ==========================================================================
+   contact.css - Baniyan Tree Travels
+   Contact-page-only styles. Loaded after style.css in contact.html.
+   Site-wide rules stay in style.css.
+   ========================================================================== */
+
+/* ==== Page intro above the form ==== */
+.rts-contact-area.inner .contact-intro {
+  max-width: 720px;
+  margin: 0 auto 50px;
+}
+
+.rts-contact-area.inner .contact-intro .desc {
+  margin-top: 16px;
+}
+
+/* ==== Column split: wider form, narrower map ====
+   Base template is 40% form / 60% map. The form now carries six
+   fields in two columns, so it takes the larger share. */
+@media only screen and (min-width: 992px) {
+  .rts-contact-area.inner .get-in-touch-area {
+    width: 62%;
+  }
+
+  .rts-contact-area.inner .map-area {
+    width: 38%;
+  }
+
+  /* Equal heights. Percentages were the trap here: style.css sets
+     height:100% on .map-area and a fixed 607px on the map box, but a
+     percentage height resolves against the PARENT's height, and
+     .section-inner is auto-height - so 100% collapsed to auto and the
+     map ended up either 607px or barely visible.
+
+     Instead: let the flex row stretch .map-area (that gives it a real
+     height), make it a positioning context, and pin the map inside
+     with inset:0. Absolute positioning gives a definite height, so
+     the iframe's height:100% finally has something to resolve
+     against. The map now tracks the form's height exactly. */
+  .rts-contact-area.inner .section-inner {
+    align-items: stretch;
+  }
+
+  .rts-contact-area.inner .section-inner .map-area {
+    position: relative;
+    height: auto;
+  }
+
+  .rts-contact-area.inner .section-inner .map-area .contact-map-area-fluid {
+    position: absolute;
+    inset: 0;
+    height: auto;
+  }
+
+  .rts-contact-area.inner .section-inner .map-area .contact-map {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
+/* ==== Form: two-column field grid ====
+   Name / Email and Phone / Subject pair up 2x2; Message, the
+   checkbox and the button span the full width. */
+.rts-contact-form .contact-form-area {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
+}
+
+.rts-contact-form .contact-form-area .single-input.full-width,
+.rts-contact-form .contact-form-area .single-checkbox,
+.rts-contact-form .contact-form-area .rts-btn-send,
+.rts-contact-form .contact-form-area #form-messages {
+  grid-column: 1 / -1;
+}
+
+/* The button spans both columns but should size to its own text and
+   sit centred, not stretch edge to edge. justify-self overrides the
+   grid item default of `stretch`; the base style has no horizontal
+   padding (it relied on full width), so add some. */
+.rts-contact-form .contact-form-area .rts-btn-send {
+  justify-self: center;
+  width: auto;
+  min-width: 200px;
+  padding: 16px 42px;
+  background: var(--color-green);
+}
+
+/* The base button hides an oversized circle below itself and sweeps
+   it up on hover - that circle is what recolours the button. Giving
+   it the same green means the sweep still runs but the colour never
+   visibly changes, so the button stays green throughout. */
+.rts-contact-form .contact-form-area .rts-btn-send::before {
+  background: var(--color-green);
+}
+
+@media only screen and (max-width: 575px) {
+  .rts-contact-form .contact-form-area {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==== Submit result message ====
+   Sits as the first item inside the form and spans both columns.
+   Hidden until the JS fills it in, so it takes up no room otherwise. */
+#form-messages {
+  display: none;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  border-radius: 6px;
+  border-left: 4px solid transparent;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+#form-messages.success {
+  background: #eaf5e6;
+  border-left-color: #2e7d32;
+  color: #1f5c23;
+}
+
+#form-messages.error {
+  background: #fdecea;
+  border-left-color: #c62828;
+  color: #8e1f1a;
+}
+
+/* ==== Form fields ==== */
+.rts-contact-form .contact-form-area .single-input label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: var(--f-medium);
+  color: var(--color-heading);
+  font-size: 15px;
+}
+
+.rts-contact-form .contact-form-area .single-input label .req {
+  color: var(--color-primary);
+}
+
+.rts-contact-form .contact-form-area .single-input .input-wrap {
+  position: relative;
+  display: block;
+}
+
+/* One identical box for input, textarea and select. The icons are
+   gone, so the left padding matches the right - text now starts at
+   the same inset on both sides instead of being pushed in by 45px
+   to clear an icon. background-color (not the background shorthand)
+   so the select's chevron image below is not wiped out. */
+.rts-contact-form .contact-form-area .single-input input,
+.rts-contact-form .contact-form-area .single-input textarea,
+.rts-contact-form .contact-form-area .single-input select {
+  width: 100%;
+  border: 1px solid rgba(85, 85, 85, 0.15);
+  border-radius: 6px;
+  padding: 12px 20px;
+  background-color: var(--color-white);
+  color: var(--color-body);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.6;
+}
+
+/* ==== Subject dropdown ====
+   main.js runs $('select').niceSelect() on EVERY select on the site,
+   which hides the real <select> and inserts a .nice-select div next
+   to it. So styling `select` has no visible effect - the widget is
+   what renders, and it ships as a grey pill (40px radius, no border,
+   18px padding). These rules rebuild it to match the text inputs.
+   The `select` rules above stay as a no-JS fallback. */
+.rts-contact-form .contact-form-area .single-input .nice-select {
+  float: none;
+  width: 100%;
+  height: auto;
+  line-height: 1.6;
+  padding: 12px 44px 12px 20px;
+  background-color: var(--color-white);
+  border: 1px solid rgba(85, 85, 85, 0.15);
+  border-radius: 6px;
+  color: var(--color-body);
+  font-size: inherit;
+}
+
+/* The widget draws its own chevron with rotated borders. */
+.rts-contact-form .contact-form-area .single-input .nice-select::after {
+  right: 20px;
+  border-bottom-color: #555555;
+  border-right-color: #555555;
+}
+
+.rts-contact-form .contact-form-area .single-input .nice-select .current {
+  display: block;
+  line-height: 1.6;
+}
+
+/* The open list is absolutely positioned inside .single-input, which
+   style.css gives z-index: 1. The Message field carries the same
+   z-index and sits later in the DOM, so it painted OVER the open
+   dropdown. Lifting the subject field above its siblings fixes it. */
+.rts-contact-form .contact-form-area .single-input.has-select {
+  z-index: 5;
+}
+
+.rts-contact-form .contact-form-area .single-input .nice-select .list {
+  z-index: 10;
+  width: 100%;
+}
+
+.rts-contact-form .contact-form-area .single-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.rts-contact-form .contact-form-area .single-checkbox input {
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  accent-color: var(--color-primary);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.rts-contact-form .contact-form-area .single-checkbox label {
+  margin: 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ==== Get in Touch: three cards, evenly centred ====
+   Each card takes a third of the row so the group fills the bordered
+   panel and reads as centred. justify-content is a safety net in case
+   the widths ever fall short of 100%. */
+.rts-contact-area2 .inner.three-col {
+  justify-content: center;
+}
+
+.rts-contact-area2 .inner.three-col .contact-wrapper {
+  width: 33.3333%;
+  padding: 45px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Base style puts the divider on child 2 only; with three cards the
+   dividers belong between 1-2 and 2-3. */
+.rts-contact-area2 .inner.three-col .contact-wrapper:nth-child(2) {
+  border-width: 0;
+}
+
+.rts-contact-area2 .inner.three-col .contact-wrapper:nth-child(2),
+.rts-contact-area2 .inner.three-col .contact-wrapper:nth-child(3) {
+  border-left: 1px solid rgba(85, 85, 85, 0.11);
+}
+
+/* The base rule sets `margin: auto`, which is harmless in a block
+   layout but not in a flex column: margin-top: auto absorbs all the
+   free space and pushes the icon DOWN. The three cards stretch to
+   equal height but hold different amounts of text, so each had a
+   different amount of free space and the icons ended up starting at
+   three different heights. Pinning margin-top to 0 lines them up. */
+.rts-contact-area2 .inner.three-col .contact-wrapper .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  margin: 0 auto 20px;
+  flex-shrink: 0;
+}
+
+.rts-contact-area2 .inner.three-col .contact-wrapper .icon i {
+  color: var(--color-primary);
+  font-size: 32px;
+}
+
+.rts-contact-area2 .inner.three-col .contact-wrapper .title {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.rts-contact-area2 .inner.three-col .contact-wrapper ul {
+  width: 100%;
+}
+
+.rts-contact-area2 .inner.three-col .contact-wrapper ul li {
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.rts-contact-area2 .inner.three-col .contact-wrapper ul li.note {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--color-primary);
+}
+
+/* ==== Quick Actions panel ====
+   A tinted panel holding three icon cards, rather than three plain
+   buttons. Each card is a single link, so the whole tile is
+   clickable, not just the label. */
+.quick-actions {
+  margin-top: 60px;
+  padding: 50px;
+  background: var(--color-gray);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.quick-actions .quick-actions-title {
+  font-size: 28px;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.quick-actions .quick-actions-desc {
+  margin-bottom: 35px;
+}
+
+.quick-actions .quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.quick-action-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px 26px;
+  background: var(--color-white);
+  border: 1px solid rgba(85, 85, 85, 0.11);
+  border-radius: 12px;
+  text-align: left;
+  transition: var(--transition);
+}
+
+.quick-action-card:hover {
+  border-color: transparent;
+  box-shadow: 0 20px 40px rgba(132, 132, 132, 0.18);
+  transform: translateY(-4px);
+}
+
+.quick-action-card .icon {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.quick-action-card .icon i {
+  color: var(--color-white);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.quick-action-card .content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-grow: 1;
+}
+
+.quick-action-card .content .title {
+  color: var(--color-heading);
+  font-family: var(--font-primary);
+  font-weight: var(--f-semi-bold);
+  font-size: 18px;
+  line-height: 1.2;
+  transition: var(--transition);
+}
+
+.quick-action-card .content .note {
+  color: var(--color-body);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.quick-action-card .arrow {
+  flex-shrink: 0;
+  color: var(--color-body);
+  transition: var(--transition);
+}
+
+.quick-action-card:hover .content .title,
+.quick-action-card:hover .arrow {
+  color: var(--color-primary);
+}
+
+.quick-action-card:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* ==== Office location cards ====
+   Two roomier cards per row instead of four narrow ones. Each detail
+   is a label/value row so Address, Phone, Email and Hours line up
+   down the card and read as a table rather than a run of text. */
+.office-card {
+  height: 100%;
+  padding: 36px 34px;
+  background: var(--color-white);
+  border: 1px solid rgba(85, 85, 85, 0.13);
+  border-radius: 16px;
+  transition: var(--transition);
+}
+
+.office-card:hover {
+  border-color: transparent;
+  box-shadow: 0 24px 44px rgba(132, 132, 132, 0.18);
+  transform: translateY(-4px);
+}
+
+.office-card .office-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 22px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid rgba(85, 85, 85, 0.13);
+}
+
+.office-card .office-head .icon {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+.office-card .office-head .icon i {
+  color: var(--color-white);
+  font-size: 19px;
+  line-height: 1;
+}
+
+.office-card .office-head .title {
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.office-card .office-head .tag {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: 30px;
+  background: var(--color-gray);
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: var(--f-medium);
+  line-height: 1.4;
+}
+
+.office-card .office-details li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px dashed rgba(85, 85, 85, 0.13);
+}
+
+.office-card .office-details li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.office-card .office-details li .label {
+  width: 108px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-heading);
+  font-weight: var(--f-medium);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.office-card .office-details li .label i {
+  color: var(--color-primary);
+  font-size: 15px;
+  width: 16px;
+  text-align: center;
+}
+
+.office-card .office-details li .value {
+  flex-grow: 1;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.office-card .office-details li .value a {
+  color: var(--color-body);
+}
+
+.office-card .office-details li .value a:hover {
+  color: var(--color-primary);
+}
+
+@media only screen and (max-width: 479px) {
+  .office-card {
+    padding: 28px 22px;
+  }
+
+  /* Stack label above value once the row is too narrow to split. */
+  .office-card .office-details li {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .office-card .office-details li .label {
+    width: auto;
+  }
+}
+
+/* ==== Responsive ==== */
+@media only screen and (max-width: 767px) {
+  /* One card per row, so the vertical dividers come off. */
+  .rts-contact-area2 .inner.three-col .contact-wrapper {
+    width: 100%;
+  }
+
+  .rts-contact-area2 .inner.three-col .contact-wrapper:nth-child(2),
+  .rts-contact-area2 .inner.three-col .contact-wrapper:nth-child(3) {
+    border-left: 0;
+  }
+
+  .quick-actions {
+    padding: 35px 20px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .quick-actions .quick-actions-grid {
+    grid-template-columns: 1fr;
+  }
+}

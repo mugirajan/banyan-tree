@@ -1,0 +1,344 @@
+/* ==========================================================================
+   home.css - Baniyan Tree Travels
+   Homepage-only overrides. Loaded after style.css in index.html.
+   Site-wide rules (logo sizing, CTA band) stay in style.css.
+   ========================================================================== */
+
+/* ==== Banner: reduced height, content vertically centred ====
+   The template pushed the content down with a 209px top padding and
+   left whatever remained as bottom space - so the two were never
+   equal. Centring the content instead makes the gap above and below
+   identical by construction, whatever the content height.
+
+   Safe to flex here: the background slider and the pagination dots
+   are both absolutely positioned, so .container is the only child
+   actually in flow. It needs width: 100% because a flex item does
+   not grow on the main axis by default.
+   Tweak --banner-h to adjust the overall height. */
+:root {
+  --banner-h: 640px;
+  --banner-pad-y: 30px;
+}
+
+/* min-height rather than height: the banner is exactly --banner-h
+   whenever the content fits, but grows instead of clipping if it
+   ever does not. .banner-slider-one has overflow: hidden, so a hard
+   height would silently cut the booking form off at the bottom. */
+.banner-slider-one {
+  height: auto;
+  min-height: var(--banner-h);
+  display: flex;
+  align-items: center;
+}
+
+.banner-slider-one > .container {
+  width: 100%;
+}
+
+.rts-banner-wrapper-area {
+  padding-top: var(--banner-pad-y);
+  padding-bottom: var(--banner-pad-y);
+}
+
+/* The booking form is the taller column, so it sets the row height.
+   Bootstrap rows default to align-items: stretch, which left the
+   headline/buttons pinned to the top of their column and dumped all
+   the slack underneath them - so the gap below the text read as much
+   bigger than the gap above it, even though the block as a whole was
+   centred. Centring the columns against each other evens it out. */
+.rts-banner-wrapper-area > .row {
+  align-items: center;
+}
+
+@media (max-width: 1200px) {
+  /* The title drops to 60px here, so the content needs less room. */
+  :root {
+    --banner-h: 560px;
+  }
+}
+
+@media (max-width: 991px) {
+  /* style.css lets the banner grow with its content below 991px and
+     swaps to symmetrical padding. home.css loads later, so those
+     rules have to be restored here or the fixed height wins. */
+  .banner-slider-one {
+    height: auto;
+  }
+
+  .rts-banner-wrapper-area {
+    padding: 80px 0;
+  }
+}
+
+/* ==== Hero sub-heading + description ====
+   Text styling only - does not alter the banner layout. */
+.banner-slider-one .banner-left-content-area .banner-title {
+  margin-bottom: 20px;
+}
+
+.banner-slider-one .banner-left-content-area .banner-subtitle {
+  color: var(--color-white);
+  font-size: 22px;
+  font-weight: var(--f-medium);
+  line-height: 1.45;
+  max-width: 560px;
+  margin-bottom: 14px;
+}
+
+.banner-slider-one .banner-left-content-area .banner-desc {
+  color: var(--color-gray);
+  font-size: 16px;
+  line-height: 1.65;
+  max-width: 560px;
+  margin-bottom: 35px;
+}
+
+/* ==== About Us image height ====
+   The source photo is 3:2 landscape, so it rendered short next to the
+   text column. Fixing a taller frame and cropping with object-fit
+   keeps the full column width without stretching the image.
+   Tweak --about-img-h to resize. */
+:root {
+  --about-img-h: 560px;
+}
+
+.rts-about-area .about-letf-image-area {
+  width: 100%;
+  max-width: 100%;
+}
+
+.rts-about-area .about-letf-image-area .about-image-area {
+  height: var(--about-img-h);
+}
+
+.rts-about-area .about-letf-image-area .about-image-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ==== Car category cards: equal height ====
+   Cards were content-sized, so longer names ("Tempo Traveller") made
+   them taller than short ones ("SUV"). Making each slide a flex
+   container lets every card stretch to the tallest in the row. */
+.rts-category-wrapper .swiper-slide {
+  height: auto;
+  display: flex;
+}
+
+.rts-category-wrapper .single-category-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Titles can wrap in a narrow slide, so give them breathing room
+   (the base style uses line-height: 1, which collides when wrapped). */
+.rts-category-wrapper .single-category-item .content .title {
+  line-height: 1.25;
+}
+
+/* The icon SVGs ship at different intrinsic sizes (36x23 up to 78x39),
+   so they rendered at different scales. Give every image an identical
+   box; object-fit: contain scales each one down to fit without
+   distorting it. Tweak --cat-icon-w / --cat-icon-h to resize. */
+:root {
+  --cat-icon-w: 46px;
+  --cat-icon-h: 28px;
+}
+
+.rts-category-wrapper .single-category-item .icon img {
+  width: var(--cat-icon-w);
+  height: var(--cat-icon-h);
+  object-fit: contain;
+  object-position: center;
+}
+
+/* ==== Travel Tips: match left card to the right column ====
+   Left is one large card, right is two stacked cards. The left card
+   should end level with them - driven by the right column, not by
+   the left image's own aspect ratio.
+
+   The key is `flex: 1 1 0` with `min-height: 0` on .image-area. A
+   zero flex-basis means the image contributes nothing to the card's
+   natural height, so the row is sized by the RIGHT column. The left
+   card then stretches to that height and the image grows into
+   whatever space is left over - shrinking below its natural height
+   when it has to. With `flex: 1 0 auto` (grow only) the tall image
+   pushed the left column past the right one instead.
+   Only applies from lg up - below that the columns stack. */
+@media only screen and (min-width: 992px) {
+  .rts-blog-wrapper > .row > .col-lg-6:first-child {
+    display: flex;
+  }
+
+  .rts-blog-wrapper > .row > .col-lg-6:first-child > .single-blog {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rts-blog-wrapper > .row > .col-lg-6:first-child > .single-blog .image-area {
+    flex: 1 1 0;
+    min-height: 0;
+  }
+
+  /* The img sits inside an <a>, which is inline and would stop the
+     height cascading through. Make it a full-height block so the
+     photo actually fills the grown .image-area. */
+  .rts-blog-wrapper > .row > .col-lg-6:first-child > .single-blog .image-area > a {
+    display: block;
+    height: 100%;
+  }
+}
+
+/* ==== Testimonials: smaller author photos ====
+   The base style only rounds these off, so they rendered at their
+   natural 54x54. Setting both dimensions with object-fit: cover
+   keeps them perfectly circular whatever photo is dropped in.
+   Tweak --testimonial-avatar to resize. */
+:root {
+  --testimonial-avatar: 44px;
+}
+
+.single-testimonials-item .author-area .author-thumb img {
+  width: var(--testimonial-avatar);
+  height: var(--testimonial-avatar);
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ==== Why Choose Us: reduce top space ====
+   Most sections on this page use rts-section-gapBottom (bottom
+   padding only), so the gap between two sections is 120px. This one
+   uses rts-section-gap, which adds another 120px on top - and with
+   the video and brand blocks now commented out, that stacked up to
+   a 240px gap under How It Works. Dropping the top padding restores
+   the page's normal rhythm. Tweak --why-choose-pt to add space back. */
+:root {
+  --why-choose-pt: 0px;
+}
+
+.rts-why-choose-area {
+  padding-top: var(--why-choose-pt);
+}
+
+/* ==== How It Works: taller images ====
+   The photos are 3:2, so they rendered short in a one-third column.
+   A fixed frame with object-fit: cover makes them taller without
+   distorting them. Tweak --process-img-h to resize. */
+:root {
+  --process-img-h: 480px;
+}
+
+.rts-process-item-wrapper .single-process-item .image-area {
+  height: var(--process-img-h);
+}
+
+.rts-process-item-wrapper .single-process-item .image-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media only screen and (max-width: 991px) {
+  :root {
+    --process-img-h: 420px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  :root {
+    --process-img-h: 340px;
+  }
+}
+
+/* ==== Service card badge icon ====
+   The arrow link was replaced by a non-clickable icon matching each
+   service, so neutralise the hover state and cursor it inherited
+   from .link-icon. Tweak --service-icon-size to resize. */
+:root {
+  --service-icon-size: 24px;
+}
+
+.rts-car-list-area .single-car-list-item .inner .link-icon {
+  cursor: default;
+}
+
+.rts-car-list-area .single-car-list-item .inner .link-icon:hover {
+  background: var(--color-primary);
+}
+
+.rts-car-list-area .single-car-list-item .inner .link-icon i {
+  color: var(--color-white);
+  font-size: var(--service-icon-size);
+  line-height: 1;
+}
+
+/* ==== Service card text: equal card heights ====
+   Isotope lays these out with fitRows and positions each card
+   absolutely, so a card cannot stretch to match its neighbours.
+   Instead, reserve a fixed number of lines for the title and the
+   description - every card then measures the same height.
+   All six images are 3:2, so the image half already matches.
+
+   Title reserve is 1 line: at col-lg-4 every service name fits on
+   one line (the longest, "Corporate Travel Services", clears the
+   ~288px of card content width). A 2-line reserve left a whole
+   empty line of dead space above each paragraph. */
+:root {
+  --service-title-lines: 1;
+  --service-title-lh: 1.3;
+  --service-desc-lines: 3;
+  --service-desc-lh: 1.6;
+}
+
+.rts-car-list-area .single-car-list-item .content .title {
+  font-size: 20px;
+  line-height: var(--service-title-lh);
+  min-height: calc(20px * var(--service-title-lh) * var(--service-title-lines));
+  margin-bottom: 0;
+}
+
+/* The card's icon badge is absolutely positioned bottom-right, so
+   reserve space for it and keep the text clear of the notch. */
+.rts-car-list-area .single-car-list-item .content .desc {
+  font-size: 15px;
+  line-height: var(--service-desc-lh);
+  min-height: calc(15px * var(--service-desc-lh) * var(--service-desc-lines));
+  margin: 6px 0 0;
+  padding-bottom: 55px;
+  max-width: 88%;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* Two wider columns - text wraps less, so reserve fewer lines. */
+  :root {
+    --service-desc-lines: 2;
+  }
+}
+
+/* ==== Responsive ==== */
+@media only screen and (max-width: 1199px) {
+  :root {
+    --about-img-h: 500px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  :root {
+    --about-img-h: 460px;
+  }
+
+  .banner-slider-one .banner-left-content-area .banner-subtitle {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  :root {
+    --about-img-h: 380px;
+  }
+}

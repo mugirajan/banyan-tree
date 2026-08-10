@@ -45,7 +45,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 :root {
-  --color-primary: #FF3600;
+  --color-primary: #1A3D0A;
   --color-secondary: #1F1F25;
   --color-bg: #121212;
   --color-bg-two: #1A1A1A;
@@ -23785,3 +23785,807 @@ li.has-dropdown:hover .submenu {
   margin: -1em 0 0 2em;
 }
 /*# sourceMappingURL=../maps/style.css.map */
+
+/* ==== Header height + logo sizing ====
+   Site-wide. These lived in home.css, so only the pages loading it
+   had the shorter header - which made the fixed header a different
+   height per page and, since it overlays the breadcrumb, made the
+   same banner present differently on About vs Services. Moved here
+   so every page gets one header height and one logo size.
+
+   Header height came from two things: the top contact strip's
+   padding, and the padding on each nav link (which sets the nav
+   row's height, not the logo).
+
+   Note on the logo: logo.png is 1024x844, so --logo-h is what
+   actually governs its size - at any sensible --logo-w the height
+   cap binds first. Raise --logo-h to make the logo bigger; --logo-w
+   only needs to stay above the resulting width (~78px at 64px). */
+:root {
+  --logo-w: 210px;
+  --logo-h: 82px;
+  --logo-h-footer: 58px;
+}
+
+.header-one .header-top .inner {
+  padding: 10px 0 12px;
+}
+
+.header-one .header-wrapper-area .header-right .bottom .nav-area ul li.main-nav a:first-child {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+@media only screen and (max-width: 991px) {
+  :root {
+    --logo-w: 180px;
+    --logo-h: 70px;
+  }
+}
+
+header .logo-area img,
+header .logo img {
+  width: auto;
+  height: auto;
+  max-width: var(--logo-w);
+  max-height: var(--logo-h);
+  object-fit: contain;
+}
+
+footer .logo-area img,
+footer .logo img {
+  width: auto;
+  height: auto;
+  max-width: var(--logo-w);
+  max-height: var(--logo-h-footer);
+  object-fit: contain;
+}
+
+@media only screen and (max-width: 767px) {
+  :root {
+    --logo-w: 150px;
+    --logo-h: 58px;
+    --logo-h-footer: 48px;
+  }
+
+  .header-one .header-top .inner {
+    padding: 10px 0;
+  }
+}
+
+/* Hero and service-card styles for the homepage live in home.css. */
+
+/* The Drives section above already contributes 120px of bottom
+   padding, so this section's own 120px top padding doubled the gap
+   to 240px. Dropping it leaves one standard gap between them. */
+.rts-team-area {
+  padding-top: 0;
+}
+
+/* ==== Team cards (about page) ====
+   The card's overlay badge holds a name plus a job title instead of
+   the template's phone link, so .role needs the styling the anchor
+   had (white, sitting under the name). */
+.single-team .content .role {
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: var(--f-regular);
+  display: block;
+  line-height: 1.3;
+}
+
+/* The base style only rounds the photo - no width or height - so it
+   rendered at its intrinsic size and floated small inside the
+   column. Filling the column width and fixing a height gives the
+   four cards a consistent portrait crop.
+   Tweak --team-img-h to resize. */
+:root {
+  --team-img-h: 280px;
+}
+
+.single-team .team-thumb img {
+  display: block;
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@media only screen and (max-width: 1199px) {
+  :root {
+    --team-img-h: 300px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  :root {
+    --team-img-h: 320px;
+  }
+}
+
+/* Centred intro paragraph under a section heading. */
+.rts-section-title.text-center .desc {
+  max-width: 780px;
+  margin: 18px auto 0;
+}
+
+/* ==== Footer contact widget: tighter stacked links ====
+   .single-wized .body a carries margin-bottom: 20px so the Quick
+   Links column has breathing room. That same rule also hits the
+   contact widget, where a second phone number or email address sits
+   directly under the first - and 20px between two lines of the same
+   detail reads as a gap, not a pair. Tighten it here and drop the
+   trailing margin on the last one.
+   Tweak --footer-contact-gap to adjust. */
+:root {
+  --footer-contact-gap: 6px;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a {
+  display: block;
+  line-height: 1.5;
+  margin-bottom: var(--footer-contact-gap);
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a:last-child {
+  margin-bottom: 0;
+}
+
+/* ==== Footer: tighter gap above the divider ====
+   .footer-wrapper-style-between uses padding: 80px 0, and the
+   copyright bar adds another 24px of its own above the rule - so the
+   space between the last footer detail and the divider read as much
+   larger than the space below it. Keep the top padding (it separates
+   the footer from the CTA band) and trim only the bottom.
+   Tweak --footer-pad-bottom to adjust. */
+:root {
+  --footer-pad-bottom: 40px;
+}
+
+.footer-wrapper-style-between {
+  padding-bottom: var(--footer-pad-bottom);
+}
+
+/* ==== Footer: developer credit link ==== */
+.copyright-area .copyright-area-inner p a.dev-credit {
+  color: var(--color-primary);
+  font-weight: var(--f-medium);
+  transition: var(--transition);
+}
+
+.copyright-area .copyright-area-inner p a.dev-credit:hover {
+  color: var(--color-heading);
+  text-decoration: none;
+}
+
+/* ==== Footer contact widget: top-align the pairs ====
+   Both the list and each item used align-items: center. Centring
+   means a taller block (the 3-line address, or an email that wraps)
+   pushes its shorter neighbour down, so "Our Location" and "Working
+   Hours" never began on the same line. Aligning to the start pins
+   every label - and every icon - to the top of its row instead, so
+   the pairs line up no matter how many lines each one runs to. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul {
+  align-items: flex-start;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li {
+  align-items: flex-start;
+}
+
+/* ==== Service page: Our Service Promise image ====
+   The photo is 3:2, so it rendered short beside a tall text column.
+   A fixed frame with object-fit: cover makes it taller without
+   distorting it, and the radius matches the cards elsewhere on the
+   site. Tweak --service-promise-img-h / -radius to adjust. */
+:root {
+  --service-promise-img-h: 520px;
+  --service-promise-img-radius: 20px;
+}
+
+.rts-service-area.inner .service-image-wrapper img {
+  width: 100%;
+  height: var(--service-promise-img-h);
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--service-promise-img-radius);
+}
+
+@media only screen and (max-width: 991px) {
+  :root {
+    --service-promise-img-h: 420px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  :root {
+    --service-promise-img-h: 340px;
+  }
+}
+
+/* ==== About page: Our Story images ====
+   Both photos are 3:2, so in a half-width column the main image
+   rendered short next to the text. Fixed frames with object-fit:
+   cover make it taller without distorting, and give the small inset
+   photo a definite size instead of inheriting the old placeholder's
+   242x149. The wrapper was max-width: max-content, which pinned it
+   to the image's natural size - it needs to fill the column first.
+   Tweak --story-img-h / --story-inset-w to adjust. */
+:root {
+  --story-img-h: 520px;
+  --story-inset-w: 240px;
+  --story-inset-h: 175px;
+}
+
+.about-letf-image-area-two {
+  width: 100%;
+  max-width: 100%;
+}
+
+.about-letf-image-area-two .about-image-area {
+  height: var(--story-img-h);
+}
+
+/* Match the image column to the text column.
+   Bootstrap rows stretch their columns by default, so the left
+   column already has the row's full height - the image just was not
+   using it. Making the wrapper a flex column and giving the image
+   `flex: 1 1 0` lets it absorb whatever height the text column sets.
+   A zero flex-basis keeps the image out of the row's own height
+   calculation, so the TEXT drives the height and the image follows;
+   min-height keeps --story-img-h as a floor when the text is short.
+   (The row's align-items-center class had to come off the markup -
+   centred columns do not stretch, and Bootstrap sets it !important.) */
+@media only screen and (min-width: 992px) {
+  /* Space between the image and the text column. Bootstrap's default
+     gutter is only 24px, which reads as cramped now that the image
+     fills its column edge to edge. Setting --bs-gutter-x on the row
+     is the idiomatic fix: Bootstrap derives both the column padding
+     and the row's compensating negative margin from it. */
+  .rts-about-area .section-inner > .row {
+    --bs-gutter-x: 60px;
+  }
+
+  .rts-about-area .section-inner > .row > .col-lg-6:first-child {
+    display: flex;
+  }
+
+  .about-letf-image-area-two {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about-letf-image-area-two .about-image-area {
+    flex: 1 1 0;
+    height: auto;
+    min-height: var(--story-img-h);
+  }
+}
+
+.about-letf-image-area-two .about-image-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.about-letf-image-area-two .inner-image-sm .inner-image .overlay-image img {
+  display: block;
+  width: var(--story-inset-w);
+  height: var(--story-inset-h);
+  object-fit: cover;
+  object-position: center;
+}
+
+@media only screen and (max-width: 1199px) {
+  :root {
+    --story-img-h: 460px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  :root {
+    --story-img-h: 360px;
+    --story-inset-w: 180px;
+    --story-inset-h: 130px;
+  }
+}
+
+/* ==== About page: Mission / Vision / Values ====
+   One rounded panel: photo full-bleed down the left half, tinted
+   content area on the right. overflow: hidden on the panel is what
+   lets the photo run edge to edge and still take the rounded corner,
+   and --bs-gutter-x: 0 removes Bootstrap's column padding so there
+   is no gap between the photo and the panel edge. Spacing comes from
+   .drives-content instead.
+   Tweak --drives-img-h (the panel's minimum height) to resize. */
+:root {
+  --drives-img-h: 520px;
+}
+
+/* The section uses rts-section-gap (120px top and bottom). Our Story
+   above it has no bottom padding, so this top padding was the only
+   thing between them - dropping it closes that gap. */
+.rts-drives-area {
+  padding-top: 0;
+}
+
+.rts-drives-area .drives-panel {
+  background: var(--color-gray);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.rts-drives-area .drives-panel > .row {
+  --bs-gutter-x: 0;
+  align-items: stretch;
+}
+
+.rts-drives-area .drives-image {
+  position: relative;
+  height: 100%;
+  min-height: var(--drives-img-h);
+}
+
+.rts-drives-area .drives-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: var(--drives-img-h);
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Orange wash, matching the Our Story image treatment. */
+.rts-drives-area .drives-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 54, 0, 0.14);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rts-drives-area .drives-badge {
+  position: absolute;
+  z-index: 2;
+  left: 30px;
+  bottom: 30px;
+  padding: 20px 28px;
+  background: var(--color-primary);
+  border-radius: 16px;
+  box-shadow: 0 24px 40px rgba(0, 0, 0, 0.18);
+  text-align: center;
+}
+
+.rts-drives-area .drives-badge .counter-no {
+  color: var(--color-white);
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.rts-drives-area .drives-badge p {
+  color: var(--color-white);
+  font-family: var(--font-primary);
+  font-weight: var(--f-medium);
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+.rts-drives-area .drives-content {
+  padding: 55px 55px 55px 50px;
+}
+
+.rts-drives-area .drives-content .rts-section-title {
+  margin-bottom: 30px;
+}
+
+.rts-drives-area .drives-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.rts-drives-area .drives-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(85, 85, 85, 0.16);
+}
+
+.rts-drives-area .drives-list li:first-child {
+  padding-top: 0;
+}
+
+.rts-drives-area .drives-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+/* Green sampled from the logo artwork (its dominant tone quantises
+   to #205020); lifted slightly so a white glyph reads cleanly. */
+:root {
+  --color-green: #2A6E2A;
+}
+
+.rts-drives-area .drives-list li .icon {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-green);
+  border-radius: 50%;
+  box-shadow: 0 10px 20px rgba(132, 132, 132, 0.14);
+}
+
+.rts-drives-area .drives-list li .icon i {
+  color: var(--color-white);
+  font-size: 23px;
+  line-height: 1;
+}
+
+.rts-drives-area .drives-list li .text .title {
+  font-size: 22px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.rts-drives-area .drives-list li .text p {
+  margin-bottom: 0;
+  line-height: 1.65;
+}
+
+
+@media only screen and (max-width: 1199px) {
+  :root {
+    --drives-img-h: 460px;
+  }
+
+  .rts-drives-area .drives-content {
+    padding: 45px 40px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  /* Stacked: the photo becomes a banner across the panel top. */
+  :root {
+    --drives-img-h: 340px;
+  }
+
+  .rts-drives-area .drives-content {
+    padding: 40px 32px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  :root {
+    --drives-img-h: 280px;
+  }
+
+  .rts-drives-area .drives-content {
+    padding: 32px 22px;
+  }
+
+  .rts-drives-area .drives-badge {
+    left: 20px;
+    bottom: 20px;
+    padding: 14px 20px;
+  }
+
+  .rts-drives-area .drives-badge .counter-no {
+    font-size: 30px;
+  }
+
+  .rts-drives-area .drives-list li {
+    gap: 14px;
+    padding: 18px 0;
+  }
+
+  .rts-drives-area .drives-list li .icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .rts-drives-area .drives-list li .icon i {
+    font-size: 19px;
+  }
+}
+
+/* ==== Preloader: logo centred inside the spinner ====
+   .loader is already centred in the viewport (top/left 50% plus a
+   -50% translate), so the logo only needs centring inside .loader
+   itself. The ring is drawn by .loader:after and that is what spins
+   - the logo is a separate child, so it stays upright while the ring
+   turns around it. The ring is widened to 110px and its 14px inset
+   removed to leave room for the logo in the middle.
+   Tweak --loader-size / --loader-logo-w to resize. */
+:root {
+  --loader-size: 110px;
+  --loader-logo-w: 58px;
+}
+
+.loader {
+  width: var(--loader-size);
+  height: var(--loader-size);
+}
+
+.loader:after {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.loader .loader-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--loader-logo-w);
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+}
+
+@media only screen and (max-width: 575px) {
+  :root {
+    --loader-size: 90px;
+    --loader-logo-w: 46px;
+  }
+}
+
+/* ==== Service page: Our Service Promise button ====
+   The markup is now the shared .rts__btn, but this section still
+   carried styling written for the flat `btn-primary radius-small`
+   button it used to have: it painted the <a> itself solid orange
+   with a 6px radius and added a ::before sweep. The shared button
+   draws its own pill segments (.rts__btn__wrap + .rts__btn__icon)
+   on a transparent anchor, so that outer orange box showed through
+   behind them and the button still looked unlike every other page.
+   Clearing it lets the standard styling render as intended. */
+.rts-service-area.inner .service-content-area .button-area .rts__btn {
+  background: transparent;
+  border-radius: 0;
+  color: inherit;
+}
+
+.rts-service-area.inner .service-content-area .button-area .rts__btn::before {
+  content: none;
+}
+
+/* Green fill on hover. The shared button's hover only slides the
+   text and arrow - it never changes colour - so both pill segments
+   need the fill, and the border has to change with them or a grey
+   outline stays visible on top of the green. Colour is set on the
+   containers so the label and arrow inherit white. */
+.rts-service-area.inner .service-content-area .button-area .rts__btn .rts__btn__wrap,
+.rts-service-area.inner .service-content-area .button-area .rts__btn .rts__btn__icon {
+  transition: var(--transition);
+}
+
+.rts-service-area.inner .service-content-area .button-area .rts__btn:hover .rts__btn__wrap,
+.rts-service-area.inner .service-content-area .button-area .rts__btn:hover .rts__btn__icon {
+  background: var(--color-green);
+  border-color: var(--color-green);
+  color: var(--color-white);
+}
+
+/* ==== About page: FAQ image ====
+   The base rule only rounds the corners, so the photo took its own
+   intrinsic size. corporate.jpg is 3:2 and much larger than the
+   placeholder it replaced, so it needs a definite frame; cover keeps
+   it undistorted. Tweak --faq-img-h to resize. */
+:root {
+  --faq-img-h: 520px;
+}
+
+.rts-faq-area .faq__image img {
+  display: block;
+  width: 100%;
+  height: var(--faq-img-h);
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px;
+}
+
+/* Match the image to the accordion's height. Bootstrap rows stretch
+   their columns by default, so the image column already has the row's
+   full height - height: 100% just makes the photo use it. The
+   accordion is the taller column, so it drives; --faq-img-h stays as
+   the fallback once the columns stack.
+   (The row's align-items-center had to come off the markup: centred
+   columns do not stretch, and Bootstrap sets it !important.) */
+@media only screen and (min-width: 992px) {
+  .rts-faq-area .rts-faq-wrapper-area > .row > div:last-child {
+    display: flex;
+  }
+
+  .rts-faq-area .faq__image {
+    width: 100%;
+  }
+
+  .rts-faq-area .faq__image img {
+    height: 100%;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  :root {
+    --faq-img-h: 440px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  :root {
+    --faq-img-h: 320px;
+  }
+}
+
+/* ==== About page: Certifications & Recognition ====
+   Was a fourth card grid, which made three consecutive sections look
+   identical. Now a credentials strip: no card borders, just four
+   columns separated by hairline rules, so it reads as a row of
+   accreditations rather than another set of tiles. */
+/* This section is tinted (bg-gray), so its padding is visible as a
+   band - unlike the untinted sections above, where a zero top
+   padding just closes a gap. It keeps rts-section-gap's matching
+   120px top and bottom so the band sits evenly, the same spacing
+   Our Story uses. */
+
+.rts-credentials-area .credentials-strip {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.rts-credentials-area .credential {
+  flex: 1 1 0;
+  min-width: 220px;
+  padding: 0 32px;
+  text-align: center;
+  border-left: 1px solid rgba(85, 85, 85, 0.16);
+}
+
+.rts-credentials-area .credential:first-child {
+  border-left: 0;
+}
+
+.rts-credentials-area .credential .badge-icon {
+  width: 84px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  background: var(--color-green);
+  border-radius: 50%;
+}
+
+.rts-credentials-area .credential .badge-icon i {
+  color: var(--color-white);
+  font-size: 32px;
+  line-height: 1;
+}
+
+.rts-credentials-area .credential .title {
+  font-size: 20px;
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+
+.rts-credentials-area .credential p {
+  margin-bottom: 0;
+  line-height: 1.65;
+}
+
+@media only screen and (max-width: 991px) {
+  /* Two per row - reset the desktop rules, then divide the pair. */
+  .rts-credentials-area .credential {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 28px 24px;
+    border-left: 0;
+  }
+
+  .rts-credentials-area .credential:nth-child(even) {
+    border-left: 1px solid rgba(85, 85, 85, 0.16);
+  }
+
+  .rts-credentials-area .credential:nth-child(n + 3) {
+    border-top: 1px solid rgba(85, 85, 85, 0.16);
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .rts-credentials-area .credential {
+    flex: 0 0 100%;
+    max-width: 100%;
+    border-left: 0;
+  }
+
+  .rts-credentials-area .credential:nth-child(even) {
+    border-left: 0;
+  }
+
+  .rts-credentials-area .credential + .credential {
+    border-top: 1px solid rgba(85, 85, 85, 0.16);
+  }
+}
+
+/* ==== Footer "Contact Us" block ====
+   The value sat at 12px while its own caption above it was 14px, so
+   the hierarchy read backwards. Value now 16px, caption stays 14px -
+   matching the header's 12/16 caption-over-value pattern.
+
+   Alignment: the row was centred, which floats the icon against the
+   middle of a two-line block. Aligning to the top puts the icon
+   level with the caption instead. The icon also centred its SVG with
+   line-height: 28px, which no longer holds once sizes change - flex
+   centring is exact. */
+/* The base rule sets a single `gap: 40px`, which applies to both
+   axes at once. Splitting it lets the space between the phone and
+   email columns and the space between rows be tuned separately.
+   The item width is derived from the column gap so two always fit. */
+:root {
+  --footer-contact-row-gap: 22px;
+  --footer-contact-col-gap: 18px;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul {
+  gap: var(--footer-contact-row-gap) var(--footer-contact-col-gap);
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li {
+  width: calc(50% - var(--footer-contact-col-gap) / 2);
+  align-items: flex-start;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text p {
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a {
+  display: inline-block;
+  font-size: 16px;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+/* ==== CTA band: heading + supporting line ====
+   Keeps the existing two-column flex layout of .cta-inner. */
+.rts-cta-area .cta-inner .cta-content {
+  max-width: 602px;
+}
+
+.rts-cta-area .cta-inner .cta-content .title {
+  margin-bottom: 12px;
+}
+
+.rts-cta-area .cta-inner .cta-content .desc {
+  color: var(--color-white);
+  margin-bottom: 0;
+  opacity: 0.9;
+}
+
+.about-main-heading {
+    width: 700px !important;
+    max-width: 700px !important;
+    white-space: normal !important;
+}
+
+.about-main-heading span {
+    white-space: nowrap !important;
+}
