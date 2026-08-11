@@ -39,7 +39,7 @@ const SMTP_PASS = 'Contact@bits#737';
 
 // The mailbox that receives bookings. TODO: change to the client's
 // real inbox before going live.
-const MAIL_TO      = 'rojalak21@gmail.com';
+const MAIL_TO      = 'info@baniyantravels.com';
 const MAIL_TO_NAME = 'Baniyan Tree Travels';
 
 // Must be an address on the authenticated domain, or the SMTP server

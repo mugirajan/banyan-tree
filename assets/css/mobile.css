@@ -296,3 +296,67 @@
     margin-top: 0;
   }
 }
+
+/* ==========================================================================
+   7. GET IN TOUCH CARDS - HORIZONTAL EXPANSION ON TABLET
+   --------------------------------------------------------------------------
+   In tablet view (576px - 991px), the "Get in Touch" cards (.contact-wrapper)
+   expand horizontally across full container width using a flex-row layout:
+   the icon sits on the left with title and contact details aligned on the right.
+   ========================================================================== */
+
+@media only screen and (min-width: 576px) and (max-width: 991px) {
+  .rts-contact-area2 .inner.three-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: none;
+  }
+
+  .rts-contact-area2 .inner .contact-wrapper,
+  .rts-contact-area2 .inner.three-col .contact-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    padding: 26px 32px;
+    gap: 24px;
+    border: 1px solid rgba(85, 85, 85, 0.11) !important;
+    border-radius: 16px !important;
+  }
+
+  .rts-contact-area2 .inner .contact-wrapper .icon,
+  .rts-contact-area2 .inner.three-col .contact-wrapper .icon {
+    margin: 0 !important;
+    flex-shrink: 0;
+  }
+
+  .rts-contact-area2 .inner .contact-wrapper .contact-content,
+  .rts-contact-area2 .inner.three-col .contact-wrapper .contact-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .rts-contact-area2 .inner .contact-wrapper .title,
+  .rts-contact-area2 .inner.three-col .contact-wrapper .title {
+    font-size: 24px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+  }
+
+  .rts-contact-area2 .inner .contact-wrapper ul,
+  .rts-contact-area2 .inner.three-col .contact-wrapper ul {
+    margin-bottom: 0;
+    justify-content: flex-start;
+  }
+
+  .rts-contact-area2 .inner.three-col .contact-wrapper ul li a {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+
+

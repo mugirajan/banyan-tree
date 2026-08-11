@@ -337,55 +337,38 @@
 }
 
 /* ==== Actions ==== */
-/* All three actions stay on one row at every width - they shrink
-   rather than wrap, so the button block never becomes a stack. */
 .booking-form .form-actions {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: stretch;
-  gap: 14px;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 14px !important;
+  margin-top: 25px !important;
+  width: 100% !important;
+  overflow: visible !important;
 }
 
-.booking-form .form-actions .btn-book {
-  flex: 0 1 auto;
-  min-width: 200px;
-  padding: 16px 40px;
-  border: 0;
-  border-radius: 6px;
-  background: var(--color-green);
-  color: var(--color-white);
-  font-size: 16px;
-  font-weight: var(--f-medium);
-  cursor: pointer;
-  transition: 0.25s;
+.booking-form .form-actions .rts__btn,
+.booking-form .form-actions .rts__btn.btn-book {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.booking-form .form-actions .btn-book:hover {
-  background: var(--color-primary);
+.booking-form .form-actions .rts__btn .rts__btn__wrap {
+  white-space: nowrap !important;
 }
 
-.booking-form .form-actions .btn-book:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-}
 
-.booking-form .form-actions .btn-ghost {
-  flex: 0 1 auto;
-  white-space: nowrap;
-  padding: 15px 30px;
-  border: 1px solid rgba(85, 85, 85, 0.25);
-  border-radius: 6px;
-  background: var(--color-white);
-  color: var(--color-heading);
-  font-size: 15px;
-  cursor: pointer;
-  transition: 0.25s;
-}
 
-.booking-form .form-actions .btn-ghost:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-}
+
 
 /* ==== Submit result message ====
    Hidden until the JS fills it in, so it takes up no room otherwise. */

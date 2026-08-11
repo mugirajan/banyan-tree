@@ -38,7 +38,7 @@ class sndMail
 
             // Admin Mail
             $mail->addAddress(
-                'soundarya.ramesh0712@gmail.com'
+                'info@baniyantravels.com'
             );
 
 

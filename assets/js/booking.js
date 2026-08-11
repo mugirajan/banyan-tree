@@ -75,6 +75,14 @@
         }
     }
 
+    function setButtonText($btn, text) {
+        if ($btn.find('.rts__btn__wrap').length) {
+            $btn.find('.rts__btn__txt-one, .rts__btn__txt-two').text(text);
+        } else {
+            $btn.text(text);
+        }
+    }
+
     /* ---------------------------------------------------------------
      * 1. Conditional fields
      * ------------------------------------------------------------- */
@@ -85,8 +93,9 @@
         $('#schedule-fields').find('input').prop('required', scheduled);
 
         // The submit button says what it will actually do.
-        submitBtn.text(scheduled ? 'Schedule Booking' : 'Book Now');
+        setButtonText(submitBtn, scheduled ? 'Schedule Booking' : 'Book Now');
     }
+
 
     function syncTripType() {
         var hourly = form.find('input[name="trip_type"]:checked').val() === 'hourly';
@@ -213,15 +222,18 @@
 
     function setBusy(text) {
         if (busyLabel === null) {
-            busyLabel = submitBtn.text();
+            busyLabel = submitBtn.find('.rts__btn__txt-one').length ? submitBtn.find('.rts__btn__txt-one').text() : submitBtn.text();
         }
-        submitBtn.prop('disabled', true).text(text);
+        submitBtn.prop('disabled', true);
+        setButtonText(submitBtn, text);
     }
 
     function clearBusy() {
-        submitBtn.prop('disabled', false).text(busyLabel === null ? 'Book Now' : busyLabel);
+        submitBtn.prop('disabled', false);
+        setButtonText(submitBtn, busyLabel === null ? 'Book Now' : busyLabel);
         busyLabel = null;
     }
+
 
     /** Post the whole form, plus the payment fields when there are any. */
     function placeBooking(payment) {

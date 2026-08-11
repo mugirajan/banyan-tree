@@ -231,7 +231,16 @@
   cursor: pointer;
 }
 
+button.rts__btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  outline: none;
+  margin-top: 15px;
+}
+
 /* ==== Get in Touch: three cards, evenly centred ====
+
    Each card takes a third of the row so the group fills the bordered
    panel and reads as centred. justify-content is a safety net in case
    the widths ever fall short of 100%. */
@@ -241,11 +250,12 @@
 
 .rts-contact-area2 .inner.three-col .contact-wrapper {
   width: 33.3333%;
-  padding: 45px 20px;
+  padding: 45px 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
+  text-align: left;
 }
 
 /* Base style puts the divider on child 2 only; with three cards the
@@ -270,7 +280,7 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
-  margin: 0 auto 20px;
+  margin: 0 0 20px 0;
   flex-shrink: 0;
 }
 
@@ -279,19 +289,45 @@
   font-size: 32px;
 }
 
+.rts-contact-area2 .inner.three-col .contact-wrapper .contact-content {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
 .rts-contact-area2 .inner.three-col .contact-wrapper .title {
   font-size: 24px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  text-align: left;
 }
+
 
 .rts-contact-area2 .inner.three-col .contact-wrapper ul {
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 16px;
+  row-gap: 6px;
+  text-align: left;
 }
 
 .rts-contact-area2 .inner.three-col .contact-wrapper ul li {
   line-height: 1.6;
   word-break: break-word;
+  display: inline-flex;
+  align-items: center;
 }
+
+.rts-contact-area2 .inner.three-col .contact-wrapper ul li:not(:last-child)::after {
+  content: "|";
+  margin-left: 16px;
+  color: rgba(85, 85, 85, 0.35);
+  font-weight: 300;
+}
+
 
 .rts-contact-area2 .inner.three-col .contact-wrapper ul li.note {
   margin-top: 10px;
@@ -526,15 +562,73 @@
 }
 
 /* ==== Responsive ==== */
-@media only screen and (max-width: 767px) {
-  /* One card per row, so the vertical dividers come off. */
+@media only screen and (max-width: 991px) {
+  .rts-contact-area2 .inner.three-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: none;
+    padding: 0;
+  }
+
   .rts-contact-area2 .inner.three-col .contact-wrapper {
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    border: 1px solid rgba(85, 85, 85, 0.11) !important;
+    border-radius: 16px !important;
+    padding: 30px 32px !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 24px;
   }
 
   .rts-contact-area2 .inner.three-col .contact-wrapper:nth-child(2),
   .rts-contact-area2 .inner.three-col .contact-wrapper:nth-child(3) {
-    border-left: 0;
+    border-left: 1px solid rgba(85, 85, 85, 0.11) !important;
+  }
+
+  .rts-contact-area2 .inner.three-col .contact-wrapper .icon {
+    margin: 0 !important;
+    flex-shrink: 0;
+  }
+
+  .rts-contact-area2 .inner.three-col .contact-wrapper .title {
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+
+  .rts-contact-area2 .inner.three-col .contact-wrapper ul {
+    margin-bottom: 0;
+    justify-content: flex-start;
+  }
+
+  .rts-contact-area2 .inner.three-col .contact-wrapper ul li a {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .quick-actions .quick-actions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .rts-contact-area2 .inner.three-col .contact-wrapper {
+    flex-direction: column;
+    text-align: left;
+    align-items: flex-start;
+    padding: 24px 20px !important;
+    gap: 16px;
+  }
+
+  .rts-contact-area2 .inner.three-col .contact-wrapper ul {
+    justify-content: flex-start;
+  }
+
+  .rts-contact-area2 .inner.three-col .contact-wrapper .icon {
+    margin: 0 0 12px 0 !important;
   }
 
   .quick-actions {
@@ -542,8 +636,5 @@
   }
 }
 
-@media only screen and (max-width: 991px) {
-  .quick-actions .quick-actions-grid {
-    grid-template-columns: 1fr;
-  }
-}
+
+
