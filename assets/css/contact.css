@@ -638,3 +638,76 @@ button.rts__btn {
 
 
 
+
+
+/* ==========================================================================
+   Reach Us: green cards, brown on hover
+   The three cards sit side by side inside one bordered panel, so each one
+   fills individually and the panel's own hairline border goes - against a
+   solid fill it reads as a stray line around the group. Brand tokens come
+   from style.css.
+   ========================================================================== */
+.rts-contact-area2 .inner {
+  border-color: transparent;
+  overflow: hidden;
+}
+
+.rts-contact-area2 .inner.three-col .contact-wrapper {
+  background: var(--color-green);
+  transition: background 0.3s ease;
+}
+
+.rts-contact-area2 .inner.three-col .contact-wrapper:hover {
+  background: var(--color-brown);
+}
+
+/* Everything inside was dark text on white: heading, the phone/email links
+   and the small note line. The icon is handled separately below - it keeps
+   a white tile of its own, so its glyph stays green. */
+.rts-contact-area2 .inner.three-col .contact-wrapper .title,
+.rts-contact-area2 .inner.three-col .contact-wrapper ul li,
+.rts-contact-area2 .inner.three-col .contact-wrapper ul li a,
+.rts-contact-area2 .inner.three-col .contact-wrapper ul li.note {
+  color: var(--color-white);
+}
+
+.rts-contact-area2 .inner.three-col .contact-wrapper ul li:not(:last-child)::after {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* The dividers between the three cards were a dark hairline meant for a
+   white panel; on the fills they only need to be a shade lighter than the
+   card either side of them. */
+.rts-contact-area2 .inner.three-col .contact-wrapper:nth-child(2),
+.rts-contact-area2 .inner.three-col .contact-wrapper:nth-child(3) {
+  border-left-color: rgba(255, 255, 255, 0.22);
+}
+
+
+/* ==== Reach Us icon tiles ====
+   White circle with a green glyph, sitting on the card's fill. The template
+   had a grey 6px-radius square 80px across, which read as a slab next to
+   the heading beside it; 58px sits closer to the text it introduces.
+
+   The glyph stays green through the card's brown hover - it is reading
+   against the white circle, not against the card. Move the two sizes
+   together: the glyph is a little under half the circle, which is what
+   stops the circle looking empty. */
+:root {
+  --contact-icon-size: 58px;
+  --contact-icon-glyph: 24px;
+}
+
+.rts-contact-area2 .inner.three-col .contact-wrapper .icon {
+  width: var(--contact-icon-size);
+  height: var(--contact-icon-size);
+  border-radius: 50%;
+  background: var(--color-white);
+}
+
+/* The base file sizes this glyph at 32px, so it needs replacing rather
+   than just recolouring. */
+.rts-contact-area2 .inner.three-col .contact-wrapper .icon i {
+  color: var(--color-green);
+  font-size: var(--contact-icon-glyph);
+}

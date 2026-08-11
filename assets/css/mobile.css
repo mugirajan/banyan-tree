@@ -143,8 +143,20 @@
     text-align: left;
   }
 
+  /* align-items is re-stated, not just justify-content. The base rule
+     sets it, but this selector is more specific and a partial override
+     here would leave the row on the flex default of `stretch` - which
+     is what let Know More ride higher than Book a Car instead of the
+     two sitting on one line. Stretching each button to the row height
+     as well keeps the two pills level whatever their labels do. */
   .banner-slider-one .banner-left-content-area .banner-btn-area {
     justify-content: flex-start;
+    align-items: center;
+  }
+
+  .banner-slider-one .banner-left-content-area .banner-btn-area .rts__btn {
+    align-items: center;
+    align-self: center;
   }
 
   /* .about-main-heading is pinned to width: 700px !important, which
@@ -360,3 +372,23 @@
 
 
 
+
+/* ==========================================================================
+   7. WHY CHOOSE US - ROOM FOR THE HANGING ICON
+   --------------------------------------------------------------------------
+   Each card's icon badge is absolutely positioned at bottom: -35px, so it
+   deliberately hangs below the card edge. Side by side on desktop that is
+   fine - it drops into open space. Stacked on mobile it drops into the
+   gutter instead, and g-5 (48px) is not enough for a badge that protrudes
+   35px plus its own ring, so it crowded the card underneath.
+
+   Raising the row gutter gives the badge clear air. --bs-gutter-y is the
+   right lever: Bootstrap derives both the column margin and the row's
+   compensating negative margin from it, so the two stay in step.
+   ========================================================================== */
+
+@media only screen and (max-width: 991px) {
+  .why-choose-wrapper > .row {
+    --bs-gutter-y: 95px;
+  }
+}

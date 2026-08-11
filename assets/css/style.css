@@ -16795,11 +16795,15 @@ li.has-dropdown:hover .submenu {
   line-height: 1;
   margin-bottom: 7px;
 }
+/* Brown on hover, matching every other button on the site. This rule
+   outranks the site-wide .rts__btn:hover pair further down, so it has to
+   carry the brown itself - it covers the About Us block on index.html and
+   Our Story on about.html, which share this wrapper. */
 .about-right-content-area .rts__btn:hover .rts__btn__wrap,
 .about-right-content-area .rts__btn:hover .rts__btn__icon {
-  background: var(--color-primary);
+  background: var(--color-brown);
   color: var(--color-white);
-  border-color: transparent;
+  border-color: var(--color-brown);
 }
 
 .about-letf-image-area-two {
@@ -24320,10 +24324,15 @@ footer .logo img {
   border-bottom: 0;
 }
 
-/* Green sampled from the logo artwork (its dominant tone quantises
-   to #205020); lifted slightly so a white glyph reads cleanly. */
+/* The two brand tones, used as a pair across the whole site: green at rest,
+   brown on hover. Green matches --color-primary, so the buttons and cards
+   that use it sit in the same tone as the section headings and the CTA band.
+
+   Defined here, in the stylesheet every page loads, so home.css / booking.css
+   / contact.css can all use them without redeclaring. */
 :root {
-  --color-green: #2A6E2A;
+  --color-green: #1A3D0A;
+  --color-brown: #4E341B;
 }
 
 .rts-drives-area .drives-list li .icon {
@@ -24477,11 +24486,13 @@ footer .logo img {
   content: none;
 }
 
-/* Green fill on hover. The shared button's hover only slides the
-   text and arrow - it never changes colour - so both pill segments
-   need the fill, and the border has to change with them or a grey
-   outline stays visible on top of the green. Colour is set on the
-   containers so the label and arrow inherit white. */
+/* Brown fill on hover, matching every other button on the site. The
+   shared button's hover only slides the text and arrow - it never
+   changes colour - so both pill segments need the fill, and the border
+   has to change with them or a grey outline stays visible on top.
+   Colour is set on the containers so the label and arrow inherit white.
+   This rule outranks the site-wide .rts__btn:hover pair, so it carries
+   the brown itself. */
 .rts-service-area.inner .service-content-area .button-area .rts__btn .rts__btn__wrap,
 .rts-service-area.inner .service-content-area .button-area .rts__btn .rts__btn__icon {
   transition: var(--transition);
@@ -24489,8 +24500,8 @@ footer .logo img {
 
 .rts-service-area.inner .service-content-area .button-area .rts__btn:hover .rts__btn__wrap,
 .rts-service-area.inner .service-content-area .button-area .rts__btn:hover .rts__btn__icon {
-  background: var(--color-green);
-  border-color: var(--color-green);
+  background: var(--color-brown);
+  border-color: var(--color-brown);
   color: var(--color-white);
 }
 
@@ -24617,6 +24628,13 @@ footer .logo img {
   .rts-credentials-area .credential:nth-child(n + 3) {
     border-top: 1px solid rgba(85, 85, 85, 0.16);
   }
+
+
+  .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area {
+    display: block;
+    align-items: center;
+    gap: 20px;
+}
 }
 
 @media only screen and (max-width: 575px) {
@@ -25300,5 +25318,349 @@ footer .logo img {
 @media only screen and (max-width: 450px) {
   :root {
     --breadcrumb-min-h: 320px;
+  }
+}
+
+
+/* ==========================================================================
+   Buttons: green at rest, brown on hover
+   Site-wide. This started as a homepage-only block in home.css and was then
+   asked for on about, service, book-now and contact - at that point one
+   unscoped rule is simpler than five copies, and it keeps any page added
+   later on the brand pair by default.
+
+   Both pieces of .rts__btn - the text pill and the round icon - carry their
+   own background and border, so both need filling or the button reads as
+   half-coloured. The template left them transparent with a grey border and
+   only filled them on hover.
+
+   Exception: index.html's two banner buttons. style.css styles those through
+   a six-class chain that outranks anything this short, and the second one
+   runs the pair in reverse, so both are handled in home.css.
+   ========================================================================== */
+.rts__btn .rts__btn__wrap,
+.rts__btn .rts__btn__icon {
+  background: var(--color-green);
+  border: 1px solid var(--color-green);
+  color: var(--color-white);
+}
+
+.rts__btn:hover .rts__btn__wrap,
+.rts__btn:hover .rts__btn__icon {
+  background: var(--color-brown);
+  border-color: var(--color-brown);
+  color: var(--color-white);
+}
+
+/* Both labels are stacked inside the pill and swap on hover, so the second
+   one needs the white too - the base stylesheet sets it explicitly. */
+.rts__btn .rts__btn__txt-one,
+.rts__btn .rts__btn__txt-two,
+.rts__btn:hover .rts__btn__txt-two {
+  color: var(--color-white);
+}
+
+
+/* ==========================================================================
+   About page
+   ========================================================================== */
+
+/* ==== Stats ==== */
+.about-page .rts-counter-area-two .counter-inner .inner {
+  background: var(--color-green);
+  transition: background 0.3s ease;
+}
+
+.about-page .rts-counter-area-two .counter-inner .inner:hover {
+  background: var(--color-brown);
+}
+
+.about-page .rts-counter-area-two .counter-inner .inner .title,
+.about-page .rts-counter-area-two .counter-inner .inner .desc {
+  color: var(--color-white);
+}
+
+/* The four stat icons are flat dark SVGs loaded as <img>, so their fill
+   cannot be reached from CSS. brightness(0) crushes each one to solid
+   black and invert(1) flips it to solid white, which reads on both fills. */
+.about-page .rts-counter-area-two .counter-inner .inner .icon img {
+  filter: brightness(0) invert(1);
+}
+
+/* ==== FAQ ====
+   The accordion ships transparent with a grey hairline, and the open item
+   swaps to grey - all three states are filled here so an open item does not
+   jump back to grey mid-list. */
+.about-page .rts-faq__accordion .accordion .accordion-item,
+.about-page .rts-faq__accordion .accordion .accordion-item.active {
+  background: var(--color-green);
+  border-color: transparent;
+}
+
+.about-page .rts-faq__accordion .accordion .accordion-item:hover {
+  background: var(--color-brown);
+}
+
+/* Question text, answer text and the +/- marker all sat on a light panel,
+   so each one is turned white. The marker is a ::after on the button, and
+   the open state is a separate rule in the base file with its own dark
+   circle behind it - that circle goes transparent so only the glyph shows. */
+.about-page .rts-faq__accordion .accordion .accordion-item .accordion-header .accordion-button,
+.about-page .rts-faq__accordion .accordion .accordion-item .accordion-header .accordion-button:not(.collapsed),
+.about-page .rts-faq__accordion .accordion .accordion-item .accordion-body {
+  color: var(--color-white);
+}
+
+.about-page .rts-faq__accordion .accordion .accordion-item .accordion-header .accordion-button::after,
+.about-page .rts-faq__accordion .accordion .accordion-item .accordion-header .accordion-button:not(.collapsed)::after {
+  color: var(--color-white);
+  background: transparent;
+}
+
+/* .inner-faq (the variant this page uses) re-states the marker colour on a
+   six-class chain of its own, so it has to be answered on the same chain. */
+.about-page .rts-faq__accordion.inner-faq .accordion .accordion-item .accordion-header .accordion-button:not(.callapsed)::after {
+  background: transparent;
+  color: var(--color-white);
+}
+
+
+/* ==========================================================================
+   Blog post sidebar
+   The three panels down the right of every blog-*.html page. .right-side-bar
+   only exists on those pages, so no page class is needed to scope this.
+   ========================================================================== */
+.right-side-bar .side-box {
+  background: var(--color-green);
+  border-color: transparent;
+}
+
+.right-side-bar .side-box,
+.right-side-bar .side-box h2,
+.right-side-bar .side-box p,
+.right-side-bar .side-box .blog-list li .content h3 a,
+.right-side-bar .side-box .blog-list li .content .blog-meta {
+  color: var(--color-white);
+}
+
+/* The topic chips were light grey pills; brown keeps them readable and
+   stays inside the brand pair. */
+.right-side-bar .side-box.tag-area ul li {
+  background: var(--color-brown);
+  color: var(--color-white);
+}
+
+/* "Need a Car Today?" uses .btn-primary, a plain anchor rather than the
+   two-piece .rts__btn - it has no .rts__btn__wrap for the site-wide button
+   rule to fill. It was a grey outline, which vanishes on green, so it goes
+   white with green text. The template hides an oversized circle below the
+   button and sweeps it up on hover, so recolouring that circle brown is
+   what turns the button on hover - the animation is kept, not overridden. */
+.right-side-bar .side-box .rts__btn.btn-primary {
+  background: var(--color-white);
+  border-color: var(--color-white);
+  color: var(--color-green);
+}
+
+.right-side-bar .side-box .rts__btn.btn-primary::before {
+  background: var(--color-brown);
+}
+
+.right-side-bar .side-box .rts__btn.btn-primary:hover {
+  color: var(--color-white);
+  border-color: var(--color-brown);
+}
+
+
+/* ==========================================================================
+   Social icons: green badge, brown on hover
+   Header (.header-social) and footer (.footer-social) on every page. Both
+   shipped as bare icons with no background, so each link becomes a circular
+   badge and the glyph inside it goes white.
+   ========================================================================== */
+/* One size for both rows. The glyph is roughly 45% of the badge, which is
+   what keeps the circles from looking empty - move the two together. */
+:root {
+  --social-badge: 30px;
+  --social-glyph: 13px;
+}
+
+.header-social li a,
+.copyright-area .copyright-area-inner .footer-social li a {
+  width: var(--social-badge);
+  height: var(--social-badge);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-green);
+  transition: background 0.3s ease;
+}
+
+.header-social li a:hover,
+.copyright-area .copyright-area-inner .footer-social li a:hover {
+  background: var(--color-brown);
+}
+
+/* The header icons are separate .svg files loaded as <img>, so their fill
+   cannot be reached from CSS. The markup now points at the -w variants -
+   solid white glyphs with no outline ring, which is what makes them read as
+   bold inside the badge; the plain files are thin line art wrapped in a ring
+   of their own. The filter stays as a backstop: brightness(0) crushes any
+   icon to solid black and invert(1) flips it to white, so a non-white file
+   dropped in later still reads on both badge colours.
+
+   The -w files are not square (the "f" is 9x15, the X 15x13), so
+   object-fit: contain fits each one inside the same box without distorting
+   it - they end up optically matched rather than stretched to fill. */
+.header-social li a img,
+.copyright-area .copyright-area-inner .footer-social li a img {
+  width: var(--social-glyph);
+  height: var(--social-glyph);
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+
+/* ==========================================================================
+   Footer fixes
+   ========================================================================== */
+
+/* ---- 1. Contact Us column was too narrow for its content ----------------
+   The three footer columns are fixed at 270 / 150 / 180px, but the Contact
+   column holds two-per-row items (width: calc(50% - 10px)) carrying long
+   values - support@baniyantravels.com and a full street address. At 180px
+   each cell was ~85px, so the phone and email blocks overlapped and the
+   address broke one character per line.
+
+   Letting the column take the leftover width fixes the cause rather than
+   the symptom: with ~600px available the 2x2 grid has room again.
+   min-width: 0 is required - a flex item defaults to min-width: auto and
+   refuses to shrink below its content, which is what pushed the column
+   past the container edge in the first place. */
+/* The :last-child variant is included deliberately. style.css also has
+   `.single-wized:nth-child(3):last-child { flex: 0 0 500px }`, and Contact
+   Us IS the last child - that selector carries one more pseudo-class than
+   a plain :nth-child(3), so it outranked the rule below and pinned the
+   column at 500px. That is what left ~300px stranded at the right edge. */
+.footer-wrapper-style-between .single-wized:nth-child(3),
+.footer-wrapper-style-between .single-wized:nth-child(3):last-child {
+  flex: 1 1 auto;
+  max-width: none;
+  min-width: 0;
+}
+
+/* break-word was fighting the narrow column by breaking mid-word. With the
+   column widened it is no longer needed - anywhere only breaks a word that
+   genuinely cannot fit, so emails stay intact. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a {
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ---- 2. Footer links: brown on hover -----------------------------------
+   Matches the social badges, which already use --color-brown. */
+.footer-wrapper-style-between .single-wized .body a:hover,
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a:hover {
+  color: var(--color-brown);
+}
+
+.footer-wrapper-style-between .single-wized .body a:hover .link-arrow {
+  color: var(--color-brown);
+}
+
+.copyright-area .copyright-area-inner p a:hover {
+  color: var(--color-brown);
+}
+
+/* ---- 3. Column spacing --------------------------------------------------
+   justify-content: space-between splits any leftover width into the gaps
+   between columns, so the three blocks drifted apart instead of sitting in
+   a tidy row - that was the space between Quick Links and Contact Us.
+   flex-start keeps them adjacent and makes `gap` the only thing separating
+   them, so the spacing is one number rather than a by-product of the
+   column widths. Contact Us still grows to take the remainder, so nothing
+   is left stranded at the right edge. */
+.footer-wrapper-style-between {
+  justify-content: flex-start;
+  gap: 55px;
+}
+
+/* margin-right rather than a bigger `gap`: gap applies to every column
+   break equally, so raising it would push Contact Us out too. The margin
+   widens only the first break, leaving the Quick Links to Contact Us gap
+   at the 55px set above. */
+.footer-wrapper-style-between .single-wized:nth-child(1) {
+  flex: 0 1 300px;
+  max-width: 300px;
+  margin-right: 80px;
+}
+
+/* Same reasoning as the first column: a margin widens only this break,
+   so the two gaps stay independently adjustable. */
+.footer-wrapper-style-between .single-wized:nth-child(2) {
+  flex: 0 0 160px;
+  max-width: 160px;
+  margin-right: 60px;
+}
+
+/* ---- 4. Breathing room inside the Contact Us column ---------------------
+   Four blocks in a 2x2 grid, each an icon beside a label and its values.
+   The row gap does most of the work - the values wrap onto two lines, so
+   without it the blocks read as one continuous list. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul {
+  gap: 34px 60px;
+}
+
+/* display: block so each value starts a new line. .single-wized .body a is
+   inline-flex (it carries the chevron in Quick Links), which let the two
+   phone numbers sit side by side whenever they happened to fit - the two
+   emails only stacked because they were too long to share a line. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- 5. Contact Us: a real 2x2 grid ------------------------------------
+   The items were flex with width: calc(50% - 10px). Two of those plus the
+   30px column gap comes to 100% + 10px, so they could never share a row -
+   the column silently fell back to one item per row.
+
+   Grid takes the arithmetic out of it: 1fr columns are measured AFTER the
+   gap is subtracted, so two always fit whatever the gap is set to. The
+   flex width has to be cleared or it fights the track sizing. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li {
+  width: auto;
+  max-width: none;
+}
+
+/* Stays 2x2 on phones too. The cells are narrow there (~150px), so the
+   column gap comes right down and the icon moves above its text instead
+   of beside it - that hands the full cell width to the values, which is
+   what keeps support@baniyantravels.com readable rather than breaking
+   across four lines. */
+@media only screen and (max-width: 576px) {
+  .footer-wrapper-style-between .single-wized.get-in-touch ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 26px 14px;
+  }
+
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li .text a {
+    font-size: 15px;
   }
 }

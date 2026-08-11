@@ -65,9 +65,23 @@ i.far:not(.fa-brands) {
 .rts-drives-area .drives-list li .icon i,
 .rts-why-choose-area .single-choose .icon i,
 .rts-service-area .service-wrapper .icon i,
-.rts-credentials-area .credential .badge-icon i {
+.rts-credentials-area .credential .badge-icon i,
+.about-right-content-area .about-item-wrapper .single-item .icon i {
   font-size: var(--icon-md);
   line-height: 1;
+}
+
+/* Same badge treatment as every other feature icon on the site: a green
+   filled circle with a white glyph, 60px across. The template gave this
+   pair a grey circle with no fill, which was the only place that
+   differed. Matches .rts-drives-area and .rts-credentials-area exactly. */
+.about-right-content-area .about-item-wrapper .single-item .icon {
+  background: var(--color-green);
+  border-radius: 50%;
+}
+
+.about-right-content-area .about-item-wrapper .single-item .icon i {
+  color: var(--color-white);
 }
 
 /* Certifications & Recognition: the badges were the outlier - a 32px
