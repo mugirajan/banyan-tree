@@ -154,6 +154,22 @@
   }
 }
 
+@media only screen and (max-width: 575px) {
+  /* Mission / Vision / Values re-centre on phones. Below 575px the
+     row stacks - style.css switches the item to flex-direction:
+     column with align-items: center and text-align: center - so the
+     icon sits above the text and the paragraph centres. The left
+     alignment above is for tablet, where the icon is still beside
+     the text; keeping it here left the title out of step with its
+     own centred paragraph.
+
+     575px, not 767px: that is the width the layout actually changes
+     at, so the title follows the card rather than a round number. */
+  .rts-drives-area .drives-list li .text .title {
+    text-align: center;
+  }
+}
+
 /* ==========================================================================
    3. SECTION SPACING
    --------------------------------------------------------------------------
