@@ -4,14 +4,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Your trusted source for expert healthcare services and car information. Providing personalized care, advanced treatments, and reliable car dealing to help you achieve better health.">
+    <!-- ========== SEO ========== -->
+    <title>Book a Car Online | Baniyan Tree Travels</title>
+    <meta name="description" content="Book a car with a driver in minutes. Choose immediate or scheduled pick-up, pick your vehicle, get a fare estimate and confirm your ride with Baniyan Tree Travels.">
+    <meta name="keywords" content="book car rental online, book cab mumbai, airport taxi booking, outstation cab booking, corporate car booking india, hire car with driver">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="author" content="Baniyan Tree Travels">
+    <link rel="canonical" href="https://www.baniyantravels.com/book-now.html">
+
+    <!-- Local / geographic signals -->
+    <meta name="geo.region" content="IN-MH">
+    <meta name="geo.placename" content="Mumbai">
+    <meta name="geo.position" content="19.0760;72.8777">
+    <meta name="ICBM" content="19.0760, 72.8777">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Baniyan Tree Travels">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:title" content="Book a Car Online | Baniyan Tree Travels">
+    <meta property="og:description" content="Book a car with a driver in minutes. Immediate or scheduled pick-up, fare estimate before you confirm.">
+    <meta property="og:url" content="https://www.baniyantravels.com/book-now.html">
+    <meta property="og:image" content="https://www.baniyantravels.com/assets/images/about/daily-rental.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Book a Car Online | Baniyan Tree Travels">
+    <meta name="twitter:description" content="Book a car with a driver in minutes. Immediate or scheduled pick-up, fare estimate before you confirm.">
+    <meta name="twitter:image" content="https://www.baniyantravels.com/assets/images/about/daily-rental.jpg">
+
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo/logo.jpg">
-    <title>GoRental - Car Rental HTML Template</title>
+
+    <!-- ========== AEO / GEO: structured data ========== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://www.baniyantravels.com/book-now.html#webpage",
+          "url": "https://www.baniyantravels.com/book-now.html",
+          "name": "Book a Car Online - Baniyan Tree Travels",
+          "description": "Online booking form for car rental, airport transfers, outstation trips and hourly rentals.",
+          "inLanguage": "en-IN",
+          "about": { "@id": "https://www.baniyantravels.com/#organization" },
+          "potentialAction": {
+            "@type": "ReserveAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://www.baniyantravels.com/book-now.html",
+              "actionPlatform": [
+                "http://schema.org/DesktopWebPlatform",
+                "http://schema.org/MobileWebPlatform"
+              ]
+            },
+            "result": { "@type": "Reservation", "name": "Car rental booking" }
+          }
+        },
+        {
+          "@type": ["Organization", "AutoRental"],
+          "@id": "https://www.baniyantravels.com/#organization",
+          "name": "Baniyan Tree Travels",
+          "url": "https://www.baniyantravels.com/",
+          "logo": "https://www.baniyantravels.com/assets/images/logo/logo.png",
+          "description": "Corporate transportation provider offering car rental, airport transfers, outstation trips and chauffeur-driven cars across India.",
+          "email": "info@baniyantravels.com",
+          "telephone": "+91-98765-43210",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 Business District, Corporate Plaza, 5th Floor",
+            "addressLocality": "Mumbai",
+            "postalCode": "400001",
+            "addressRegion": "Maharashtra",
+            "addressCountry": "IN"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.baniyantravels.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Book Now", "item": "https://www.baniyantravels.com/book-now.html" }
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="stylesheet" href="assets/css/plugins/plugins.css">
     <link rel="stylesheet" href="assets/css/plugins/magnifying-popup.css">
     <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/rt-icon.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/booking.css">
 </head>
 
 <body class="home-one overflow-x-visible">
@@ -138,6 +221,10 @@
                                 </li>
 
                                 <li class="main-nav">
+                                    <a class="main-menu" href="book-now.html">Book Now</a>
+                                </li>
+
+                                <li class="main-nav">
                                     <a class="main-menu main-menu-ls" href="contact.html">Contact</a>
                                 </li>
                             </ul>
@@ -196,234 +283,237 @@
 
     </header>
     <!-- header area end -->
+
     <!-- rts breadcrumb area start -->
-    <div class="rts-breadcrumb-area @@class jarallax" data-bg-src="assets/images/breadcrumb/01.webp">
+    <div class="rts-breadcrumb-area jarallax" data-bg-src="assets/images/about/daily-rental.jpg">
         <div class="container">
             <div class="breadcrumb-area-wrapper">
-                <h1 class="title">Blog</h1>
+                <h1 class="title">Book Now</h1>
             </div>
         </div>
         <div class="nav-bread-crumb">
             <div class="nav-inner">
                 <a href="index.html">Home</a>
                 <span class="dot"></span>
-                <a href="#" class="current">Blog</a>
+                <a href="#" class="current">Book Now</a>
             </div>
         </div>
     </div>
     <!-- rts breadcrumb area end -->
 
-
-    <div class="rts-blog-area inner blog-2 rts-section-gap">
+    <!-- rts booking area start -->
+    <section class="rts-booking-area rts-section-gap">
         <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-8">
-                    <div class="left">
-                        <div class="row g-5">
-                            <div class="col-lg-12">
-                                <div class="blog-wrapper">
-                                    <div class="image-area">
-                                        <a href="blog-details.html"><img src="assets/images/blog/01.webp" alt=""></a>
-                                    </div>
-                                    <div class="content">
-
-                                        <p class="blog-meta">Dealership events</p>
-                                        <h5><a href="blog-details.html">Seasonal Car Care Tips to Keep Your Vehicle
-                                                Running Smoothly</a></h5>
-                                        <div class="author-date">
-                                            <div class="person">
-                                                <img src="assets/images/blog/author-01.svg" alt="">
-                                                Jack Alexander
-                                            </div>
-                                            <div class="date">March 26, 2024</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="blog-wrapper">
-                                    <div class="image-area">
-                                        <a href="blog-details.html"><img src="assets/images/blog/02.webp" alt=""></a>
-                                    </div>
-                                    <div class="content">
-                                        <p class="blog-meta">March 26, 2024</p>
-                                        <h5><a href="blog-details.html">How Regular Maintenance Can Save You Thousands
-                                                in Repairs</a></h5>
-                                        <div class="author-date">
-                                            <div class="person">
-                                                <img src="assets/images/blog/author-02.svg" alt="">
-                                                Jack Alexander
-                                            </div>
-                                            <div class="date">March 26, 2024</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="blog-wrapper">
-                                    <div class="image-area">
-                                        <a href="blog-details.html"><img src="assets/images/blog/02.webp" alt=""></a>
-                                    </div>
-                                    <div class="content">
-                                        <p class="blog-meta">Car detailing tips</p>
-                                        <h5><a href="blog-details.html">Top 5 Reasons to Buy a Certified Pre-Owned
-                                                Vehicle</a></h5>
-                                        <div class="author-date">
-                                            <div class="person">
-                                                <img src="assets/images/blog/author-02.svg" alt="">
-                                                Jack Alexander
-                                            </div>
-                                            <div class="date">March 26, 2024</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="blog-wrapper">
-                                    <div class="image-area">
-                                        <a href="blog-details.html"><img src="assets/images/blog/06.webp" alt=""></a>
-                                    </div>
-                                    <div class="content">
-                                        <p class="blog-meta">Upcoming releases</p>
-                                        <h5><a href="blog-details.html">What to Expect During Your Next Test Drive</a>
-                                        </h5>
-                                        <div class="author-date">
-                                            <div class="person">
-                                                <img src="assets/images/blog/author-02.svg" alt="">
-                                                Jack Alexander
-                                            </div>
-                                            <div class="date">March 26, 2024</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="load-more-btn">
-                        <a href="#" class="rts__btn btn-primary">Load More</a>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="sticky-top">
-                        <div class="right-side-bar">
-                            <div class="search-area side-box">
-                                <h2>Cars Search</h2>
-                                <form action="#">
-                                    <div class="input-wrapper">
-                                        <input type="text" placeholder="Search Vehicles" required>
-                                        <button type="submit"><i class="fa-regular fa-magnifying-glass"></i></button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="car-make side-box">
-                                <h2>Car Categories</h2>
-                                <ul class="checkbox-list">
-                                    <li class="checkbox-item">
-                                        <label class="checkbox-label">
-                                            <input type="checkbox" checked>
-                                            <span>Mercedes-Benz</span>
-                                        </label>
-                                        <span>(130)</span>
-                                    </li>
-                                    <li class="checkbox-item">
-                                        <label class="checkbox-label">
-                                            <input type="checkbox">
-                                            <span>Volkswagen</span>
-                                        </label>
-                                        <span>(80)</span>
-                                    </li>
-                                    <li class="checkbox-item">
-                                        <label class="checkbox-label">
-                                            <input type="checkbox">
-                                            <span>Mitsubishi</span>
-                                        </label>
-                                        <span>(199)</span>
-                                    </li>
-                                    <li class="checkbox-item">
-                                        <label class="checkbox-label">
-                                            <input type="checkbox">
-                                            <span>Honda</span>
-                                        </label>
-                                        <span>(70)</span>
-                                    </li>
-                                    <li class="checkbox-item">
-                                        <label class="checkbox-label">
-                                            <input type="checkbox">
-                                            <span>Lamborghini</span>
-                                        </label>
-                                        <span>(160)</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="recent-post side-box">
-                                <h2>Recent Post</h2>
-                                <ul class="blog-list">
-                                    <li>
-                                        <div class="image-area">
-                                            <a href="blog-details.html">
-                                                <img src="assets/images/blog/sm-01.webp" width="100" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <h3><a href="blog-details.html">10 Tips for First-Time Car What You Need to
-                                                    Know</a></h3>
-                                            <p class="blog-meta">May 26, 2024</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="image-area">
-                                            <a href="blog-details.html">
-                                                <img src="assets/images/blog/sm-02.webp" width="100" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <h3><a href="blog-details.html">Top 5 Reasons to Buy a for Pre-Owned
-                                                    Vehicle</a></h3>
-                                            <p class="blog-meta">May 26, 2024</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="image-area">
-                                            <a href="blog-details.html">
-                                                <img src="assets/images/blog/sm-03.webp" width="100" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <h3><a href="blog-details.html">How to Choose the Perfect Car for Your
-                                                    Lifestyle</a></h3>
-                                            <p class="blog-meta">May 26, 2024</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="tag-area side-box">
-                                <h2>Fuel</h2>
-                                <ul>
-                                    <li>Gasoline</li>
-                                    <li>Diesel</li>
-                                    <li>Plug-in Hybrid</li>
-                                    <li>Hybrid</li>
-                                    <li>Electric</li>
-                                </ul>
-                            </div>
-                            <div class="ad-area">
-                                <img src="assets/images/blog/ad.webp" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="booking-intro">
+                <h2 class="title">Book Your Ride Now</h2>
+                <p class="desc">Quick and easy booking for immediate or scheduled transportation.</p>
             </div>
+
+            <form action="php/booking.php" method="post" id="booking-form" class="booking-form">
+                <div id="booking-messages" role="status" aria-live="polite"></div>
+
+                <!-- Step 1: trip details -->
+                <div class="form-block">
+                    <h3 class="block-title"><span class="step">1</span> Trip Details</h3>
+
+                    <div class="single-input full-width">
+                        <label>Service Type <span class="req">*</span></label>
+                        <div class="choice-group">
+                            <label class="choice">
+                                <input type="radio" name="service_type" value="immediate" checked>
+                                <span>Book Now (Immediate)</span>
+                            </label>
+                            <label class="choice">
+                                <input type="radio" name="service_type" value="scheduled">
+                                <span>Schedule for Later</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field-grid is-hidden" id="schedule-fields">
+                        <div class="single-input">
+                            <label for="pickup_date">Pick-up Date <span class="req">*</span></label>
+                            <input type="date" name="pickup_date" id="pickup_date">
+                        </div>
+                        <div class="single-input">
+                            <label for="pickup_time">Pick-up Time <span class="req">*</span></label>
+                            <input type="time" name="pickup_time" id="pickup_time">
+                        </div>
+                    </div>
+
+                    <div class="field-grid">
+                        <div class="single-input">
+                            <label for="pickup_location">Pickup Location <span class="req">*</span></label>
+                            <input type="text" name="pickup_location" id="pickup_location" placeholder="Enter pickup address" required>
+                        </div>
+                        <div class="single-input">
+                            <label for="drop_location">Drop Location <span class="req">*</span></label>
+                            <input type="text" name="drop_location" id="drop_location" placeholder="Enter destination address" required>
+                        </div>
+                        <div class="single-input has-select">
+                            <label for="vehicle_type">Vehicle Type <span class="req">*</span></label>
+                            <select name="vehicle_type" id="vehicle_type">
+                                <option value="">Select Vehicle</option>
+                                <option value="hatchback">Hatchback (up to 4 seats)</option>
+                                <option value="sedan">Sedan (up to 4 seats)</option>
+                                <option value="suv">SUV (up to 6 seats)</option>
+                                <option value="muv">MUV - Innova / Ertiga class (up to 7 seats)</option>
+                                <option value="premium">Premium Car</option>
+                                <option value="luxury">Luxury Car</option>
+                                <option value="tempo">Tempo Traveller (up to 17 seats)</option>
+                            </select>
+                        </div>
+                        <div class="single-input">
+                            <label for="passengers">Number of Passengers</label>
+                            <input type="number" name="passengers" id="passengers" value="1" min="1" max="26">
+                        </div>
+                    </div>
+
+                    <div class="single-input full-width">
+                        <label>Trip Type</label>
+                        <div class="choice-group">
+                            <label class="choice">
+                                <input type="radio" name="trip_type" value="oneway" checked>
+                                <span>One Way</span>
+                            </label>
+                            <label class="choice">
+                                <input type="radio" name="trip_type" value="roundtrip">
+                                <span>Round Trip</span>
+                            </label>
+                            <label class="choice">
+                                <input type="radio" name="trip_type" value="hourly">
+                                <span>Hourly Rental</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field-grid">
+                        <div class="single-input" id="distance-field">
+                            <label for="distance_km">Approximate Distance (km)</label>
+                            <input type="number" name="distance_km" id="distance_km" placeholder="e.g. 25" min="1" step="1">
+                            <span class="hint">Used only to work out the fare estimate.</span>
+                        </div>
+                        <div class="single-input is-hidden" id="hours-field">
+                            <label for="duration_hours">Duration (hours)</label>
+                            <input type="number" name="duration_hours" id="duration_hours" placeholder="e.g. 4" min="1" step="1">
+                            <span class="hint">Hourly packages start at 4 hours.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: passenger information -->
+                <div class="form-block">
+                    <h3 class="block-title"><span class="step">2</span> Passenger Information</h3>
+
+                    <div class="field-grid">
+                        <div class="single-input">
+                            <label for="name">Primary Passenger Name <span class="req">*</span></label>
+                            <input type="text" name="name" id="name" placeholder="Enter passenger name" required>
+                        </div>
+                        <div class="single-input">
+                            <label for="phone">Phone Number <span class="req">*</span></label>
+                            <input type="tel" name="phone" id="phone" placeholder="+91 98765 43210" required>
+                        </div>
+                        <div class="single-input">
+                            <label for="email">Email Address</label>
+                            <input type="email" name="email" id="email" placeholder="passenger@email.com">
+                        </div>
+                        <div class="single-input">
+                            <label for="company">Company Name</label>
+                            <input type="text" name="company" id="company" placeholder="Company name (optional)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: special requirements -->
+                <div class="form-block">
+                    <h3 class="block-title"><span class="step">3</span> Special Requirements</h3>
+
+                    <div class="single-input full-width">
+                        <label>Additional Services</label>
+                        <div class="addon-group">
+                            <label class="addon">
+                                <input type="checkbox" name="services[]" value="ac">
+                                <span>Air Conditioning</span>
+                            </label>
+                            <label class="addon">
+                                <input type="checkbox" name="services[]" value="wifi">
+                                <span>WiFi Available</span>
+                            </label>
+                            <label class="addon">
+                                <input type="checkbox" name="services[]" value="water">
+                                <span>Complimentary Water</span>
+                            </label>
+                            <label class="addon">
+                                <input type="checkbox" name="services[]" value="newspaper">
+                                <span>Newspaper</span>
+                            </label>
+                            <label class="addon">
+                                <input type="checkbox" name="services[]" value="child_seat">
+                                <span>Child Seat</span>
+                            </label>
+                            <label class="addon">
+                                <input type="checkbox" name="services[]" value="wheelchair">
+                                <span>Wheelchair Accessible</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="single-input full-width">
+                        <label for="instructions">Special Instructions</label>
+                        <textarea name="instructions" id="instructions" placeholder="Any special instructions for the driver or specific requirements"></textarea>
+                    </div>
+                </div>
+
+                <!-- Step 4: payment -->
+                <div class="form-block">
+                    <h3 class="block-title"><span class="step">4</span> Payment Information</h3>
+
+                    <div class="single-input full-width">
+                        <label>Payment Method <span class="req">*</span></label>
+                        <div class="choice-group">
+                            <label class="choice">
+                                <input type="radio" name="payment_method" value="cash" checked>
+                                <span>Cash Payment</span>
+                            </label>
+                            <label class="choice">
+                                <input type="radio" name="payment_method" value="online">
+                                <span>Online Payment (UPI, Card, Netbanking)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fare estimate + actions -->
+                <div class="fare-result is-hidden" id="fare-result">
+                    <h4 class="fare-title">Fare Estimate</h4>
+                    <ul id="fare-lines"></ul>
+                    <p class="note">This is an estimate based on the details above. Tolls, parking, state permits and
+                        waiting time are charged as actual. Our team confirms the final fare when they call you.</p>
+                </div>
+                <input type="hidden" name="fare_estimate" value="">
+
+                <div class="form-actions">
+                    <button type="button" class="btn-ghost" id="calculate-fare">Calculate Fare</button>
+                    <button type="button" class="btn-ghost" id="reset-form">Reset Form</button>
+                    <button type="submit" class="btn-book">Book Now</button>
+                </div>
+            </form>
         </div>
-    </div>
+    </section>
+    <!-- rts booking area end -->
     <!-- rts cta area start -->
     <section class="rts-cta-area inner-cta">
         <div class="container">
             <div class="cta-inner">
-                <h2 class="title">If you have any questions Please Call.</h2>
+                <div class="cta-content">
+                    <h2 class="title">Ready to Travel?</h2>
+                    <p class="desc">Book your next ride with Baniyan Tree Travels and enjoy a smooth, safe, and comfortable journey.</p>
+                </div>
                 <div class="contact">
-                    <a href="call-to:+16544521505">
-                        <img src="assets/images/cta/call.svg" alt="">
-                        +1-654-452-1505</a>
+                     <a href="contact.html">
+                        <i class="far fa-phone-alt"></i>
+                        Book Now</a>
                 </div>
                 <img class="shape one" src="assets/images/cta/round.svg" alt="">
                 <img class="shape two" src="assets/images/cta/line.svg" alt="">
@@ -440,24 +530,24 @@
                     <div class="footer-wrapper-style-between">
                         <div class="single-wized logo-area">
                             <a href="index.html" class="logo">
-                                <img src="assets/images/logo/footer-logo.svg" width="180" alt="">
+                                <img src="assets/images/logo/logo.png" width="180" alt="">
                             </a>
-                            <p class="desc">Don't miss out on the latest updates, exclusive offers, and insider news. Join
-                                our community and get everything</p>
-                            <form action="#">
+                            <p class="desc">Baniyan Tree Travels provides reliable car rental and travel solutions for
+                                individuals, families, and businesses. We are committed to safe, comfortable, and
+                                affordable travel experiences.</p>
+                            <!--<form action="#">
                                 <input type="email" placeholder="Enter your email" required>
                                 <button type="submit">Subscribe</button>
-                            </form>
+                            </form>-->
                         </div>
                         <div class="single-wized">
-                            <h3 class="title">Useful Links</h3>
+                            <h3 class="title">Quick Links</h3>
                             <div class="body">
                                 <ul class="nav-bottom">
+                                    <li><a href="index.html">Home</a></li>
                                     <li><a href="about.html">About Us</a></li>
-                                    <li><a href="driver.html">Driver</a></li>
-                                    <li><a href="pricing.html">Pricing</a></li>
-                                    <li><a href="compare.html">Compare</a></li>
-                                    <li><a href="shop.html">Shop</a></li>
+                                    <li><a href="service.html">Services</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -473,7 +563,8 @@
                                         </div>
                                         <div class="text">
                                             <p>Call Us Now</p>
-                                            <a href="tel:12505550199">+12505550199</a>
+                                            <a href="tel:+919876543210">+91 98765 43210</a>
+                                              <a href="tel:+918765432109">+91 87654 32109</a>
                                         </div>
                                     </li>
                                     <li class="map-area">
@@ -484,7 +575,8 @@
                                         </div>
                                         <div class="text">
                                             <p>Send US Email</p>
-                                            <a href="mailto:gorental@gmail.com">GoRental@gmail.com</a>
+                                            <a href="mailto:info@baniyantravels.com">info@baniyantravels.com</a>
+                                             <a href="mailto:support@baniyantravels.com">support@baniyantravels.com</a>
                                         </div>
                                     </li>
                                     <li class="map-area">
@@ -495,7 +587,8 @@
                                         </div>
                                         <div class="text">
                                             <p>Our Location</p>
-                                            <a href="#">M5T 2L9 Toronto, Canada</a>
+                                            <a href="https://www.google.com/maps/search/?api=1&amp;query=123%20Business%20District%2C%20Corporate%20Plaza%2C%205th%20Floor%2C%20Mumbai%20400001%2C%20Maharashtra" target="_blank" rel="noopener">123 Business District,
+Corporate Plaza, Mumbai - 400001</a>
                                         </div>
                                     </li>
                                     <li class="map-area">
@@ -506,7 +599,7 @@
                                         </div>
                                         <div class="text">
                                             <p>Working Hours</p>
-                                            <a href="#">Monday - Friday: 10 am - 8 pm</a>
+                                            <a href="#">Open 24/7, All Days</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -521,14 +614,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="copyright-area-inner">
-                            <p>Copyright ©
-                                <script>
-                                    document.write(
-                                        new Date().getFullYear()
-                                    )
-                                </script>
-                                All Rights Reserved by GoRental
-                            </p>
+                            <p>Developed By <a href="https://blackitechs.com/" class="dev-credit" target="_blank" rel="noopener noreferrer">Black I Technologies and Solutions</a></p>
                             <ul class="footer-social">
                                 <li>
                                     <a href="#">
@@ -596,52 +682,10 @@
         <div class="mobile-menu-main">
             <nav class="nav-main mainmenu-nav mt--30">
                 <ul class="mainmenu metismenu" id="mobile-menu-active">
-                    <li class="has-droupdown">
-                        <a href="#" class="main">Home</a>
-                        <ul class="submenu mm-collapse">
-                            <li><a class="mobile-menu-link" href="index.html">Home One</a></li>
-                            <li><a class="mobile-menu-link" href="index-two.html">Home Two</a></li>
-                            <li><a class="mobile-menu-link" href="index-three.html">Home Three</a></li>
-                            <li><a class="mobile-menu-link" href="index-four.html">Home Dark</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="about.html" class="main">About</a></li>
-                    <li class="has-droupdown">
-                        <a href="#" class="main">Listing</a>
-                        <ul class="submenu mm-collapse">
-                            <li><a class="mobile-menu-link" href="fleet.html">Fleet One</a></li>
-                            <li><a class="mobile-menu-link" href="fleet-two.html">Fleet Two</a></li>
-                            <li><a class="mobile-menu-link" href="fleet-three.html">Fleet Three</a></li>
-                            <li><a class="mobile-menu-link" href="fleet-single-one.html">Fleet Single</a></li>
-                            <li><a class="mobile-menu-link" href="fleet-single-two.html">Fleet Single Two</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-droupdown">
-                        <a href="#" class="main">Pages</a>
-                        <ul class="submenu mm-collapse">
-                            <li><a href="pricing.html">Pricing</a></li>
-                            <li><a href="service.html">Service</a></li>
-                            <li><a href="driver.html">Driver</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="blog-two.html">Blog Two</a></li>
-                            <li><a href="blog-details.html">Blog Single</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
-                            <li><a href="calculator.html">Calculator</a></li>
-                            <li><a href="gallery.html">Gallery</a></li>
-                            <li><a href="account.html">Account</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-droupdown">
-                        <a href="#" class="main">Shop</a>
-                        <ul class="submenu mm-collapse">
-                            <li><a class="mobile-menu-link" href="shop.html">Shop</a></li>
-                            <li><a class="mobile-menu-link" href="shop-two.html">Shop Two</a></li>
-                            <li><a class="mobile-menu-link" href="shop-three.html">Shop Three</a></li>
-                            <li><a class="mobile-menu-link" href="shop-details.html">Shop Single</a></li>
-                            <li><a class="mobile-menu-link" href="cart.html">Cart</a></li>
-                            <li><a class="mobile-menu-link" href="checkout.html">Checkout</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="index.html" class="main">Home</a></li>
+                    <li><a href="about.html" class="main">About Us</a></li>
+                    <li><a href="service.html" class="main">Services</a></li>
+                    <li><a href="book-now.html" class="main">Book Now</a></li>
                     <li><a href="contact.html" class="main">Contact</a></li>
                 </ul>
             </nav>
@@ -692,6 +736,12 @@
     <script src="assets/js/vendor/waypoint.js"></script>
     <!-- main js here -->
     <script src="assets/js/main.js"></script>
+    <!-- Razorpay Checkout - opens the payment window for Card and UPI.
+         Loaded from Razorpay's CDN as they require; it must not be
+         self-hosted or the payment window will stop working when they
+         update it. -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="assets/js/booking.js"></script>
 
 
-</body>
+</body></html>
