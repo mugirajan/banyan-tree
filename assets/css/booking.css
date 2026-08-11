@@ -1,0 +1,437 @@
+/* ==========================================================================
+   booking.css - Baniyan Tree Travels
+   Book-Now-page-only styles. Loaded after style.css in book-now.html.
+   Site-wide rules stay in style.css.
+   ========================================================================== */
+
+/* ==== Page intro above the form ==== */
+.rts-booking-area .booking-intro {
+  max-width: 720px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
+
+.rts-booking-area .booking-intro .desc {
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+/* ==== Form shell ====
+   One white card per step, so a long form reads as four short ones. */
+.booking-form {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.booking-form .form-block {
+  background: var(--color-white);
+  border: 1px solid rgba(85, 85, 85, 0.15);
+  border-radius: var(--radius);
+  padding: 32px 30px;
+  margin-bottom: 26px;
+}
+
+.booking-form .form-block > .block-title {
+  font-size: 22px;
+  line-height: 1.3;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(85, 85, 85, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Small numbered badge in front of each step heading. */
+.booking-form .form-block > .block-title .step {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==== Field grid ====
+   Two columns on desktop; .full-width spans both. */
+.booking-form .field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 22px;
+}
+
+.booking-form .field-grid .single-input.full-width {
+  grid-column: 1 / -1;
+}
+
+.booking-form .single-input {
+  margin-bottom: 22px;
+}
+
+.booking-form .single-input label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: var(--f-medium);
+  color: var(--color-heading);
+  font-size: 15px;
+}
+
+.booking-form .single-input label .req {
+  color: var(--color-primary);
+}
+
+.booking-form .single-input .hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--color-body);
+}
+
+/* One identical box for input, textarea and select. */
+.booking-form .single-input input,
+.booking-form .single-input textarea,
+.booking-form .single-input select {
+  width: 100%;
+  border: 1px solid rgba(85, 85, 85, 0.15);
+  border-radius: 6px;
+  padding: 12px 20px;
+  background-color: var(--color-white);
+  color: var(--color-body);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.6;
+}
+
+.booking-form .single-input textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.booking-form .single-input input:focus,
+.booking-form .single-input textarea:focus,
+.booking-form .single-input select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* ==== Vehicle dropdown ====
+   main.js runs $('select').niceSelect() on EVERY select on the site,
+   so the real <select> is hidden and a .nice-select div renders in
+   its place. Styling `select` alone would have no visible effect -
+   these rules rebuild the widget to match the text inputs. The
+   `select` rules above stay as a no-JS fallback. */
+.booking-form .single-input .nice-select {
+  float: none;
+  width: 100%;
+  height: auto;
+  line-height: 1.6;
+  padding: 12px 44px 12px 20px;
+  background-color: var(--color-white);
+  border: 1px solid rgba(85, 85, 85, 0.15);
+  border-radius: 6px;
+  color: var(--color-body);
+  font-size: inherit;
+}
+
+.booking-form .single-input .nice-select::after {
+  right: 20px;
+  border-bottom-color: #555555;
+  border-right-color: #555555;
+}
+
+.booking-form .single-input .nice-select .current {
+  display: block;
+  line-height: 1.6;
+}
+
+/* The open list is absolutely positioned; lift the field holding it
+   above its siblings so later fields do not paint over the options. */
+.booking-form .single-input.has-select {
+  position: relative;
+  z-index: 5;
+}
+
+.booking-form .single-input .nice-select .list {
+  z-index: 10;
+  width: 100%;
+}
+
+/* ==== Choice cards (radio) ====
+   Radios are hidden and the label is the clickable card, so the
+   options read as buttons instead of small dots. */
+.booking-form .choice-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.booking-form .choice-group .choice {
+  position: relative;
+  flex: 1 1 190px;
+}
+
+.booking-form .choice-group .choice input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.booking-form .choice-group .choice span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  padding: 14px 18px;
+  border: 1px solid rgba(85, 85, 85, 0.18);
+  border-radius: 8px;
+  background: var(--color-white);
+  color: var(--color-body);
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+/* The ring is drawn with box-shadow so the card does not resize
+   when a thicker border would otherwise kick in on selection. */
+.booking-form .choice-group .choice span::before {
+  content: "";
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(85, 85, 85, 0.35);
+  transition: 0.25s;
+}
+
+.booking-form .choice-group .choice input:checked + span {
+  border-color: var(--color-primary);
+  box-shadow: inset 0 0 0 1px var(--color-primary);
+  color: var(--color-heading);
+}
+
+.booking-form .choice-group .choice input:checked + span::before {
+  border-color: var(--color-primary);
+  border-width: 5px;
+}
+
+.booking-form .choice-group .choice input:focus-visible + span {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ==== Add-on checkboxes ====
+   Same card treatment, square marker, three per row on desktop. */
+.booking-form .addon-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.booking-form .addon-group .addon {
+  position: relative;
+}
+
+.booking-form .addon-group .addon input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.booking-form .addon-group .addon span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  padding: 13px 16px;
+  border: 1px solid rgba(85, 85, 85, 0.18);
+  border-radius: 8px;
+  background: var(--color-white);
+  color: var(--color-body);
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.booking-form .addon-group .addon span::before {
+  content: "";
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(85, 85, 85, 0.35);
+  transition: 0.25s;
+}
+
+.booking-form .addon-group .addon input:checked + span {
+  border-color: var(--color-primary);
+  box-shadow: inset 0 0 0 1px var(--color-primary);
+  color: var(--color-heading);
+}
+
+.booking-form .addon-group .addon input:checked + span::before {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.booking-form .addon-group .addon input:focus-visible + span {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ==== Conditional rows ====
+   The schedule date/time and the distance/hours fields only apply to
+   some choices, so JS toggles .is-hidden instead of leaving dead
+   inputs on screen. */
+.booking-form .is-hidden {
+  display: none;
+}
+
+/* ==== Fare estimate panel ==== */
+.booking-form .fare-result {
+  margin-top: 4px;
+  margin-bottom: 26px;
+  padding: 24px 26px;
+  border-radius: var(--radius);
+  background: var(--color-gray);
+  border-left: 4px solid var(--color-primary);
+}
+
+.booking-form .fare-result .fare-title {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.booking-form .fare-result ul {
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.booking-form .fare-result ul li {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 7px 0;
+  border-bottom: 1px dashed rgba(85, 85, 85, 0.18);
+  font-size: 15px;
+}
+
+.booking-form .fare-result ul li.total {
+  border-bottom: 0;
+  padding-top: 12px;
+  font-size: 18px;
+  font-weight: var(--f-medium);
+  color: var(--color-heading);
+}
+
+.booking-form .fare-result .note {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ==== Actions ==== */
+.booking-form .form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.booking-form .form-actions .btn-book {
+  min-width: 220px;
+  padding: 16px 40px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--color-green);
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: var(--f-medium);
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.booking-form .form-actions .btn-book:hover {
+  background: var(--color-primary);
+}
+
+.booking-form .form-actions .btn-book:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.booking-form .form-actions .btn-ghost {
+  padding: 15px 30px;
+  border: 1px solid rgba(85, 85, 85, 0.25);
+  border-radius: 6px;
+  background: var(--color-white);
+  color: var(--color-heading);
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.booking-form .form-actions .btn-ghost:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ==== Submit result message ====
+   Hidden until the JS fills it in, so it takes up no room otherwise. */
+#booking-messages {
+  display: none;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  border-radius: 6px;
+  border-left: 4px solid transparent;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+#booking-messages.success {
+  background: #eaf5e6;
+  border-left-color: #2e7d32;
+  color: #1f5c23;
+}
+
+#booking-messages.error {
+  background: #fdecea;
+  border-left-color: #c62828;
+  color: #8e1f1a;
+}
+
+/* ==== Responsive ==== */
+@media only screen and (max-width: 991px) {
+  .booking-form .addon-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .booking-form .form-block {
+    padding: 24px 18px;
+  }
+
+  .booking-form .field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-form .addon-group {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-form .choice-group .choice {
+    flex: 1 1 100%;
+  }
+
+  .booking-form .form-actions .btn-book,
+  .booking-form .form-actions .btn-ghost {
+    width: 100%;
+  }
+}
