@@ -234,3 +234,65 @@
   }
 }
 
+
+/* ==========================================================================
+   5. BLOG CHECKLISTS - SINGLE COLUMN ON PHONES
+   --------------------------------------------------------------------------
+   The .feature-list checklists inside blog posts were rendering two
+   items per row. At phone width each item wraps to three or four
+   lines, so the two columns ended up ragged - neighbouring items
+   started at different heights and the check icons never lined up.
+
+   These rules set the layout explicitly rather than relying on the
+   inherited one: display: block on the list and width: 100% on the
+   items override a flex, grid or percentage-width rule alike, so the
+   result is one item per row whichever of those is in play.
+   ========================================================================== */
+
+@media only screen and (max-width: 767px) {
+  .portfolio-details-area .feature-list {
+    display: block;
+    margin: 0;
+  }
+
+  .portfolio-details-area .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 14px;
+  }
+
+  /* The icon carries line-height: 1 while the text runs at 1.55, so
+     it sits high against the first line without a nudge. */
+  .portfolio-details-area .feature-list li i {
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+}
+
+/* ==========================================================================
+   6. BLOG SIDEBAR - GAP UNDER THE ARTICLE
+   --------------------------------------------------------------------------
+   Once the two columns stack, the space between the end of the article
+   and the first sidebar box was three separate spacings added together:
+
+     40px  the share block's own mb--40
+     48px  the row's vertical gutter (g-5)
+     45px  a margin-top on .right-side-bar (35px at 575px and below)
+
+   That is ~130px of gap for what should read as a single break. The
+   sidebar's own margin is the redundant one - the row gutter already
+   separates stacked columns - so it goes, and the gutter comes down
+   to leave one clear gap.
+   ========================================================================== */
+
+@media only screen and (max-width: 991px) {
+  .rts-blog-area.inner > .container > .row {
+    --bs-gutter-y: 30px;
+  }
+
+  .right-side-bar {
+    margin-top: 0;
+  }
+}
