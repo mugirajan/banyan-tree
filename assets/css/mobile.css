@@ -176,3 +176,38 @@
     padding: 45px 0 30px;
   }
 }
+
+/* ==========================================================================
+   4. TRAVEL TIPS SECTION - TABLET ALIGNMENT
+   --------------------------------------------------------------------------
+   In tablet view (576px - 991px), left-align the three photos in the Travel
+   Tips section under the heading paragraph. All three blog cards use a
+   flex-row layout so photos sit left-aligned next to their titles.
+   ========================================================================== */
+
+@media only screen and (min-width: 576px) and (max-width: 991px) {
+  .rts-blog-wrapper .single-blog,
+  .rts-blog-wrapper .single-blog-sm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    padding: 20px;
+  }
+
+  .rts-blog-wrapper .single-blog .image-area,
+  .rts-blog-wrapper .single-blog-sm .image-area {
+    width: 220px;
+    flex: 0 0 220px;
+    max-width: 220px;
+    height: 160px;
+  }
+
+  .rts-blog-wrapper .single-blog .content,
+  .rts-blog-wrapper .single-blog-sm .content {
+    margin-top: 0;
+    flex: 1;
+    text-align: left;
+  }
+}
+
