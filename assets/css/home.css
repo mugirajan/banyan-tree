@@ -218,10 +218,18 @@
    the page's normal rhythm. Tweak --why-choose-pt to add space back. */
 :root {
   --why-choose-pt: 0px;
+  --why-choose-pb: 150px;
 }
 
 .rts-why-choose-area {
   padding-top: var(--why-choose-pt);
+  padding-bottom: var(--why-choose-pb);
+}
+
+@media only screen and (max-width: 767px) {
+  :root {
+    --why-choose-pb: 90px;
+  }
 }
 
 /* ==== How It Works: taller images ====
@@ -342,3 +350,10 @@
     --about-img-h: 380px;
   }
 }
+
+/* ==== Travel Tips arrow button: disable hover background color change ==== */
+.rts-blog-wrapper .single-blog .image-area .inner .link-icon:hover,
+.rts-blog-wrapper .single-blog-sm .image-area .inner .link-icon:hover {
+  background: var(--color-primary);
+}
+

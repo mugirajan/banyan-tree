@@ -18940,7 +18940,7 @@ li.has-dropdown:hover .submenu {
   box-shadow: 16px 0 0 0 var(--color-white);
 }
 .rts-blog-wrapper .single-blog .image-area .inner .link-icon:hover {
-  background: var(--color-heading);
+  background: var(--color-primary);
 }
 .rts-blog-wrapper .single-blog .content {
   margin-top: 40px;
@@ -19020,7 +19020,7 @@ li.has-dropdown:hover .submenu {
   box-shadow: 16px 0 0 0 var(--color-white);
 }
 .rts-blog-wrapper .single-blog-sm .image-area .inner .link-icon:hover {
-  background: var(--color-heading);
+  background: var(--color-primary);
 }
 .rts-blog-wrapper .single-blog-sm .content {
   flex-basis: 50%;
@@ -19095,7 +19095,7 @@ li.has-dropdown:hover .submenu {
   box-shadow: 16px 0 0 0 var(--color-white);
 }
 .rts-blog-wrapper .single-blog-two .image-area .inner .link-icon:hover {
-  background: var(--color-heading);
+  background: var(--color-primary);
 }
 .rts-blog-wrapper .single-blog-two .content {
   margin-top: 40px;
@@ -20304,7 +20304,7 @@ li.has-dropdown:hover .submenu {
   z-index: -1;
 }
 .rts-breadcrumb-area .breadcrumb-area-wrapper {
-  padding: 350px 0 175px;
+  padding: 130px 0 85px;
   height: auto;
   display: flex;
   align-items: center;
@@ -22987,7 +22987,7 @@ li.has-dropdown:hover .submenu {
   }
 
   .rts-breadcrumb-area .breadcrumb-area-wrapper {
-    padding: 120px 0 60px;
+    padding: 110px 0 60px;
   }
 
   .rts-banner-wrapper-area .banner-right-form-area .nav {
@@ -23274,7 +23274,7 @@ li.has-dropdown:hover .submenu {
     max-width: 100%;
   }
   .rts-breadcrumb-area .breadcrumb-area-wrapper {
-    padding: 90px 0 45px;
+    padding: 85px 0 45px;
   }
 
   .copyright-area .copyright-area-inner {
@@ -23487,7 +23487,7 @@ li.has-dropdown:hover .submenu {
   }
 
   .rts-breadcrumb-area .breadcrumb-area-wrapper {
-    padding: 180px 0 150px;
+    padding: 75px 0 40px;
   }
 
   .banner-two .rts-banner-content-area .banner-content-area .banner-title {
@@ -24701,3 +24701,310 @@ footer .logo img {
 .about-main-heading span {
     white-space: nowrap !important;
 }
+
+/* ==========================================================================
+   Blog Details & Sidebar Responsive (768px & 480px)
+   ========================================================================== */
+
+/* Breadcrumb / Title Area on Blog Detail Pages */
+.rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper {
+  padding: 100px 0 80px;
+}
+
+.rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper .title {
+  font-size: 36px;
+  line-height: 1.25;
+  color: var(--color-white);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper .author-area ul {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper .author-area ul li {
+  font-size: 14px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* Feature Checklist in Blog Posts */
+.portfolio-details-area .feature-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.portfolio-details-area .feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 16px;
+  line-height: 1.55;
+  margin-bottom: 12px;
+  color: var(--color-heading);
+}
+
+.portfolio-details-area .feature-list li i {
+  color: var(--color-primary);
+  font-size: 18px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* Quote Box in Blog Posts */
+.portfolio-details-area .quote-area {
+  background: var(--color-gray);
+  border-left: 4px solid var(--color-primary);
+  padding: 25px 30px;
+  border-radius: 8px;
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--color-heading);
+  position: relative;
+}
+
+.portfolio-details-area .quote-area img {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Share & Tags */
+.portfolio-details-area .share-link {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.portfolio-details-area .share-link h2 {
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+.portfolio-details-area .share-link ul {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.portfolio-details-area .tag-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.portfolio-details-area .tag-area li {
+  background: var(--color-gray);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13.5px;
+  color: var(--color-body);
+}
+
+/* Sidebar Styles */
+.right-side-bar .side-box {
+  background: var(--color-gray);
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(85, 85, 85, 0.1);
+}
+
+.right-side-bar .side-box h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.right-side-bar .recent-post .blog-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.right-side-bar .recent-post .blog-list li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.right-side-bar .recent-post .blog-list li:last-child {
+  margin-bottom: 0;
+}
+
+.right-side-bar .recent-post .blog-list li .image-area {
+  flex-shrink: 0;
+  width: 80px;
+  height: 75px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.right-side-bar .recent-post .blog-list li .image-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.right-side-bar .recent-post .blog-list li .content h3 {
+  font-size: 14.5px;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.right-side-bar .recent-post .blog-list li .content .blog-meta {
+  font-size: 12.5px;
+  color: #777;
+  margin-bottom: 0;
+}
+
+.right-side-bar .tag-area ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.right-side-bar .tag-area ul li {
+  background: var(--color-white);
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 13px;
+  border: 1px solid #e2e2e2;
+}
+
+/* --------------------------------------------------------------------------
+   Tablet View (768px Breakpoint: 768px to 991px)
+   -------------------------------------------------------------------------- */
+@media only screen and (max-width: 991px) {
+  .rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper {
+    padding: 80px 0 60px;
+  }
+
+  .rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper .title {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  .portfolio-details-area h2 {
+    font-size: 22px;
+    line-height: 1.35;
+    margin-bottom: 18px;
+  }
+
+  .portfolio-details-area p {
+    font-size: 15.5px;
+    line-height: 1.65;
+  }
+
+  .portfolio-details-area .image img {
+    border-radius: 10px;
+    max-height: 380px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .col-lg-4 .sticky-top {
+    position: static !important;
+    top: auto;
+  }
+
+  .right-side-bar {
+    margin-top: 45px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile View (480px Breakpoint: 575px and down / 480px screens)
+   -------------------------------------------------------------------------- */
+@media only screen and (max-width: 575px) {
+  .rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper {
+    padding: 60px 15px 45px;
+  }
+
+  .rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper .title {
+    font-size: 21px;
+    line-height: 1.35;
+  }
+
+  .rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper .author-area ul {
+    gap: 4px;
+  }
+
+  .rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper .author-area ul li {
+    font-size: 12.5px;
+  }
+
+  .portfolio-details-area {
+    padding: 0 5px;
+  }
+
+  .portfolio-details-area .image img {
+    border-radius: 8px;
+    max-height: 240px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .portfolio-details-area h2 {
+    font-size: 19px;
+    line-height: 1.35;
+    margin-bottom: 14px;
+  }
+
+  .portfolio-details-area p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .portfolio-details-area .feature-list li {
+    font-size: 14px;
+    gap: 10px;
+  }
+
+  .portfolio-details-area .quote-area {
+    padding: 18px 20px;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+
+  .portfolio-details-area .share-link {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .right-side-bar {
+    margin-top: 35px;
+  }
+
+  .right-side-bar .side-box {
+    padding: 20px 16px;
+    margin-bottom: 20px;
+  }
+
+  .right-side-bar .recent-post .blog-list li .image-area {
+    width: 70px;
+    height: 65px;
+  }
+
+  .right-side-bar .recent-post .blog-list li .content h3 {
+    font-size: 13.5px;
+    line-height: 1.3;
+  }
+}
