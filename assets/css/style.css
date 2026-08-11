@@ -24643,6 +24643,7 @@ footer .logo img {
   .rts-credentials-area .credential .badge-icon i {
     font-size: 19px;
   }
+
 }
 
 /* ==== Footer "Contact Us" block ====
@@ -25107,7 +25108,7 @@ footer .logo img {
   .rts-cta-area .cta-inner .contact,
   .rts-cta-area .cta-inner .contact a,
   .inner-cta .contact {
-    margin-top: 25px !important;
+    margin-top: 15px !important;
     display: inline-flex !important;
     justify-content: center !important;
     align-self: center !important;
@@ -25247,4 +25248,4 @@ footer .logo img {
 
 
 
-
+

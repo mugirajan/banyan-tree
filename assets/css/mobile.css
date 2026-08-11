@@ -1,0 +1,178 @@
+/* ==========================================================================
+   mobile.css - Baniyan Tree Travels
+   Mobile and tablet only (<=991px). Loaded last, so it wins over
+   style.css. Desktop is untouched by everything in this file.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CTA SECTION - EQUAL SPACE ABOVE AND BELOW
+   --------------------------------------------------------------------------
+   On desktop the green CTA box deliberately overlaps the footer:
+   .inner-cta pulls it down 150px and .footer-inner leaves 130px of
+   top padding to catch it. That trick does not survive a narrow
+   screen - the box ended up tight against the footer, with a full
+   section gap still sitting above it, so the block looked pushed down.
+
+   Below 992px the overlap is dropped. The space above the box is the
+   previous section's bottom padding (.rts-section-gap: 80 / 60 / 40px
+   by breakpoint), so the footer's top padding is set to the SAME
+   number at each breakpoint. Equal gap above and below, and it stays
+   in step with the section rhythm used everywhere else.
+   ========================================================================== */
+
+@media only screen and (max-width: 991px) {
+  .rts-cta-area.inner-cta {
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .footer-inner {
+    padding-top: 80px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .footer-inner {
+    padding-top: 60px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .footer-inner {
+    padding-top: 40px;
+  }
+}
+
+/* ==========================================================================
+   2. CENTRED HEADINGS
+   --------------------------------------------------------------------------
+   Headings centre up on mobile and tablet; body copy, lists and form
+   fields keep their own alignment, so only the headings move.
+   ========================================================================== */
+
+@media only screen and (max-width: 991px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .rts-section-title .subtitle,
+  .booking-intro,
+  .rts-section-title {
+    text-align: center;
+  }
+
+  /* Exceptions - places where a centred heading fights the content
+     underneath it or the control it belongs to:
+
+     - footer widget titles sit over left-aligned link lists
+     - blog sidebar box titles sit over left-aligned lists
+     - FAQ questions are buttons with a +/- marker on the right
+     - form step titles carry a numbered badge on their left
+     - the fare estimate heading sits over a left/right price table  */
+  .rts-footer-area h1,
+  .rts-footer-area h2,
+  .rts-footer-area h3,
+  .rts-footer-area h4,
+  .rts-footer-area h5,
+  .rts-footer-area h6,
+  .right-side-bar h1,
+  .right-side-bar h2,
+  .right-side-bar h3,
+  .right-side-bar h4,
+  .right-side-bar h5,
+  .right-side-bar h6,
+  .accordion-button,
+  .accordion-header h3,
+  .booking-form .form-block > .block-title,
+  .booking-form .fare-result .fare-title,
+  .about-item-wrapper .single-item .content .title,
+  .single-car-list-item .content .title,
+  .rts-blog-wrapper .single-blog .content .title,
+  .rts-blog-wrapper .single-blog-sm .content .title,
+  .rts-drives-area .drives-list li .text .title {
+    text-align: left;
+  }
+
+  /* How It Works cards centre their step title over the photo. The
+     .content box is absolutely positioned at left: 40px and shrinks
+     to fit, so centring the text inside it would not move anything -
+     the box has to span the card first. */
+  .rts-process-item-wrapper .single-process-item .content {
+    left: 0;
+    right: 0;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  /* Note: .why-choose-item and .single-category-item are NOT in the
+     list above - those cards set text-align: center on the card
+     itself, so their headings are meant to be centred. */
+
+  /* .rts-section-title-area is a flex row - section title on the
+     left, filter buttons on the right. Its title is a shrink-to-fit
+     flex item, so `text-align: center` only centred the text inside
+     that narrow box while the box itself stayed hard left. Giving
+     the title full width lets the centring actually show. */
+  .rts-section-title-area {
+    justify-content: center;
+  }
+
+  .rts-section-title-area .rts-section-title {
+    width: 100%;
+  }
+
+  /* The hero banner keeps its left alignment on mobile and tablet.
+     It sits over a photo with the booking form beneath it, and a
+     centred headline there reads as a floating caption rather than
+     the start of the page. The h1 and h2 are caught by the rule
+     above, so they have to be excluded explicitly. */
+  .banner-slider-one .banner-left-content-area,
+  .banner-slider-one .banner-left-content-area .banner-title,
+  .banner-slider-one .banner-left-content-area .banner-subtitle,
+  .banner-slider-one .banner-left-content-area .banner-desc {
+    text-align: left;
+  }
+
+  .banner-slider-one .banner-left-content-area .banner-btn-area {
+    justify-content: flex-start;
+  }
+
+  /* .about-main-heading is pinned to width: 700px !important, which
+     is wider than a phone screen - so the heading overflowed to the
+     right and the centring above had no visible effect. Releasing
+     the width lets it wrap and actually centre. */
+  .about-main-heading {
+    width: auto !important;
+    max-width: 100% !important;
+  }
+
+  .about-main-heading span {
+    white-space: normal !important;
+  }
+}
+
+/* ==========================================================================
+   3. SECTION SPACING
+   --------------------------------------------------------------------------
+   A few blocks keep desktop-sized padding on small screens, which
+   leaves large empty gaps once the content stacks.
+   ========================================================================== */
+
+@media only screen and (max-width: 991px) {
+  /* The counter strip's own padding is 110px top and bottom and is
+     not touched by the template's responsive rules (they override
+     only gap and card padding). With the section below it starting
+     flush, that 110px was the whole gap under the last counter. */
+  .rts-counter-area-two .counter-inner {
+    padding: 60px 0 40px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .rts-counter-area-two .counter-inner {
+    padding: 45px 0 30px;
+  }
+}
