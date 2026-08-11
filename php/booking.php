@@ -39,7 +39,7 @@ const SMTP_PASS = 'Contact@bits#737';
 
 // The mailbox that receives bookings. TODO: change to the client's
 // real inbox before going live.
-const MAIL_TO      = 'info@baniyantravels.com';
+const MAIL_TO      = 'rojalak21@gmail.com';
 const MAIL_TO_NAME = 'Baniyan Tree Travels';
 
 // Must be an address on the authenticated domain, or the SMTP server
@@ -216,40 +216,69 @@ $trip_size = $trip_type === 'hourly'
     : ($distance_km !== '' ? $distance_km . ' km (approx.)' : '-');
 
 /* ---------------------------------------------------------------
+ * THE BOOKING, IN ONE PLACE
+ * ------------------------------------------------------------- */
+$booking = array(
+    'Booking type'     => $service_type_label,
+    'Pick-up when'     => $when,
+    'Pick-up location' => $pickup,
+    'Drop location'    => $drop,
+    'Vehicle'          => $vehicle_label,
+    'Passengers'       => $passengers !== '' ? $passengers : '-',
+    'Trip type'        => $trip_type_label,
+    'Distance / hours' => $trip_size,
+    'Fare estimate'    => $fare_estimate !== '' ? $fare_estimate : 'Not calculated',
+    'Passenger name'   => $name,
+    'Phone'            => $phone,
+    'Email'            => $email !== '' ? $email : '-',
+    'Company'          => $company !== '' ? $company : '-',
+    'Extras'           => $addons_text,
+    'Instructions'     => $instructions !== '' ? $instructions : '-',
+    'Payment method'   => $payment_label,
+    'Payment status'   => $payment_status,
+    'Razorpay order'   => $rzp_order_id !== '' ? $rzp_order_id : '-',
+);
+
+/* ---------------------------------------------------------------
+ * WRITE IT DOWN FIRST
+ * ---------------------------------------------------------------
+ * The booking is appended to the log BEFORE the email is attempted,
+ * so a confirmed booking is never lost when SMTP is slow, blocked or
+ * misconfigured - which matters most for a paid booking, where the
+ * money has already moved.
+ *
+ * On a live server move this file outside the web root (or block it
+ * in .htaccess): it holds customer names and phone numbers.
+ * ------------------------------------------------------------- */
+$log_file = __DIR__ . '/../booking-submissions.log';
+
+$log_line = '[' . date('Y-m-d H:i:s') . '] BOOKING' . PHP_EOL;
+foreach ($booking as $blabel => $bvalue) {
+    $log_line .= '    ' . str_pad($blabel . ':', 20) . str_replace(array("\r", "\n"), ' ', $bvalue) . PHP_EOL;
+}
+$log_line .= PHP_EOL;
+
+$logged = @file_put_contents($log_file, $log_line, FILE_APPEND | LOCK_EX) !== false;
+
+if (!$logged) {
+    error_log('Booking log write failed: ' . $log_file);
+}
+
+/* ---------------------------------------------------------------
  * SEND
  * ------------------------------------------------------------- */
 $e = function ($v) {
     return htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
 };
 
-$rows = array(
-    'Booking type'     => $e($service_type_label),
-    'Pick-up when'     => $e($when),
-    'Pick-up location' => $e($pickup),
-    'Drop location'    => $e($drop),
-    'Vehicle'          => $e($vehicle_label),
-    'Passengers'       => $e($passengers !== '' ? $passengers : '-'),
-    'Trip type'        => $e($trip_type_label),
-    'Distance / hours' => $e($trip_size),
-    'Fare estimate'    => $e($fare_estimate !== '' ? $fare_estimate : 'Not calculated'),
-    'Passenger name'   => $e($name),
-    'Phone'            => $e($phone),
-    'Email'            => $e($email !== '' ? $email : '-'),
-    'Company'          => $e($company !== '' ? $company : '-'),
-    'Extras'           => $e($addons_text),
-    'Instructions'     => $instructions !== '' ? nl2br($e($instructions)) : '-',
-    'Payment method'   => $e($payment_label),
-    'Payment status'   => $e($payment_status),
-    'Razorpay order'   => $e($rzp_order_id !== '' ? $rzp_order_id : '-'),
-);
-
 $rows_html = '';
 $i = 0;
-foreach ($rows as $rlabel => $value) {
+foreach ($booking as $rlabel => $value) {
     $bg = ($i % 2 === 0) ? '#fafafa' : '#ffffff';
+    $shown = $rlabel === 'Instructions' ? nl2br($e($value)) : $e($value);
     $rows_html .= '<tr style="background:' . $bg . ';">'
         . '<td width="30%" style="font-weight:bold;color:#050B20;border-bottom:1px solid #ececec;vertical-align:top;">' . $rlabel . '</td>'
-        . '<td style="border-bottom:1px solid #ececec;color:#555555;line-height:26px;">' . $value . '</td>'
+        . '<td style="border-bottom:1px solid #ececec;color:#555555;line-height:26px;">' . $shown . '</td>'
         . '</tr>';
     $i++;
 }
@@ -344,8 +373,8 @@ This email was generated automatically from the website booking form.
 </html>';
 
     $alt = "New booking from the Baniyan Tree Travels website\n\n";
-    foreach ($rows as $rlabel => $value) {
-        $alt .= str_pad($rlabel . ':', 20) . html_entity_decode(strip_tags(str_replace('<br />', ' ', $value)), ENT_QUOTES, 'UTF-8') . "\n";
+    foreach ($booking as $rlabel => $value) {
+        $alt .= str_pad($rlabel . ':', 20) . $value . "\n";
     }
 
     $mail->AltBody = $alt;
@@ -358,9 +387,19 @@ This email was generated automatically from the website booking form.
         : 'Thank you! Your booking request has been received. Our team will call you shortly to confirm the car and the fare.');
 
 } catch (Exception $ex) {
-    // Log the real reason; show the visitor something useful instead.
+    // Log the real reason; the visitor gets something useful instead.
     error_log('Booking form SMTP failure: ' . $mail->ErrorInfo);
 
+    // The booking itself is already written to booking-submissions.log,
+    // so the notification failed - not the booking. Telling the
+    // customer to start again would create a duplicate, and for a paid
+    // booking it would be plainly wrong: the money is already taken.
+    if ($logged) {
+        reply('success', 'Thank you! Your booking has been saved and our team will call you to confirm. '
+            . 'If you do not hear from us within 30 minutes, please call +91 98765 43210.');
+    }
+
+    // Nothing was saved and nothing was sent - this one really did fail.
     http_response_code(500);
-    reply('error', 'Sorry, we could not send your booking just now. Please call us on +91 98765 43210 or email info@baniyantravels.com.');
+    reply('error', 'Sorry, we could not record your booking just now. Please call us on +91 98765 43210 or email info@baniyantravels.com.');
 }

@@ -1,0 +1,122 @@
+/* ==========================================================================
+   icons.css - Baniyan Tree Travels
+   One size and one weight for every icon on the site. Loaded after
+   style.css on every page, so it wins over the template defaults.
+
+   Two problems this fixes:
+
+   1. WEIGHT - the template mixed fa-light (300), fa-regular (400),
+      fa-solid (900) and fa-sharp. The markup is now all fa-regular,
+      and the rule below re-weights anything that is missed, including
+      icons injected by plugins. Brand marks (fa-brands) are excluded:
+      they only exist in one weight and would disappear.
+
+   2. SIZE - the inline SVG icons were exported at their natural sizes
+      (17x17 phone, 16x12 envelope, 12x17 pin, 17x17 clock), so a row
+      of "matching" icons was visibly uneven. They now share one box
+      and scale inside it; the viewBox keeps each one's proportions,
+      so nothing is stretched.
+
+   Sizes come from the two tokens below - change them in one place.
+   ========================================================================== */
+
+:root {
+  /* Small icons that sit beside a line of text: contact rows, list
+     bullets, button arrows. */
+  --icon-sm: 16px;
+
+  /* Feature icons that sit inside a circle or coloured tile: service
+     cards, "why choose us", stat blocks. */
+  --icon-md: 22px;
+}
+
+/* ==== Weight ====
+   Every Font Awesome family maps to the Pro font at weight 400.
+   :not(.fa-brands) keeps the social marks on the Brands font. */
+i.fa-solid:not(.fa-brands),
+i.fa-light:not(.fa-brands),
+i.fa-thin:not(.fa-brands),
+i.fa-sharp:not(.fa-brands),
+i.fas:not(.fa-brands),
+i.fal:not(.fa-brands),
+i.far:not(.fa-brands) {
+  font-family: "Font Awesome 6 Pro";
+  font-weight: 400;
+}
+
+/* ==== Small icons beside text ==== */
+.header-one .header-top .inner .get-touch-area .map-area .icon i,
+.rts-contact-area .contact-wrapper .icon i,
+.rts-contact-area2 .contact-wrapper .icon i,
+.portfolio-details-area .feature-list li i,
+.booking-form .feature-list li i {
+  font-size: var(--icon-sm);
+  line-height: 1;
+}
+
+/* The mobile menu button reads as a control, so it keeps a slightly
+   larger tap target than a text-line icon. */
+.menu-btn i {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ==== Feature icons inside a circle or tile ==== */
+.rts-drives-area .drives-list li .icon i,
+.rts-why-choose-area .single-choose .icon i,
+.rts-service-area .service-wrapper .icon i,
+.rts-credentials-area .credential .badge-icon i {
+  font-size: var(--icon-md);
+  line-height: 1;
+}
+
+/* Certifications & Recognition: the badges were the outlier - a 32px
+   glyph in an 84px circle, half again as large as every other feature
+   icon. The circle comes down with the glyph, otherwise a 22px icon
+   floats in a lot of empty green. 64px keeps the same glyph-to-circle
+   ratio as the 56px circles used elsewhere. */
+.rts-credentials-area .credential .badge-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 20px;
+}
+
+/* ==== Inline SVG icons: one box, proportions kept ====
+   Setting width AND height on an SVG that has a viewBox letterboxes
+   it (preserveAspectRatio defaults to "meet"), so a 16x12 envelope
+   and a 12x17 pin end up centred in the same square instead of being
+   squashed to fit it. */
+.header-one .header-top .inner .get-touch-area .map-area .icon svg,
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .icon svg,
+.rts-cta-area .cta-inner .contact img,
+.rts-cta-area .cta-inner .contact svg {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+  vertical-align: middle;
+}
+
+/* The footer tiles are 32px, so centre the icon in both directions -
+   the template only centred it horizontally, which left the shorter
+   icons sitting high in the box. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* ==== Footer quick-link chevrons ====
+   Already uniform; pinned here so the size lives with the others. */
+.footer-wrapper-style-between .single-wized .body a .link-arrow {
+  font-size: 11px;
+  line-height: 1;
+}
+
+/* ==== Small screens ====
+   The template shrank only the service icons on tablet, which broke
+   the match with everything else. One scale, one place. */
+@media only screen and (max-width: 767px) {
+  :root {
+    --icon-md: 20px;
+  }
+}

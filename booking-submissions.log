@@ -1,0 +1,20 @@
+[2026-08-11 08:57:41] BOOKING
+    Booking type:       Book Now (Immediate)
+    Pick-up when:       As soon as possible
+    Pick-up location:   Andheri East
+    Drop location:      Mumbai Airport T2
+    Vehicle:            Sedan
+    Passengers:         2
+    Trip type:          One Way
+    Distance / hours:   18 km (approx.)
+    Fare estimate:      Not calculated
+    Passenger name:     Cash Test
+    Phone:              9876543210
+    Email:              -
+    Company:            -
+    Extras:             None requested
+    Instructions:       Test booking from Claude Code - please ignore
+    Payment method:     Cash Payment
+    Payment status:     Not applicable - settled after the trip
+    Razorpay order:     -
+

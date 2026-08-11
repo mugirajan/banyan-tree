@@ -337,15 +337,18 @@
 }
 
 /* ==== Actions ==== */
+/* All three actions stay on one row at every width - they shrink
+   rather than wrap, so the button block never becomes a stack. */
 .booking-form .form-actions {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-wrap: nowrap;
+  align-items: stretch;
   gap: 14px;
 }
 
 .booking-form .form-actions .btn-book {
-  min-width: 220px;
+  flex: 0 1 auto;
+  min-width: 200px;
   padding: 16px 40px;
   border: 0;
   border-radius: 6px;
@@ -367,6 +370,8 @@
 }
 
 .booking-form .form-actions .btn-ghost {
+  flex: 0 1 auto;
+  white-space: nowrap;
   padding: 15px 30px;
   border: 1px solid rgba(85, 85, 85, 0.25);
   border-radius: 6px;
@@ -430,8 +435,18 @@
     flex: 1 1 100%;
   }
 
+  /* Still one row on a phone: the three share the width equally and
+     the padding shrinks so the labels keep fitting. */
+  .booking-form .form-actions {
+    gap: 8px;
+  }
+
   .booking-form .form-actions .btn-book,
   .booking-form .form-actions .btn-ghost {
-    width: 100%;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 13px 6px;
+    font-size: 14px;
+    text-align: center;
   }
 }
