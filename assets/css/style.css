@@ -14913,6 +14913,7 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
 .rts-section-title .heading-title span {
   color: var(--color-primary);
   position: relative;
+  display: inline-block;
 }
 .rts-section-title .heading-title span::after {
   position: absolute;
@@ -14921,7 +14922,7 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
   height: 3px;
   background: var(--color-primary);
   border-radius: 6px;
-  bottom: 6px;
+  bottom: -2px;
   left: 0;
 }
 
@@ -14952,6 +14953,7 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
 .rts-section-title-area .rts-section-title .heading-title span {
   color: var(--color-primary);
   position: relative;
+  display: inline-block;
 }
 .rts-section-title-area .rts-section-title .heading-title span::after {
   position: absolute;
@@ -14960,7 +14962,7 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
   height: 3px;
   background: var(--color-primary);
   border-radius: 6px;
-  bottom: 6px;
+  bottom: -2px;
   left: 0;
 }
 
@@ -20304,7 +20306,7 @@ li.has-dropdown:hover .submenu {
   z-index: -1;
 }
 .rts-breadcrumb-area .breadcrumb-area-wrapper {
-  padding: 130px 0 85px;
+  padding: 100px 0 80px;
   height: auto;
   display: flex;
   align-items: center;
@@ -22987,7 +22989,7 @@ li.has-dropdown:hover .submenu {
   }
 
   .rts-breadcrumb-area .breadcrumb-area-wrapper {
-    padding: 110px 0 60px;
+    padding: 80px 0 60px;
   }
 
   .rts-banner-wrapper-area .banner-right-form-area .nav {
@@ -23273,8 +23275,9 @@ li.has-dropdown:hover .submenu {
   .footer-wrapper-style-between .single-wized.get-in-touch ul li .text a[href*="maps"] {
     max-width: 100%;
   }
-  .rts-breadcrumb-area .breadcrumb-area-wrapper {
-    padding: 85px 0 45px;
+  .rts-breadcrumb-area .breadcrumb-area-wrapper,
+  .rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper {
+    padding: 85px 0 60px !important;
   }
 
   .copyright-area .copyright-area-inner {
@@ -23486,8 +23489,9 @@ li.has-dropdown:hover .submenu {
     font-size: 30px;
   }
 
-  .rts-breadcrumb-area .breadcrumb-area-wrapper {
-    padding: 75px 0 40px;
+  .rts-breadcrumb-area .breadcrumb-area-wrapper,
+  .rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper {
+    padding: 75px 0 50px !important;
   }
 
   .banner-two .rts-banner-content-area .banner-content-area .banner-title {
@@ -24323,8 +24327,8 @@ footer .logo img {
 }
 
 .rts-drives-area .drives-list li .icon {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -24336,7 +24340,7 @@ footer .logo img {
 
 .rts-drives-area .drives-list li .icon i {
   color: var(--color-white);
-  font-size: 23px;
+  font-size: 24px;
   line-height: 1;
 }
 
@@ -24393,13 +24397,17 @@ footer .logo img {
   }
 
   .rts-drives-area .drives-list li {
-    gap: 14px;
-    padding: 18px 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: 20px 0;
   }
 
   .rts-drives-area .drives-list li .icon {
     width: 46px;
     height: 46px;
+    margin: 0 auto;
   }
 
   .rts-drives-area .drives-list li .icon i {
@@ -24566,19 +24574,19 @@ footer .logo img {
 }
 
 .rts-credentials-area .credential .badge-icon {
-  width: 84px;
-  height: 84px;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 24px;
+  margin: 0 auto 20px;
   background: var(--color-green);
   border-radius: 50%;
 }
 
 .rts-credentials-area .credential .badge-icon i {
   color: var(--color-white);
-  font-size: 32px;
+  font-size: 24px;
   line-height: 1;
 }
 
@@ -24624,6 +24632,16 @@ footer .logo img {
 
   .rts-credentials-area .credential + .credential {
     border-top: 1px solid rgba(85, 85, 85, 0.16);
+  }
+
+  .rts-credentials-area .credential .badge-icon {
+    width: 46px;
+    height: 46px;
+    margin: 0 auto 14px;
+  }
+
+  .rts-credentials-area .credential .badge-icon i {
+    font-size: 19px;
   }
 }
 
@@ -24933,7 +24951,7 @@ footer .logo img {
    -------------------------------------------------------------------------- */
 @media only screen and (max-width: 575px) {
   .rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper {
-    padding: 60px 15px 45px;
+    padding: 85px 0 60px !important;
   }
 
   .rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper .title {
@@ -25007,4 +25025,226 @@ footer .logo img {
     font-size: 13.5px;
     line-height: 1.3;
   }
-}
+}
+
+/* ==========================================================================
+   Title Underline Spacing for Mobile (480px) & Tablet
+   ========================================================================== */
+.rts-section-title .heading-title span,
+.rts-section-title-area .rts-section-title .heading-title span,
+.heading-title span {
+  display: inline-block;
+  position: relative;
+  color: var(--color-primary);
+}
+
+.rts-section-title .heading-title span::after,
+.rts-section-title-area .rts-section-title .heading-title span::after,
+.heading-title span::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 3px;
+  background: var(--color-primary);
+  border-radius: 6px;
+  bottom: -2px;
+  left: 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .rts-section-title .heading-title span::after,
+  .rts-section-title-area .rts-section-title .heading-title span::after,
+  .heading-title span::after {
+    bottom: -4px;
+    height: 2.5px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .rts-section-title .heading-title span::after,
+  .rts-section-title-area .rts-section-title .heading-title span::after,
+  .heading-title span::after {
+    bottom: -3px;
+    height: 2px;
+  }
+}
+
+/* ==========================================================================
+   CTA Section Centered Content & Book Now Below Content (Max-Width: 1024px)
+   ========================================================================== */
+@media only screen and (max-width: 1024px) {
+  /* CTA Banner & Book Now button section spacing */
+  .rts-cta-area .cta-inner {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 50px 30px !important;
+    gap: 15px;
+  }
+
+  .rts-cta-area .cta-inner .cta-content {
+    max-width: 100% !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+  }
+
+  .rts-cta-area .cta-inner .cta-content .title {
+    max-width: 100% !important;
+    font-size: 30px;
+    margin: 0 auto 12px !important;
+    text-align: center !important;
+  }
+
+  .rts-cta-area .cta-inner .cta-content .desc {
+    max-width: 650px;
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+
+  .rts-cta-area .cta-inner .contact,
+  .rts-cta-area .cta-inner .contact a,
+  .inner-cta .contact {
+    margin-top: 25px !important;
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-self: center !important;
+  }
+}
+
+/* ==========================================================================
+   Tablet View (Max-Width: 991px) - Book Now Button Top Spacing
+   ========================================================================== */
+@media only screen and (max-width: 991px) {
+
+  /* Booking form submit / search button top spacing on tablet */
+  .booking-search-form .search-btn,
+  .booking-search-form .rts__btn,
+  .booking-search-form.booking-two .search-btn {
+    margin-top: 25px !important;
+  }
+
+  /* Service & Fleet detail Book Now buttons top spacing */
+  .service-content-area .button-area,
+  .single-car-list-item .content .rts__btn,
+  .portfolio-details-area .rts__btn,
+  a[href="book-now.html"].rts__btn,
+  a[href="book-now.html"].rts-btn {
+    margin-top: 25px !important;
+  }
+
+  /* Center 3rd card on tablet view 768px in What We Offer section */
+  .rts-car-list-wrapper .filter.row,
+  .ms-portfolio-filter-area .filter.row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+}
+
+/* Hide header social icons next to hamburger button on tablet & mobile */
+@media only screen and (max-width: 1199px) {
+  .social-area-transparent,
+  .header-social,
+  .header-wrapper-area .header-right .bottom .bottom-right .social-area-transparent {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   Tablet & Mobile Banner Height Synchronization (about, contact, service, book-now)
+   ========================================================================== */
+@media only screen and (max-width: 991px) {
+  .rts-breadcrumb-area {
+    min-height: 330px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+  }
+
+  .rts-breadcrumb-area .breadcrumb-area-wrapper {
+    padding: 110px 20px 90px !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .rts-breadcrumb-area .breadcrumb-area-wrapper .title {
+    font-size: 36px !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+    text-align: center !important;
+  }
+
+/* Keep nav breadcrumb pill box visible and nicely sized on tablet & mobile */
+.rts-breadcrumb-area .nav-bread-crumb {
+  display: flex !important;
+}
+
+@media only screen and (max-width: 991px) {
+  .rts-breadcrumb-area .nav-bread-crumb {
+    height: 52px;
+    max-width: 220px;
+    border-top-left-radius: 16px;
+  }
+  .rts-breadcrumb-area .nav-bread-crumb .nav-inner {
+    font-size: 14px;
+    gap: 6px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .rts-breadcrumb-area .nav-bread-crumb {
+    height: 44px;
+    max-width: 180px;
+    border-top-left-radius: 14px;
+  }
+  .rts-breadcrumb-area .nav-bread-crumb .nav-inner {
+    font-size: 12.5px;
+    gap: 4px;
+  }
+  .rts-breadcrumb-area .nav-bread-crumb::before,
+  .rts-breadcrumb-area .nav-bread-crumb::after {
+    display: none;
+  }
+}
+}
+
+/* Tablet view specific boost for 768px screens */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .rts-breadcrumb-area {
+    min-height: 340px !important;
+  }
+
+  .rts-breadcrumb-area .breadcrumb-area-wrapper {
+    padding: 125px 20px 105px !important;
+  }
+
+  .rts-breadcrumb-area .breadcrumb-area-wrapper .title {
+    font-size: 40px !important;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .rts-breadcrumb-area {
+    min-height: 220px !important;
+  }
+
+  .rts-breadcrumb-area .breadcrumb-area-wrapper {
+    padding: 60px 15px !important;
+  }
+
+  .rts-breadcrumb-area .breadcrumb-area-wrapper .title {
+    font-size: 26px !important;
+  }
+}
+
+
+
+

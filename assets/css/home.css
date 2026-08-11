@@ -226,6 +226,13 @@
   padding-bottom: var(--why-choose-pb);
 }
 
+/* Tablet view only (768px - 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .rts-why-choose-area {
+    padding-bottom: 60px !important;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   :root {
     --why-choose-pb: 90px;
