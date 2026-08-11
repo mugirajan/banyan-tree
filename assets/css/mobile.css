@@ -92,7 +92,14 @@
   .single-car-list-item .content .title,
   .rts-blog-wrapper .single-blog .content .title,
   .rts-blog-wrapper .single-blog-sm .content .title,
-  .rts-drives-area .drives-list li .text .title {
+  .rts-drives-area .drives-list li .text .title,
+  .office-card .office-head .title,
+  .portfolio-details-area h1,
+  .portfolio-details-area h2,
+  .portfolio-details-area h3,
+  .portfolio-details-area h4,
+  .portfolio-details-area h5,
+  .portfolio-details-area h6 {
     text-align: left;
   }
 

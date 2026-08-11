@@ -25249,3 +25249,56 @@ footer .logo img {
 
 
 
+/* ==========================================================================
+   Inner-page banner height == single blog banner height
+   --------------------------------------------------------------------------
+   About, Services, Contact and Book Now carry only an <h1> in their
+   banner. The blog posts carry a category line, a two-line title and a
+   meta list - roughly 150px more content. So matching the padding was
+   never going to make them the same height; the taller content always
+   won.
+
+   A shared min-height fixes the frame instead, and both banners then
+   settle at the same size whatever sits inside. The values are set
+   above the blog's natural content height so the blog is never
+   squashed - if a post title ever wraps past it, that banner will grow
+   and the pair will drift apart again, so raise the value if that
+   happens.
+
+   Vertical centring: the inner wrapper is already a flex row with
+   align-items: center, so it centres on its own. The blog wrapper is
+   display: block, so it needs the flex column - justify-content only,
+   leaving its text-align: center to handle the horizontal.
+   ========================================================================== */
+:root {
+  --breadcrumb-min-h: 400px;
+}
+
+.rts-breadcrumb-area .breadcrumb-area-wrapper,
+.rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper {
+  min-height: var(--breadcrumb-min-h);
+}
+
+.rts-breadcrumb-area.blog-details .breadcrumb-area-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 991px) {
+  :root {
+    --breadcrumb-min-h: 360px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  :root {
+    --breadcrumb-min-h: 340px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  :root {
+    --breadcrumb-min-h: 320px;
+  }
+}
