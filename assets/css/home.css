@@ -144,9 +144,16 @@
   --about-img-h: 560px;
 }
 
+/* padding-right: 0 is what evens the gap up with the About page's Our Story
+   block. Both rows run a 60px Bootstrap gutter (set in style.css), but this
+   wrapper also carried 30px of its own padding on the right - left over
+   from a template layout that put a second image there - so the photo
+   stopped 90px short of the text instead of 60px. About page's equivalent
+   wrapper has no such padding, which is why the two never matched. */
 .rts-about-area .about-letf-image-area {
   width: 100%;
   max-width: 100%;
+  padding-right: 0;
 }
 
 .rts-about-area .about-letf-image-area .about-image-area {
@@ -159,6 +166,37 @@
   object-fit: cover;
   object-position: center;
 }
+
+/* ==== About Us: photo matches the text column's height ====
+   --about-img-h was a fixed frame, so at narrower desktop widths - 1024px
+   especially - the text column grew taller than the photo and the row ended
+   with a gap under the image.
+
+   Letting the photo absorb the leftover height fixes it: the column becomes
+   a flex box, and `flex: 1 1 0` keeps the image out of the row's own height
+   calculation so the TEXT sets the height and the photo follows. The fixed
+   height has to become auto or it wins over the flex sizing; --about-img-h
+   stays on as a min-height, so a short text column cannot squash the photo.
+
+   The row's align-items-center class came off the markup - Bootstrap sets
+   that with !important, and centred columns do not stretch. Same treatment
+   the About page's Our Story block already uses. */
+@media only screen and (min-width: 992px) {
+  .rts-about-area .about-letf-image-area {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rts-about-area .about-letf-image-area .about-image-area {
+    flex: 1 1 0;
+    height: auto;
+    min-height: var(--about-img-h);
+  }
+}
+
+/* The About Us feature pair used to be equalised here. It moved to
+   style.css so about.html's "Our Story" block - the same markup, and it
+   does not load this file - gets it too. */
 
 /* ==== Car category cards: equal height ====
    Cards were content-sized, so longer names ("Tempo Traveller") made
@@ -235,6 +273,15 @@
   }
 }
 
+
+
+@media only screen and (max-width: 768px) {
+    .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area {
+        display: block !important;
+        flex-wrap: wrap;
+        gap: 18px 20px;
+    }
+}
 /* ==== Testimonials: smaller author photos ====
    The base style only rounds these off, so they rendered at their
    natural 54x54. Setting both dimensions with object-fit: cover
@@ -268,10 +315,15 @@
   padding-bottom: var(--why-choose-pb);
 }
 
-/* Tablet view only (768px - 991px) */
+/* Tablet view only (768px - 991px).
+   60px was measured from the CARD's bottom edge, but the badge hangs 35px
+   below that and carries a 5px ring, so only about 20px of it was actually
+   visible under the last row - the badges sat almost on the testimonial
+   band that follows. 110px puts roughly 70px of clear space under them,
+   which is what the gap reads as everywhere else. */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .rts-why-choose-area {
-    padding-bottom: 60px !important;
+    padding-bottom: 110px !important;
   }
 }
 
@@ -281,12 +333,14 @@
   }
 }
 
-/* ==== How It Works: taller images ====
-   The photos are 3:2, so they rendered short in a one-third column.
-   A fixed frame with object-fit: cover makes them taller without
-   distorting them. Tweak --process-img-h to resize. */
+/* ==== How It Works: card height ====
+   The photos are 3:2, so at their natural aspect they render short in a
+   one-third column. A fixed frame with object-fit: cover sets the height
+   without distorting them - 480px was taller than the step titles needed,
+   so the three cards read as a wall of photo.
+   Tweak --process-img-h to resize. */
 :root {
-  --process-img-h: 480px;
+  --process-img-h: 380px;
 }
 
 .rts-process-item-wrapper .single-process-item .image-area {
@@ -300,15 +354,18 @@
   object-position: center;
 }
 
+/* These step down with the desktop value rather than past it - 420px was
+   set against the old 480px and would now make the cards TALLER on a
+   tablet than on a desktop. */
 @media only screen and (max-width: 991px) {
   :root {
-    --process-img-h: 420px;
+    --process-img-h: 340px;
   }
 }
 
 @media only screen and (max-width: 575px) {
   :root {
-    --process-img-h: 340px;
+    --process-img-h: 300px;
   }
 }
 
@@ -361,12 +418,17 @@
 
 /* The card's icon badge is absolutely positioned bottom-right, so
    reserve space for it and keep the text clear of the notch. */
+/* The 55px reserve below the text came down to 24px. It was sized to clear
+   the badge vertically, but the badge sits in the card's bottom-RIGHT
+   corner and max-width: 88% already keeps the text out of that corner
+   horizontally - so most of those 55px were only padding the card out with
+   empty space. 24px keeps the last line off the badge's top edge. */
 .rts-car-list-area .single-car-list-item .content .desc {
   font-size: 15px;
   line-height: var(--service-desc-lh);
   min-height: calc(15px * var(--service-desc-lh) * var(--service-desc-lines));
   margin: 6px 0 0;
-  padding-bottom: 55px;
+  padding-bottom: 24px;
   max-width: 88%;
 }
 
@@ -375,6 +437,27 @@
   :root {
     --service-desc-lines: 2;
   }
+}
+
+/* Three columns inside a 960px container leaves each card about 230px of
+   text width - narrow enough that "Corporate Travel Services" takes two
+   lines and its description takes four, while the other five cards take
+   one and three. That difference is what left the cards at unequal
+   heights, so the reserve grows to the worst case at this width. */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  :root {
+    --service-title-lines: 2;
+    --service-desc-lines: 4;
+  }
+}
+
+/* On index.html the cards sit in a plain Bootstrap row, so the columns
+   already stretch to the tallest of them and the card can simply fill its
+   column - real equal heights rather than reserved ones. service.html
+   cannot use this: Isotope positions its cards absolutely, which is what
+   the line reserve above is for. */
+.index-page .rts-car-list-area .single-car-list-item {
+  height: 100%;
 }
 
 @media only screen and (max-width: 767px) {
@@ -548,6 +631,14 @@
   transition: background 0.3s ease;
 }
 
+/* No geometry overrides here on purpose. The card's shape - its 16px
+   corner, the photo's 10px, the 20px notch the badge sits in, and the two
+   pseudo-elements that curve the card's edge into that notch - is the
+   template's own, and matches the card in the reference demo. Only the
+   colours below are ours. Earlier attempts to re-cut those corners are
+   what left the notch reading as a flat white block rather than the
+   scooped corner the demo has. */
+
 .index-page .rts-car-list-area .single-car-list-item .content .title,
 .index-page .rts-car-list-area .single-car-list-item .content .desc,
 .service-page .rts-car-list-area .single-car-list-item .content .title,
@@ -560,11 +651,16 @@
   background: var(--color-brown);
 }
 
+/* The two pseudo-elements are back on. They are what scoops the card's
+   corner around the badge in the reference demo: each is a transparent box
+   whose white box-shadow curves the card's edge into the badge's panel.
+   Switching them off is what flattened our notch into a plain white block.
+   They stay white because they represent the page behind the card, exactly
+   as on the demo - the card's own colour is the only thing that is ours. */
+
 /* The round service badge sits in a white notch cut out of the card's
-   bottom-right corner (the card's ::before/::after and .inner are white to
-   match the page behind it, so they still read correctly on a filled card).
-   The badge itself follows the card so it does not stay dark green against
-   a brown fill. */
+   bottom-right corner. The badge itself follows the card so it does not
+   stay dark green against a brown fill. */
 .index-page .rts-car-list-area .single-car-list-item:hover .inner .link-icon,
 .index-page .rts-car-list-area .single-car-list-item:hover .inner .link-icon:hover,
 .service-page .rts-car-list-area .single-car-list-item:hover .inner .link-icon,
@@ -731,4 +827,41 @@
 .index-page .rts-blog-wrapper .single-blog-sm:hover .image-area .inner .link-icon,
 .index-page .rts-blog-wrapper .single-blog-sm:hover .image-area .inner .link-icon:hover {
   background: var(--color-green);
+}
+
+
+/* ==== Why Choose Us: room for the badge between the two rows (992-1199) ====
+   At this width the cards drop from four across to two, so there is now a
+   second row underneath. The badge hangs 35px below its card (bottom: -35px)
+   and carries a 5px white ring, and the row's g-5 gutter is only 48px - so
+   the top row's badges were landing on the cards beneath them.
+
+   Raising the row gutter clears them: 90px leaves the badge about 50px of
+   air before the next card starts. --bs-gutter-y is the right lever, as
+   Bootstrap applies it as the columns' top margin. The x gutter is
+   untouched, so the two columns keep their existing side spacing. */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .index-page .why-choose-wrapper > .row {
+    --bs-gutter-y: 90px;
+  }
+}
+
+
+/* ==== Banner content column: wider at 1024px ====
+   The banner row was built for two columns - copy on the left, the booking
+   form on the right - and the form is commented out. So col-lg-6 leaves the
+   text using half the banner while the other half sits empty. That is what
+   squeezed the headline into three lines and left the two buttons fighting
+   for room at this width.
+
+   .banner-content-col is on that column in index.html purely as a hook for
+   this rule. 75% here rather than the full width: the car in the background
+   photo sits to the right, and the copy running the whole way across would
+   read over it. Desktop keeps col-xl-6 in case the form ever comes back. */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .index-page .rts-banner-wrapper-area .row > .banner-content-col {
+    width: 75%;
+    max-width: 75%;
+    flex: 0 0 75%;
+  }
 }

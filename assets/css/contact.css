@@ -711,3 +711,24 @@ button.rts__btn {
   color: var(--color-green);
   font-size: var(--contact-icon-glyph);
 }
+
+
+/* ==== Form heading on phones ====
+   The panel's h2 runs at --h5, which is desktop scale - on a 425px screen
+   it filled most of the card's width and read as a page title rather than
+   the label of the form under it. It steps down here, and the space below
+   it comes in with it so the first field is not pushed so far down. */
+@media only screen and (max-width: 767px) {
+  .rts-contact-form .title {
+    font-size: 26px;
+    line-height: 1.2;
+    margin-bottom: 22px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .rts-contact-form .title {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+}
