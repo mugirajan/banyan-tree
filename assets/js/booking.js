@@ -329,7 +329,7 @@
                     currency: order.currency,
                     name: 'Baniyan Tree Travels',
                     description: 'Booking advance',
-                    image: 'assets/images/logo/logo.png',
+                    image: 'assets/images/logo/logo.webp',
                     prefill: {
                         name: form.find('input[name="name"]').val(),
                         email: form.find('input[name="email"]').val(),
