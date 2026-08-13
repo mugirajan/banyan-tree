@@ -211,9 +211,9 @@
           autoplay: {
             delay: 3000,
           },
-          pagination: {
-            el: ".rts-category-pagination",
-            clickable: true,
+          navigation: {
+            nextEl: ".category-next",
+            prevEl: ".category-prev",
           },
           breakpoints: {
             1500: {

@@ -646,7 +646,7 @@ ol ul {
 }
 
 .rts-section-gap {
-  padding: 120px 0;
+  padding: 110px 0 130px 0;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .rts-section-gap {
@@ -23977,12 +23977,6 @@ footer .logo img {
 
 /* Hero and service-card styles for the homepage live in home.css. */
 
-/* The Drives section above already contributes 120px of bottom
-   padding, so this section's own 120px top padding doubled the gap
-   to 240px. Dropping it leaves one standard gap between them. */
-.rts-team-area {
-  padding-top: 0;
-}
 
 /* ==== Team cards (about page) ====
    The card's overlay badge holds a name plus a job title instead of
@@ -23993,6 +23987,846 @@ footer .logo img {
   font-size: 13px;
   font-weight: var(--f-regular);
   display: block;
+  line-height: 1.3;
+}
+
+/* ---------------------------------------------------------------
+   Company journey timeline (about.html)
+
+   A vertical timeline: one rail down the centre, a marker per era, and
+   the era cards alternating left and right of it. The year label sits
+   opposite its card, on the far side of the rail, so both halves of
+   every row carry something and the dates stay easy to scan.
+
+   Each row is a 1fr / auto / 1fr grid, so the marker column is centred
+   by construction and the rail can simply sit at left: 50%.
+
+   Below 992px there is no room for two content columns, so the rail
+   moves to the left edge and each era stacks year-then-card beside it.
+   --------------------------------------------------------------- */
+.journey-line {
+  position: relative;
+  display: grid;
+  row-gap: 50px;
+}
+/* The rail. Faded at both ends so it does not stop dead mid-air. */
+.journey-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-1px);
+  background: linear-gradient(to bottom, rgba(26, 61, 10, 0), var(--color-primary) 8%, var(--color-primary) 92%, rgba(26, 61, 10, 0));
+  opacity: 0.4;
+}
+.journey-item {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  -moz-column-gap: 40px;
+       column-gap: 40px;
+}
+.journey-slot {
+  display: flex;
+  align-items: center;
+}
+/* Content hugs the rail from either side; the 40px gutter is the stem. */
+.slot-start {
+  justify-content: flex-end;
+}
+.slot-end {
+  justify-content: flex-start;
+}
+.journey-point {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* The stem joining marker to card, drawn on whichever side the card is. */
+.journey-point::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 2px;
+  transform: translateY(-1px);
+  background: var(--color-primary);
+  opacity: 0.4;
+}
+.is-left .journey-point::before {
+  right: 100%;
+}
+.is-right .journey-point::before {
+  left: 100%;
+}
+.journey-point .dot {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 26px;
+  border-radius: 50%;
+  /* Ring in the section colour, so the marker punches a clean hole in
+     the rail. Kept in step with .rts-journey-area.bg-gray. */
+  box-shadow: 0 0 0 8px var(--color-tint-green);
+  transition: var(--transition);
+  z-index: 1;
+}
+.journey-item:hover .journey-point .dot {
+  transform: scale(1.08);
+}
+.journey-years {
+  display: inline-block;
+  padding: 9px 24px;
+  background: var(--color-white);
+  color: var(--color-primary);
+  font-size: 18px;
+  font-weight: var(--f-semi-bold);
+  letter-spacing: 1px;
+  border: 1px solid var(--color-primary);
+  border-radius: 30px;
+  transition: var(--transition);
+}
+.journey-item:hover .journey-years {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.journey-card {
+  position: relative;
+  /* Flex items size to content by default, which would leave the three
+     cards at three different widths. */
+  width: 100%;
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 30px 30px 28px;
+  box-shadow: 0px 20px 30px rgba(158, 158, 158, 0.1);
+  transition: var(--transition);
+}
+/* Pointer aimed at the rail, so each card reads as attached to its
+   marker rather than floating near it.
+
+   The left and right cards must end up identical. Two things get in the
+   way, so both are pinned here rather than left to the defaults:
+
+   - Paint order. On a left-hand card the marker is a later sibling, so
+     its stem draws over the pointer; on a right-hand card the card is
+     later and the pointer draws over the stem. z-index settles it the
+     same way on both sides.
+   - Over-constraining. Only one offset may be set, or the browser drops
+     the other and the pointer lands somewhere unintended, so each side
+     clears the opposite offset before setting its own. */
+.journey-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  background: var(--color-white);
+  transform: translateY(-50%) rotate(45deg);
+}
+.is-left .journey-card::after {
+  left: auto;
+  right: -8px;
+}
+.is-right .journey-card::after {
+  left: -8px;
+  right: auto;
+}
+.journey-item:hover .journey-card {
+  box-shadow: 0px 30px 45px rgba(158, 158, 158, 0.22);
+}
+.journey-card .title {
+  font-size: var(--h6);
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border-three);
+}
+.journey-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.journey-points li {
+  position: relative;
+  padding-left: 30px;
+  color: var(--color-body);
+  line-height: 1.7;
+}
+.journey-points li:not(:last-child) {
+  margin-bottom: 10px;
+}
+/* Absolute rather than inline, so a point that wraps to a second line
+   keeps its text aligned under the first line instead of tucking back
+   under the icon. */
+.journey-points li i {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  /* Solid diamonds read heavier than a tick at the same size, so they
+     are set smaller to sit quietly beside the text. */
+  font-size: 10px;
+  line-height: 1;
+  color: var(--color-primary);
+  transition: var(--transition);
+}
+/* Green at rest, brown on hover - the site's brand pair. Hovering the
+   whole point rather than the 10px glyph, so it is actually catchable
+   with a mouse. */
+.journey-points li:hover i {
+  color: var(--color-brown);
+}
+
+@media only screen and (max-width: 991px) {
+  .journey-line {
+    row-gap: 40px;
+  }
+  /* Rail moves to the left, through the middle of the 72px markers. */
+  .journey-line::before {
+    left: 36px;
+    transform: none;
+  }
+  .journey-item {
+    grid-template-columns: 72px 1fr;
+    grid-template-rows: auto auto;
+    -moz-column-gap: 30px;
+         column-gap: 30px;
+    align-items: start;
+  }
+  .journey-point {
+    grid-column: 1;
+    grid-row: 1/3;
+    align-items: flex-start;
+  }
+  /* No stems in this layout - the rail already does the joining. */
+  .journey-point::before {
+    display: none;
+  }
+  /* Year first, then its card, whichever slot each happens to sit in. */
+  .journey-slot {
+    grid-column: 2;
+    justify-content: flex-start;
+  }
+  .is-left .slot-start,
+  .is-right .slot-end {
+    grid-row: 2;
+  }
+  .is-left .slot-end,
+  .is-right .slot-start {
+    grid-row: 1;
+    margin-bottom: 18px;
+  }
+  .journey-point .dot {
+    box-shadow: 0 0 0 6px var(--color-tint-green);
+  }
+  /* The pointer would aim at nothing once the cards sit beside the rail. */
+  .journey-card::after {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .journey-item {
+    grid-template-columns: 56px 1fr;
+    -moz-column-gap: 18px;
+         column-gap: 18px;
+  }
+  .journey-line::before {
+    left: 28px;
+  }
+  .journey-point .dot {
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+  }
+  .journey-card {
+    padding: 26px 22px 24px;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Company growth (about.html)
+
+   Photo on the left, the five stages listed down the right. The page
+   runs long on text and icons by this point, so the image is doing the
+   work of breaking that up - and it echoes the About block at the top
+   of the page, which is also picture-beside-copy.
+
+   The stages themselves stay unboxed: a stage number, a vertical rule,
+   and the milestone. No panels, so the photo stays the only weight in
+   the section.
+   --------------------------------------------------------------- */
+.growth-split {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  gap: 50px;
+}
+.growth-visual {
+  position: relative;
+  min-height: 340px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+/* The column is stretched by the grid, so the photo can fill whatever
+   height the list next to it ends up being. */
+.growth-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+/* Same treatment as the badge on the "What Drives Us" photo, so the two
+   images on this page are furnished the same way. */
+.growth-badge {
+  position: absolute;
+  z-index: 2;
+  left: 30px;
+  bottom: 30px;
+  padding: 20px 28px;
+  background: var(--color-primary);
+  border-radius: 16px;
+  box-shadow: 0 24px 40px rgba(0, 0, 0, 0.18);
+  text-align: center;
+}
+.growth-badge .counter-no {
+  margin-bottom: 6px;
+  color: var(--color-white);
+  font-size: 40px;
+  line-height: 1;
+}
+.growth-badge p {
+  margin-bottom: 0;
+  color: var(--color-white);
+  font-family: var(--font-primary);
+  font-weight: var(--f-medium);
+  line-height: 1;
+}
+.growth-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.growth-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 78px 1fr;
+  align-items: center;
+  padding: 14px 0;
+  transition: var(--transition);
+}
+.growth-row:not(:last-child) {
+  border-bottom: 1px solid var(--color-border-three);
+}
+/* The numbers were already --color-primary, but at opacity 0.25 that read
+   as pale grey rather than green - only the hovered row showed the colour.
+   Full strength now, with the hover moving to brown instead, so the row
+   still responds to the pointer the way the rest of the site does. */
+.growth-step {
+  font-size: 30px;
+  font-weight: var(--f-bold);
+  line-height: 1;
+  color: var(--color-green);
+  opacity: 1;
+  transition: var(--transition);
+}
+.growth-row:hover .growth-step {
+  color: var(--color-brown);
+}
+/* The vertical rule between number and milestone. Drawn on the text so
+   it inherits the row's padding and always spans the full stage. */
+.growth-text {
+  margin-bottom: 0;
+  padding-left: 26px;
+  border-left: 1px solid var(--color-border-three);
+  color: var(--color-heading);
+  font-size: 18px;
+  font-weight: var(--f-medium);
+  line-height: 1.5;
+  transition: var(--transition);
+}
+/* Green at rest, brown on hover - the site's brand pair. */
+.growth-row:hover .growth-text {
+  border-left-color: var(--color-brown);
+}
+
+@media only screen and (max-width: 1199px) {
+  .growth-split {
+    gap: 36px;
+  }
+  .growth-row {
+    grid-template-columns: 64px 1fr;
+  }
+  .growth-step {
+    font-size: 30px;
+  }
+  .growth-text {
+    padding-left: 20px;
+    font-size: 17px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  /* Photo above the list once there is no room to sit beside it. */
+  .growth-split {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .growth-visual {
+    min-height: 340px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .growth-visual {
+    min-height: 260px;
+  }
+  .growth-badge {
+    left: 20px;
+    bottom: 20px;
+    padding: 16px 22px;
+  }
+  .growth-badge .counter-no {
+    font-size: 32px;
+  }
+  .growth-row {
+    grid-template-columns: 52px 1fr;
+  }
+  .growth-step {
+    font-size: 26px;
+  }
+  .growth-text {
+    padding-left: 16px;
+    font-size: 16px;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Supplier network (about.html)
+
+   The five cities are set out as stops on a route rather than as a list
+   or a grid of panels - it suits a transport company, and it keeps this
+   section distinct from the timeline, the growth split and the team
+   cards elsewhere on the page.
+
+   Five equal columns put the first pin at 10% and the last at 90%, so
+   the rail can simply run left: 10% to right: 10% and land dead centre
+   on both end pins. That relationship breaks the moment the columns
+   rewrap, which is why the rail is dropped below 992px.
+   --------------------------------------------------------------- */
+.network-lead {
+  max-width: 760px;
+  margin: 18px auto 0;
+  color: var(--color-body);
+}
+.network-route {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+/* The route line, level with the middle of the 72px pins. */
+.network-route::before {
+  content: "";
+  position: absolute;
+  top: 35px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: repeating-linear-gradient(to right, var(--color-primary) 0 10px, transparent 10px 20px);
+  opacity: 0.45;
+}
+.network-stop {
+  /* The route line is absolutely positioned, so without lifting the
+     stops above it the dashes run straight across the pins and the ring
+     below never punches its gap. Grid items take z-index directly. */
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 10px;
+}
+.stop-pin {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 26px;
+  border-radius: 50%;
+  /* Ring in the section colour, so the pin punches a clean hole in the
+     route line. Kept in step with .rts-network-area.bg-gray. */
+  box-shadow: 0 0 0 12px var(--color-tint-green);
+  transition: var(--transition);
+}
+/* Green at rest, brown on hover - the site's brand pair. */
+.network-stop:hover .stop-pin {
+  background: var(--color-brown);
+  transform: translateY(-6px);
+}
+.network-stop .title {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+.stop-note {
+  color: var(--color-body);
+  font-size: 15px;
+}
+
+@media only screen and (max-width: 991px) {
+  /* The rail only lines up while all five stops share one row. */
+  .network-route::before {
+    display: none;
+  }
+  /* Flex rather than grid once the stops wrap. Five stops never divide
+     evenly into three or two columns, so a grid would leave the last row
+     jammed against the left edge with a hole beside it. Wrapped flex
+     items centre their own row, so the remainder sits in the middle. */
+  .network-route {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px 0;
+  }
+  .network-stop {
+    flex: 0 0 33.3333%;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .network-route {
+    gap: 34px 0;
+  }
+  .network-stop {
+    flex: 0 0 50%;
+  }
+  .stop-pin {
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .network-stop .title {
+    font-size: 19px;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Primary customer (about.html)
+
+   Copy left, photograph right - the mirror of the growth section
+   above, which runs photo-left, so the two alternate down the page
+   instead of reading as the same block twice.
+
+   The names are typed, not drawn. The customer's own branding is
+   theirs to supply.
+   --------------------------------------------------------------- */
+.client-split {
+  display: grid;
+  grid-template-columns: 1.04fr 0.96fr;
+  gap: 60px;
+  /* Stretch, not centre: the photo is meant to run exactly as tall as
+     the copy beside it. */
+  align-items: stretch;
+}
+.rts-client-area .rts-section-title {
+  margin-bottom: 22px;
+}
+/* The heading is meant to hold one line in this column at every desktop
+   width, so it is kept short and stopped from wrapping. */
+.rts-client-area .heading-title {
+  white-space: nowrap;
+}
+.client-desc {
+  margin-bottom: 34px;
+  color: var(--color-body);
+  font-size: 17px;
+  line-height: 1.85;
+}
+.client-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--color-border-three);
+}
+.client-list li {
+  position: relative;
+  padding: 20px 0 20px 32px;
+  border-bottom: 1px solid var(--color-border-three);
+  color: var(--color-heading);
+  font-size: 21px;
+  font-weight: var(--f-medium);
+  line-height: 1.4;
+  transition: var(--transition);
+}
+/* Brand marker in place of a bullet, set on the cap height of the
+   first line rather than centred on a name that may wrap. */
+.client-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 30px;
+  width: 11px;
+  height: 11px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  transform: rotate(45deg);
+  transition: var(--transition);
+}
+/* Green at rest, brown on hover - the site's brand pair. */
+.client-list li:hover {
+  padding-left: 42px;
+  color: var(--color-primary);
+}
+.client-list li:hover::before {
+  background: var(--color-brown);
+}
+.client-visual {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+}
+/* Taken out of flow so the photo's own height counts for nothing: the
+   row is sized by the copy alone, and the image then fills whatever
+   that comes to. Left in flow it would push the row taller than the
+   text and the two columns would never match. */
+.client-visual img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+@media only screen and (max-width: 1199px) {
+  .client-split {
+    gap: 40px;
+  }
+  .client-list li {
+    font-size: 19px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  /* Copy above the photo once there is no room to sit beside it. */
+  .client-split {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  /* Stacked, there is no neighbouring column to take the height from,
+     so the photo needs one of its own again. */
+  .client-visual {
+    min-height: 340px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  /* Below this the heading genuinely cannot hold one line, and clipping
+     it would be worse than letting it wrap. */
+  .rts-client-area .heading-title {
+    white-space: normal;
+  }
+  .client-visual {
+    min-height: 260px;
+  }
+  .client-list li {
+    padding: 16px 0 16px 26px;
+    font-size: 17px;
+  }
+  .client-list li::before {
+    top: 24px;
+    width: 9px;
+    height: 9px;
+  }
+  .client-list li:hover {
+    padding-left: 32px;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Major milestone (about.html)
+
+   The quote is the section - there is no separate heading competing
+   with it. A ruled eyebrow, an oversized quote mark, the milestone set
+   as the largest type on the page, an attribution, then the supporting
+   copy in two columns divided by a hairline.
+
+   The quote mark is inline SVG rather than a glyph or an icon font:
+   the site's display face draws U+201C as two slashes, and at this
+   size that reads as a typo.
+   --------------------------------------------------------------- */
+/* Padding is left to .rts-section-gap - 120px top and bottom, the same
+   as every other section on the page. The height this section saves is
+   taken out of its internals instead. */
+.rts-milestone-area.rts-section-gap {
+  position: relative;
+  overflow: hidden;
+  /* Barely-there vertical wash over the flat tint. Enough to give the
+     block depth and to seat the quote at the lighter top end, not
+     enough to read as a gradient. */
+  background: linear-gradient(178deg, #F1F7EC 0%, var(--color-tint-green) 62%, #E7F0E1 100%);
+}
+/* The subtitle is the site's standard .rts-section-title .subtitle, so
+   it matches every other section. Only the trailing space is trimmed -
+   the wrapper normally sits above a heading, and there is none here. */
+.rts-milestone-area .rts-section-title {
+  margin-bottom: 0;
+}
+.milestone-quote {
+  position: relative;
+  max-width: 1240px;
+  margin: 18px 0 0;
+  padding: 0;
+}
+.milestone-quote p {
+  margin-bottom: 22px;
+  color: var(--color-heading);
+  /* Largest type in the section, ahead of any heading on it. Tight
+     leading and a touch of negative tracking keep it from sprawling. */
+  font-size: 36px;
+  font-weight: var(--f-medium);
+  line-height: 1.32;
+  letter-spacing: -0.8px;
+}
+/* The customer's name picked out in brand green, tying the quote back
+   to the Caterpillar credit directly above it. Not italic - the whole
+   quote already is, so italics here would flatten rather than lift. */
+.milestone-quote em {
+  color: var(--color-primary);
+  font-style: normal;
+  font-weight: var(--f-semi-bold);
+}
+.milestone-by {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: var(--f-semi-bold);
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+}
+.milestone-by::before {
+  content: "";
+  width: 34px;
+  height: 2px;
+  background: var(--color-primary);
+}
+.milestone-copy {
+  display: grid;
+  /* Weighted, not halved: the first paragraph is about a third longer,
+     and its column also gives up 60px to the divider, so the track has
+     to be wider still for the two to finish level. */
+  grid-template-columns: 1.45fr 1fr;
+  gap: 60px;
+  margin-top: 38px;
+  padding-top: 30px;
+  border-top: 1px solid var(--color-border-three);
+}
+.milestone-copy p {
+  margin-bottom: 0;
+  color: var(--color-body);
+  font-size: 17px;
+  line-height: 1.8;
+}
+/* Hairline dividing the two columns, set in the middle of the gutter. */
+.milestone-copy p:first-child {
+  padding-right: 60px;
+  border-right: 1px solid var(--color-border-three);
+}
+
+@media only screen and (max-width: 1199px) {
+  .milestone-quote p {
+    font-size: 33px;
+  }
+  .milestone-copy {
+    gap: 44px;
+    margin-top: 56px;
+  }
+  .milestone-copy p:first-child {
+    padding-right: 44px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .milestone-quote p {
+    font-size: 27px;
+    letter-spacing: -0.4px;
+  }
+  .milestone-copy {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 44px;
+    padding-top: 34px;
+  }
+  /* One column now, so the divider has nothing to divide. */
+  .milestone-copy p:first-child {
+    padding-right: 0;
+    border-right: 0;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .milestone-quote p {
+    font-size: 22px;
+    letter-spacing: 0;
+  }
+}
+
+/* The vehicle-category slider is driven by prev/next arrows instead of
+   pagination dots. They sit where the dots used to - centred, 50px below
+   the slider - so the section spacing is unchanged. */
+.rts-category-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 50px;
+}
+.rts-category-controls button {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  border-radius: 50%;
+  transition: var(--transition);
+}
+.rts-category-controls button:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.rts-category-controls button.swiper-button-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Degree suffix on a founder/team name - kept on its own line so a long
+   name plus qualification does not stretch the max-content card wider
+   than the photo above it. */
+.single-team .content .title .qualification {
+  display: block;
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: var(--f-regular);
+  opacity: 0.85;
   line-height: 1.3;
 }
 
@@ -24209,6 +25043,17 @@ footer .logo img {
   --story-img-h: 520px;
   --story-inset-w: 240px;
   --story-inset-h: 175px;
+  /* Horizontal crop point for the main photo. The source is a 1.84:1
+     landscape squeezed into a near-square frame, so most of its width is
+     cropped away and this decides which slice survives.
+
+     It is not centred on purpose. The man stands dead centre in the
+     source, which put his head directly under the counter badge's white
+     notch in the top-right corner and clipped it. Biasing the crop past
+     centre slides him left, clear of the badge, while keeping him well
+     inside the frame. Raise it to move him further left, lower it to
+     move him right. */
+  --story-img-focus: 62%;
 }
 
 .about-letf-image-area-two {
@@ -24260,7 +25105,7 @@ footer .logo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: var(--story-img-focus) center;
 }
 
 .about-letf-image-area-two .inner-image-sm .inner-image .overlay-image img {
@@ -24294,7 +25139,7 @@ footer .logo img {
    .drives-content instead.
    Tweak --drives-img-h (the panel's minimum height) to resize. */
 :root {
-  --drives-img-h: 520px;
+  --drives-img-h: 440px;
 }
 
 /* The section uses rts-section-gap (120px top and bottom). Our Story
@@ -24383,11 +25228,11 @@ footer .logo img {
 }
 
 .rts-drives-area .drives-content {
-  padding: 55px 55px 55px 50px;
+  padding: 40px 45px 40px 42px;
 }
 
 .rts-drives-area .drives-content .rts-section-title {
-  margin-bottom: 30px;
+  margin-bottom: 22px;
 }
 
 .rts-drives-area .drives-list {
@@ -24400,7 +25245,7 @@ footer .logo img {
   display: flex;
   align-items: flex-start;
   gap: 20px;
-  padding: 22px 0;
+  padding: 15px 0;
   border-bottom: 1px solid rgba(85, 85, 85, 0.16);
 }
 
@@ -25334,6 +26179,22 @@ footer .logo img {
 }
 }
 
+/* Breadcrumb separator dot.
+
+   align-items: center puts the 6px dot at the middle of the link's line
+   box, which is not the same as the middle of the words in it. The line
+   box reserves descender space that "Home" and "Services" never use, so
+   its centre sits above the text's optical centre and the dot reads
+   high. A 1px nudge drops it onto the letters' midline.
+
+   Nudge, not a rewrite: the dot is already correct to the box, so this
+   is an optical correction. Raise it if the breadcrumb font ever changes
+   to one with deeper descender metrics. */
+.rts-breadcrumb-area .nav-bread-crumb .nav-inner .dot {
+  position: relative;
+  top: 1px;
+}
+
 /* Tablet view specific boost for 768px screens */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .rts-breadcrumb-area {
@@ -25562,6 +26423,38 @@ footer .logo img {
    black and invert(1) flips it to solid white, which reads on both fills. */
 .about-page .rts-counter-area-two .counter-inner .inner .icon img {
   filter: brightness(0) invert(1);
+}
+
+/* Keep the stats two-up on phones. The theme holds them at 47% down to
+   450px and then drops them to full width, which turns four cards into
+   four tall blocks and pushes the rest of the page a long way down.
+
+   The only reason they could not stay two-up was the padding - 40px a
+   side on a ~390px screen leaves almost nothing for the caption - so it
+   comes down with the type. Captions are the tight part, not the
+   numbers: "On-time Performance" is the longest and is allowed to wrap
+   onto two lines, which is why the cards are stretched to equal height
+   rather than sized by content. */
+@media only screen and (max-width: 450px) {
+  .about-page .rts-counter-area-two .counter-inner {
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .about-page .rts-counter-area-two .counter-inner .inner {
+    width: calc(50% - 8px);
+    gap: 14px;
+    padding: 26px 12px;
+  }
+
+  .about-page .rts-counter-area-two .counter-inner .inner .title {
+    font-size: 30px;
+  }
+
+  .about-page .rts-counter-area-two .counter-inner .inner .desc {
+    font-size: 14px;
+    line-height: 1.4;
+  }
 }
 
 /* ==== FAQ ====
@@ -26019,6 +26912,21 @@ footer .logo img {
 
 /* About: "Certifications & Recognition". */
 .rts-credentials-area.bg-gray {
+  background: var(--color-tint-green);
+}
+
+/* About: "Company's Journey" timeline. */
+.rts-journey-area.bg-gray {
+  background: var(--color-tint-green);
+}
+
+/* About: "Our Network" supplier cities. */
+.rts-network-area.bg-gray {
+  background: var(--color-tint-green);
+}
+
+/* About: "Major Milestone". */
+.rts-milestone-area.bg-gray {
   background: var(--color-tint-green);
 }
 

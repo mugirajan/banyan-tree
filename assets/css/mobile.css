@@ -90,7 +90,10 @@
      - blog sidebar box titles sit over left-aligned lists
      - FAQ questions are buttons with a +/- marker on the right
      - form step titles carry a numbered badge on their left
-     - the fare estimate heading sits over a left/right price table  */
+     - the fare estimate heading sits over a left/right price table
+     - the Major Milestone eyebrow sits over a left-aligned pull quote,
+       and the quote is the whole section, so a centred label above it
+       reads as belonging to something else  */
   .rts-footer-area h1,
   .rts-footer-area h2,
   .rts-footer-area h3,
@@ -113,6 +116,15 @@
   .rts-blog-wrapper .single-blog-sm .content .title,
   .rts-drives-area .drives-list li .text .title,
   .office-card .office-head .title,
+  /* Both are needed: the base rule targets the subtitle directly, so
+     left-aligning only the wrapper would leave the inline-block
+     eyebrow still centred by the more specific of the two. */
+  .rts-milestone-area .rts-section-title,
+  .rts-milestone-area .rts-section-title .subtitle,
+  /* Journey timeline cards: the points below the title are a bulleted
+     list and stay left, so a centred title sits out of step with the
+     rule and the text it heads. */
+  .journey-card .title,
   .portfolio-details-area h1,
   .portfolio-details-area h2,
   .portfolio-details-area h3,
