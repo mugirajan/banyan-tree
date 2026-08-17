@@ -1,6 +1,6 @@
 <?php
 /**
- * Razorpay order endpoint - Baniyan Tree Travels
+ * Razorpay order endpoint - Baniyan Tours and Travels
  *
  * Two jobs, both called by assets/js/booking.js:
  *
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 if (!razorpay_is_configured()) {
     reply(array(
         'status'  => 'error',
-        'message' => 'Online payment is not set up on this site yet. Please choose Cash Payment, or call us on +91 98765 43210.',
+        'message' => 'Online payment is not set up on this site yet. Please choose Cash Payment, or call us on +91 98412 11173.',
     ));
 }
 
@@ -79,7 +79,7 @@ $payload = json_encode(array(
     'receipt'         => substr('btt_' . date('ymdHis') . '_' . substr(preg_replace('/\D/', '', $phone), -4), 0, 40),
     'payment_capture' => 1,
     'notes'           => array(
-        'purpose'   => 'Booking advance - Baniyan Tree Travels',
+        'purpose'   => 'Booking advance - Baniyan Tours and Travels',
         'passenger' => $name,
         'phone'     => $phone,
     ),

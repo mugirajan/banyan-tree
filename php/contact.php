@@ -1,6 +1,6 @@
 <?php
 /**
- * Contact form handler - Baniyan Tree Travels
+ * Contact form handler - Baniyan Tours and Travels
  *
  * Sends enquiries over authenticated SMTP with PHPMailer, so it works
  * on XAMPP as well as on the live server (PHP's mail() does not - a
@@ -34,14 +34,14 @@ const SMTP_USER = 'contact@blackitechs.com';
 const SMTP_PASS = 'Contact@bits#737';
 
 // The mailbox that receives enquiries. TODO: change to the client's
-// real inbox (e.g. info@baniyantravels.com) before going live.
-const MAIL_TO      = 'info@baniyantravels.com';
-const MAIL_TO_NAME = 'Baniyan Tree Travels';
+// real inbox (e.g. support@baniyantravels.com) before going live.
+const MAIL_TO      = 'support@baniyantravels.com';
+const MAIL_TO_NAME = 'Baniyan Tours and Travels';
 
 // Must be an address on the authenticated domain, or the SMTP server
 // will reject it. The visitor goes in Reply-To instead.
 const MAIL_FROM      = 'contact@blackitechs.com';
-const MAIL_FROM_NAME = 'Baniyan Tree Travels Website';
+const MAIL_FROM_NAME = 'Baniyan Tours and Travels Website';
 
 // 0 = off. Set to 2 to write the SMTP conversation to the PHP error
 // log while debugging a connection problem.
@@ -162,7 +162,7 @@ try {
 
 <tr>
 <td style="background:#1A3D0A;padding:35px;text-align:center;">
-<h1 style="margin:0;color:#ffffff;font-size:28px;">Baniyan Tree Travels</h1>
+<h1 style="margin:0;color:#ffffff;font-size:28px;">Baniyan Tours and Travels</h1>
 <p style="margin:10px 0 0;color:#dbe5d6;font-size:16px;">New Website Enquiry</p>
 </td>
 </tr>
@@ -171,7 +171,7 @@ try {
 <td style="padding:40px;">
 <p style="margin:0;font-size:16px;color:#050B20;">Hello Team,</p>
 <p style="font-size:15px;color:#555555;line-height:28px;">
-A new enquiry has been submitted through the <strong>Baniyan Tree Travels</strong> website.
+A new enquiry has been submitted through the <strong>Baniyan Tours and Travels</strong> website.
 The customer details are below.
 </p>
 
@@ -193,7 +193,7 @@ Or call them on <strong>' . $e($phone) . '</strong>.
 
 <tr>
 <td style="background:#1e1e1e;padding:30px;text-align:center;">
-<h3 style="margin:0;color:#ffffff;">Baniyan Tree Travels</h3>
+<h3 style="margin:0;color:#ffffff;">Baniyan Tours and Travels</h3>
 <p style="margin:10px 0;color:#d9d9d9;font-size:14px;line-height:24px;">
 Car Rental &amp; Travel Services<br>
 Safe &bull; Comfortable &bull; On Time
@@ -202,7 +202,7 @@ Safe &bull; Comfortable &bull; On Time
 This email was generated automatically from the website contact form.
 </p>
 <p style="margin-top:20px;color:#999999;font-size:12px;">
-&copy; ' . date('Y') . ' Baniyan Tree Travels. All Rights Reserved.
+&copy; ' . date('Y') . ' Baniyan Tours and Travels. All Rights Reserved.
 </p>
 </td>
 </tr>
@@ -213,7 +213,7 @@ This email was generated automatically from the website contact form.
 </body>
 </html>';
 
-    $mail->AltBody = "New enquiry from the Baniyan Tree Travels website\n\n"
+    $mail->AltBody = "New enquiry from the Baniyan Tours and Travels website\n\n"
         . "Name:       $name\n"
         . "Email:      $email\n"
         . "Phone:      $phone\n"
@@ -230,5 +230,5 @@ This email was generated automatically from the website contact form.
     error_log('Contact form SMTP failure: ' . $mail->ErrorInfo);
 
     http_response_code(500);
-    reply('error', 'Sorry, we could not send your message just now. Please call us on +91 98765 43210 or email info@baniyantravels.com.');
+    reply('error', 'Sorry, we could not send your message just now. Please call us on +91 98412 11173 or email support@baniyantravels.com.');
 }

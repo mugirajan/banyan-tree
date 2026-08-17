@@ -1,6 +1,6 @@
 <?php
 /**
- * Contact form handler - Baniyan Tree Travels
+ * Contact form handler - Baniyan Tours and Travels
  *
  * Returns a short plain-text message and an HTTP status code.
  * assets/js/plugins/contact-form.js posts here over AJAX and shows
@@ -30,7 +30,7 @@ error_reporting(E_ALL);
 header('Content-Type: text/plain; charset=utf-8');
 
 // TODO: change this to the address that should receive enquiries.
-$recipient = 'info@baniyantravels.com';
+$recipient = 'support@baniyantravels.com';
 $log_file  = __DIR__ . '/contact-submissions.log';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -83,7 +83,7 @@ if ($name === '' || $message === '' || $phone === '' || $subject === ''
 
 $mail_subject = 'Website enquiry: ' . $subject_label . ' - ' . $name;
 
-$body  = "New enquiry from the Baniyan Tree Travels website\n";
+$body  = "New enquiry from the Baniyan Tours and Travels website\n";
 $body .= str_repeat('-', 48) . "\n\n";
 $body .= "Name:       $name\n";
 $body .= "Email:      $email\n";
@@ -95,7 +95,7 @@ $body .= "Message:\n$message\n";
 // From must be an address on your own domain or most mail servers
 // reject it. The visitor's address goes in Reply-To, so hitting
 // reply in your inbox still answers them directly.
-$headers  = 'From: Baniyan Tree Travels <' . $recipient . ">\r\n";
+$headers  = 'From: Baniyan Tours and Travels <' . $recipient . ">\r\n";
 $headers .= 'Reply-To: ' . $name . ' <' . $email . ">\r\n";
 $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
 
@@ -113,5 +113,5 @@ if (@mail($recipient, $mail_subject, $body, $headers)) {
     echo 'Thank you! Your message has been sent. Our team will get back to you shortly.';
 } else {
     http_response_code(500);
-    echo 'Sorry, we could not send your message just now. Please call us on +91 98765 43210 or email info@baniyantravels.com.';
+    echo 'Sorry, we could not send your message just now. Please call us on +91 98412 11173 or email support@baniyantravels.com.';
 }

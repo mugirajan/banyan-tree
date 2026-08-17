@@ -4,7 +4,7 @@
  * Author : ThemeWant
  * Author URI : https://themewant.com/
  *
- * Adapted for Baniyan Tree Travels:
+ * Adapted for Baniyan Tours and Travels:
  *  - clears the fields the form actually has (the original reset a
  *    #car input that no longer exists, and left phone/subject filled)
  *  - shows the response inside the form and scrolls it into view

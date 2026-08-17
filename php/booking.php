@@ -1,6 +1,6 @@
 <?php
 /**
- * Booking form handler - Baniyan Tree Travels
+ * Booking form handler - Baniyan Tours and Travels
  *
  * Sends ride bookings over authenticated SMTP with PHPMailer, the
  * same transport php/contact.php uses (PHP's mail() does not work on
@@ -39,13 +39,13 @@ const SMTP_PASS = 'Contact@bits#737';
 
 // The mailbox that receives bookings. TODO: change to the client's
 // real inbox before going live.
-const MAIL_TO      = 'info@baniyantravels.com';
-const MAIL_TO_NAME = 'Baniyan Tree Travels';
+const MAIL_TO      = 'travelbookings@baniyantravels.com';
+const MAIL_TO_NAME = 'Baniyan Tours and Travels';
 
 // Must be an address on the authenticated domain, or the SMTP server
 // will reject it. The customer goes in Reply-To instead.
 const MAIL_FROM      = 'contact@blackitechs.com';
-const MAIL_FROM_NAME = 'Baniyan Tree Travels Website';
+const MAIL_FROM_NAME = 'Baniyan Tours and Travels Website';
 
 // 0 = off. Set to 2 to write the SMTP conversation to the PHP error
 // log while debugging a connection problem.
@@ -170,7 +170,7 @@ if ($needs_prepay) {
 
     if (!hash_equals($expected, $rzp_signature)) {
         error_log('Booking payment signature mismatch for order ' . $rzp_order_id);
-        reply('error', 'We could not verify your payment. No booking has been made. Please contact us on +91 98765 43210 before trying again.');
+        reply('error', 'We could not verify your payment. No booking has been made. Please contact us on +91 98412 11173 before trying again.');
     }
 
     $payment_status = 'PAID - advance of ₹' . number_format(BOOKING_ADVANCE_INR)
@@ -321,7 +321,7 @@ try {
 
 <tr>
 <td style="background:#1A3D0A;padding:35px;text-align:center;">
-<h1 style="margin:0;color:#ffffff;font-size:28px;">Baniyan Tree Travels</h1>
+<h1 style="margin:0;color:#ffffff;font-size:28px;">Baniyan Tours and Travels</h1>
 <p style="margin:10px 0 0;color:#dbe5d6;font-size:16px;">New Ride Booking</p>
 </td>
 </tr>
@@ -330,7 +330,7 @@ try {
 <td style="padding:40px;">
 <p style="margin:0;font-size:16px;color:#050B20;">Hello Team,</p>
 <p style="font-size:15px;color:#555555;line-height:28px;">
-A new booking request has come in through the <strong>Baniyan Tree Travels</strong> website.
+A new booking request has come in through the <strong>Baniyan Tours and Travels</strong> website.
 Please confirm the car and the final fare with the customer.
 </p>
 
@@ -352,7 +352,7 @@ The fare estimate above is the figure the website showed the customer. It is an 
 
 <tr>
 <td style="background:#1e1e1e;padding:30px;text-align:center;">
-<h3 style="margin:0;color:#ffffff;">Baniyan Tree Travels</h3>
+<h3 style="margin:0;color:#ffffff;">Baniyan Tours and Travels</h3>
 <p style="margin:10px 0;color:#d9d9d9;font-size:14px;line-height:24px;">
 Car Rental &amp; Travel Services<br>
 Safe &bull; Comfortable &bull; On Time
@@ -361,7 +361,7 @@ Safe &bull; Comfortable &bull; On Time
 This email was generated automatically from the website booking form.
 </p>
 <p style="margin-top:20px;color:#999999;font-size:12px;">
-&copy; ' . date('Y') . ' Baniyan Tree Travels. All Rights Reserved.
+&copy; ' . date('Y') . ' Baniyan Tours and Travels. All Rights Reserved.
 </p>
 </td>
 </tr>
@@ -372,7 +372,7 @@ This email was generated automatically from the website booking form.
 </body>
 </html>';
 
-    $alt = "New booking from the Baniyan Tree Travels website\n\n";
+    $alt = "New booking from the Baniyan Tours and Travels website\n\n";
     foreach ($booking as $rlabel => $value) {
         $alt .= str_pad($rlabel . ':', 20) . $value . "\n";
     }
@@ -396,10 +396,10 @@ This email was generated automatically from the website booking form.
     // booking it would be plainly wrong: the money is already taken.
     if ($logged) {
         reply('success', 'Thank you! Your booking has been saved and our team will call you to confirm. '
-            . 'If you do not hear from us within 30 minutes, please call +91 98765 43210.');
+            . 'If you do not hear from us within 30 minutes, please call +91 98412 11173.');
     }
 
     // Nothing was saved and nothing was sent - this one really did fail.
     http_response_code(500);
-    reply('error', 'Sorry, we could not record your booking just now. Please call us on +91 98765 43210 or email info@baniyantravels.com.');
+    reply('error', 'Sorry, we could not record your booking just now. Please call us on +91 98412 11173 or email travelbookings@baniyantravels.com.');
 }

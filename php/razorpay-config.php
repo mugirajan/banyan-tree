@@ -1,6 +1,6 @@
 <?php
 /**
- * Razorpay settings - Baniyan Tree Travels
+ * Razorpay settings - Baniyan Tours and Travels
  *
  * Shared by php/razorpay-order.php (creates the order) and
  * php/booking.php (verifies the payment signature).

@@ -1,5 +1,5 @@
 /**
- * Booking form - Baniyan Tree Travels (book-now.html)
+ * Booking form - Baniyan Tours and Travels (book-now.html)
  *
  * Four jobs:
  *   1. show only the fields that apply to the chosen options
@@ -287,8 +287,8 @@
                 var res = xhr.responseJSON;
                 var fallback = payment
                     // Money has already moved, so never tell the customer to just try again.
-                    ? 'Your payment went through but we could not save the booking. Please call us on +91 98765 43210 and quote payment ' + payment.razorpay_payment_id + '.'
-                    : 'Sorry, something went wrong. Please call us on +91 98765 43210.';
+                    ? 'Your payment went through but we could not save the booking. Please call us on +91 98412 11173 and quote payment ' + payment.razorpay_payment_id + '.'
+                    : 'Sorry, something went wrong. Please call us on +91 98412 11173.';
 
                 showMessage((res && res.message) || fallback, true);
             })
@@ -327,7 +327,7 @@
                     order_id: order.order_id,
                     amount: order.amount,
                     currency: order.currency,
-                    name: 'Baniyan Tree Travels',
+                    name: 'Baniyan Tours and Travels',
                     description: 'Booking advance',
                     image: 'assets/images/logo/logo.png',
                     prefill: {
@@ -364,7 +364,7 @@
             })
             .fail(function (xhr) {
                 var res = xhr.responseJSON;
-                showMessage((res && res.message) || 'We could not reach the payment gateway. Please choose Cash Payment or call us on +91 98765 43210.', true);
+                showMessage((res && res.message) || 'We could not reach the payment gateway. Please choose Cash Payment or call us on +91 98412 11173.', true);
                 clearBusy();
             });
     }

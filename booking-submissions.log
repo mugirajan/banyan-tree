@@ -18,3 +18,23 @@
     Payment status:     Not applicable - settled after the trip
     Razorpay order:     -
 
+[2026-08-11 14:11:54] BOOKING
+    Booking type:       Book Now (Immediate)
+    Pick-up when:       As soon as possible
+    Pick-up location:   chennai
+    Drop location:      kerala
+    Vehicle:            Luxury Car
+    Passengers:         4
+    Trip type:          One Way
+    Distance / hours:   750 km (approx.)
+    Fare estimate:      Not calculated
+    Passenger name:     Tester 1
+    Phone:              9876543218
+    Email:              tester@gmail.com
+    Company:            black i tech
+    Extras:             Air Conditioning, WiFi Available, Newspaper, Child Seat
+    Instructions:       Testing mail from black i tech
+    Payment method:     Cash Payment
+    Payment status:     Not applicable - settled after the trip
+    Razorpay order:     -
+
