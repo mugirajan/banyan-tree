@@ -87,6 +87,31 @@
   }
 }
 
+/* ==== Tablet: shorter banner, matched buttons ==== */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* The banner is content-sized here (min-height does not apply once
+     height goes auto above), so its padding is the only height lever -
+     80px top and bottom was desktop-scale on a 768px screen. */
+  .rts-banner-wrapper-area {
+    padding: 45px 0;
+  }
+
+  .banner-slider-one .banner-left-content-area .banner-title {
+    margin-bottom: 16px;
+  }
+
+  .banner-slider-one .banner-left-content-area .banner-desc {
+    margin-bottom: 28px;
+  }
+
+  /* No button overrides here on purpose. The buttons inherit the same
+     rules desktop uses - pills sized to their content with a shared
+     170px floor, and the 20px gap from style.css - so tablet matches
+     desktop exactly. An earlier `flex: 1 1 0` split made each button
+     take half the row, which stretched them well past their desktop
+     size; sizing to content is what keeps the two views identical. */
+}
+
 /* ==== Hero sub-heading + description ====
    Text styling only - does not alter the banner layout. */
 .banner-slider-one .banner-left-content-area .banner-title {
@@ -119,9 +144,16 @@
   --about-img-h: 560px;
 }
 
+/* padding-right: 0 is what evens the gap up with the About page's Our Story
+   block. Both rows run a 60px Bootstrap gutter (set in style.css), but this
+   wrapper also carried 30px of its own padding on the right - left over
+   from a template layout that put a second image there - so the photo
+   stopped 90px short of the text instead of 60px. About page's equivalent
+   wrapper has no such padding, which is why the two never matched. */
 .rts-about-area .about-letf-image-area {
   width: 100%;
   max-width: 100%;
+  padding-right: 0;
 }
 
 .rts-about-area .about-letf-image-area .about-image-area {
@@ -134,6 +166,37 @@
   object-fit: cover;
   object-position: center;
 }
+
+/* ==== About Us: photo matches the text column's height ====
+   --about-img-h was a fixed frame, so at narrower desktop widths - 1024px
+   especially - the text column grew taller than the photo and the row ended
+   with a gap under the image.
+
+   Letting the photo absorb the leftover height fixes it: the column becomes
+   a flex box, and `flex: 1 1 0` keeps the image out of the row's own height
+   calculation so the TEXT sets the height and the photo follows. The fixed
+   height has to become auto or it wins over the flex sizing; --about-img-h
+   stays on as a min-height, so a short text column cannot squash the photo.
+
+   The row's align-items-center class came off the markup - Bootstrap sets
+   that with !important, and centred columns do not stretch. Same treatment
+   the About page's Our Story block already uses. */
+@media only screen and (min-width: 992px) {
+  .rts-about-area .about-letf-image-area {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rts-about-area .about-letf-image-area .about-image-area {
+    flex: 1 1 0;
+    height: auto;
+    min-height: var(--about-img-h);
+  }
+}
+
+/* The About Us feature pair used to be equalised here. It moved to
+   style.css so about.html's "Our Story" block - the same markup, and it
+   does not load this file - gets it too. */
 
 /* ==== Car category cards: equal height ====
    Cards were content-sized, so longer names ("Tempo Traveller") made
@@ -210,6 +273,15 @@
   }
 }
 
+
+
+@media only screen and (max-width: 768px) {
+    .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area {
+        display: block !important;
+        flex-wrap: wrap;
+        gap: 18px 20px;
+    }
+}
 /* ==== Testimonials: smaller author photos ====
    The base style only rounds these off, so they rendered at their
    natural 54x54. Setting both dimensions with object-fit: cover
@@ -243,10 +315,15 @@
   padding-bottom: var(--why-choose-pb);
 }
 
-/* Tablet view only (768px - 991px) */
+/* Tablet view only (768px - 991px).
+   60px was measured from the CARD's bottom edge, but the badge hangs 35px
+   below that and carries a 5px ring, so only about 20px of it was actually
+   visible under the last row - the badges sat almost on the testimonial
+   band that follows. 110px puts roughly 70px of clear space under them,
+   which is what the gap reads as everywhere else. */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .rts-why-choose-area {
-    padding-bottom: 60px !important;
+    padding-bottom: 110px !important;
   }
 }
 
@@ -256,12 +333,14 @@
   }
 }
 
-/* ==== How It Works: taller images ====
-   The photos are 3:2, so they rendered short in a one-third column.
-   A fixed frame with object-fit: cover makes them taller without
-   distorting them. Tweak --process-img-h to resize. */
+/* ==== How It Works: card height ====
+   The photos are 3:2, so at their natural aspect they render short in a
+   one-third column. A fixed frame with object-fit: cover sets the height
+   without distorting them - 480px was taller than the step titles needed,
+   so the three cards read as a wall of photo.
+   Tweak --process-img-h to resize. */
 :root {
-  --process-img-h: 480px;
+  --process-img-h: 380px;
 }
 
 .rts-process-item-wrapper .single-process-item .image-area {
@@ -275,15 +354,18 @@
   object-position: center;
 }
 
+/* These step down with the desktop value rather than past it - 420px was
+   set against the old 480px and would now make the cards TALLER on a
+   tablet than on a desktop. */
 @media only screen and (max-width: 991px) {
   :root {
-    --process-img-h: 420px;
+    --process-img-h: 340px;
   }
 }
 
 @media only screen and (max-width: 575px) {
   :root {
-    --process-img-h: 340px;
+    --process-img-h: 300px;
   }
 }
 
@@ -336,12 +418,17 @@
 
 /* The card's icon badge is absolutely positioned bottom-right, so
    reserve space for it and keep the text clear of the notch. */
+/* The 55px reserve below the text came down to 24px. It was sized to clear
+   the badge vertically, but the badge sits in the card's bottom-RIGHT
+   corner and max-width: 88% already keeps the text out of that corner
+   horizontally - so most of those 55px were only padding the card out with
+   empty space. 24px keeps the last line off the badge's top edge. */
 .rts-car-list-area .single-car-list-item .content .desc {
   font-size: 15px;
   line-height: var(--service-desc-lh);
   min-height: calc(15px * var(--service-desc-lh) * var(--service-desc-lines));
   margin: 6px 0 0;
-  padding-bottom: 55px;
+  padding-bottom: 24px;
   max-width: 88%;
 }
 
@@ -350,6 +437,27 @@
   :root {
     --service-desc-lines: 2;
   }
+}
+
+/* Three columns inside a 960px container leaves each card about 230px of
+   text width - narrow enough that "Corporate Travel Services" takes two
+   lines and its description takes four, while the other five cards take
+   one and three. That difference is what left the cards at unequal
+   heights, so the reserve grows to the worst case at this width. */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  :root {
+    --service-title-lines: 2;
+    --service-desc-lines: 4;
+  }
+}
+
+/* On index.html the cards sit in a plain Bootstrap row, so the columns
+   already stretch to the tallest of them and the card can simply fill its
+   column - real equal heights rather than reserved ones. service.html
+   cannot use this: Isotope positions its cards absolutely, which is what
+   the line reserve above is for. */
+.index-page .rts-car-list-area .single-car-list-item {
+  height: 100%;
 }
 
 @media only screen and (max-width: 767px) {
@@ -403,3 +511,357 @@
   background: var(--color-primary);
 }
 
+
+/* ==========================================================================
+   Homepage buttons and form controls
+
+   The plain green-to-brown .rts__btn rules that used to live here are now
+   site-wide in style.css, along with both --color-green and --color-brown.
+   What stays here is what is specific to this page: the banner pair below,
+   and the two form buttons further down.
+   ========================================================================== */
+
+/* ==== Banner buttons ====
+   The site-wide button rules do not reach the banner. style.css styles those
+   two buttons through a five- and six-class chain
+   (.rts-banner-wrapper-area .banner-left-content-area .banner-btn-area
+   .rts__btn .rts__btn__wrap.two), which outweighs a shorter selector no
+   matter how late this file loads - so "Book a Car" was still running on
+   --color-primary and "Know More" was still the template's transparent
+   outline. Both are repeated here on the full chain to outrank it.
+
+   Book a Car keeps the pair the normal way round, green to brown... */
+.index-page .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area .rts__btn .rts__btn__wrap,
+.index-page .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area .rts__btn .rts__btn__icon {
+  background: var(--color-green);
+  border: 1px solid var(--color-green);
+  color: var(--color-white);
+}
+
+.index-page .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area .rts__btn:hover .rts__btn__wrap,
+.index-page .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area .rts__btn:hover .rts__btn__icon {
+  background: var(--color-brown);
+  border-color: var(--color-brown);
+  color: var(--color-white);
+}
+
+/* ...and Know More runs it the other way, brown to green, so the two are
+   never the same colour at the same time. */
+.index-page .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area .rts__btn .rts__btn__wrap.two,
+.index-page .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area .rts__btn .rts__btn__icon.two {
+  background: var(--color-brown);
+  border: 1px solid var(--color-brown);
+  color: var(--color-white);
+}
+
+.index-page .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area .rts__btn:hover .rts__btn__wrap.two,
+.index-page .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area .rts__btn:hover .rts__btn__icon.two {
+  background: var(--color-green);
+  border-color: var(--color-green);
+  color: var(--color-white);
+}
+
+/* Contact form submit. The base button hides an oversized circle below
+   itself and sweeps it up on hover; recolouring that circle is what turns
+   the button brown, so the sweep animation is kept rather than overridden. */
+.index-page .rts-btn-send {
+  background: var(--color-green);
+  color: var(--color-white);
+}
+
+.index-page .rts-btn-send::before {
+  background: var(--color-brown);
+}
+
+.index-page .rts-btn-send:hover {
+  color: var(--color-white);
+}
+
+/* Booking form's round search button. */
+.index-page .rts-banner-wrapper-area .banner-right-form-area .search-btn {
+  background: var(--color-green);
+}
+
+.index-page .rts-banner-wrapper-area .banner-right-form-area .search-btn:hover {
+  background: var(--color-brown);
+}
+
+
+/* ==========================================================================
+   Card fills: green at rest, logo brown on hover
+   Applies to the three card sections - Our Car Categories, Our Services and
+   Why Choose Us - which all shipped with the template's grey (--color-gray)
+   fill. Same green/brown pair as the buttons above, so the whole homepage
+   moves between the two brand tones together.
+
+   All the text inside these cards was set against a light grey background,
+   so each rule that fills a card also has to recolour its title and
+   description or they end up dark-on-dark.
+   ========================================================================== */
+
+/* ==== Our Car Categories ==== */
+.index-page .rts-category-wrapper .single-category-item {
+  background: var(--color-green);
+}
+
+/* The template only turned these white on hover, because at rest they sat on
+   grey. They now start white and stay white through the hover. */
+.index-page .rts-category-wrapper .single-category-item .content .title,
+.index-page .rts-category-wrapper .single-category-item .content .title a,
+.index-page .rts-category-wrapper .single-category-item .content .sub-title {
+  color: var(--color-white);
+}
+
+/* The icon tile keeps the white fill it already had - the category SVGs are
+   dark line art and would disappear into a green or brown card.
+
+   The base stylesheet turns this card --color-primary on hover, so the hover
+   has to be overridden as well as the resting state. */
+.index-page .rts-category-wrapper .single-category-item:hover {
+  background: var(--color-brown);
+}
+
+/* ==== Our Services ====
+   service.html's "What We Offer" is the same section with the same cards,
+   and it already loads this file, so it is matched here rather than
+   duplicated - .service-page is on that page's body. */
+.index-page .rts-car-list-area .single-car-list-item,
+.service-page .rts-car-list-area .single-car-list-item {
+  background: var(--color-green);
+  transition: background 0.3s ease;
+}
+
+/* No geometry overrides here on purpose. The card's shape - its 16px
+   corner, the photo's 10px, the 20px notch the badge sits in, and the two
+   pseudo-elements that curve the card's edge into that notch - is the
+   template's own, and matches the card in the reference demo. Only the
+   colours below are ours. Earlier attempts to re-cut those corners are
+   what left the notch reading as a flat white block rather than the
+   scooped corner the demo has. */
+
+.index-page .rts-car-list-area .single-car-list-item .content .title,
+.index-page .rts-car-list-area .single-car-list-item .content .desc,
+.service-page .rts-car-list-area .single-car-list-item .content .title,
+.service-page .rts-car-list-area .single-car-list-item .content .desc {
+  color: var(--color-white);
+}
+
+.index-page .rts-car-list-area .single-car-list-item:hover,
+.service-page .rts-car-list-area .single-car-list-item:hover {
+  background: var(--color-brown);
+}
+
+/* The two pseudo-elements are back on. They are what scoops the card's
+   corner around the badge in the reference demo: each is a transparent box
+   whose white box-shadow curves the card's edge into the badge's panel.
+   Switching them off is what flattened our notch into a plain white block.
+   They stay white because they represent the page behind the card, exactly
+   as on the demo - the card's own colour is the only thing that is ours. */
+
+/* The round service badge sits in a white notch cut out of the card's
+   bottom-right corner. The badge itself follows the card so it does not
+   stay dark green against a brown fill. */
+.index-page .rts-car-list-area .single-car-list-item:hover .inner .link-icon,
+.index-page .rts-car-list-area .single-car-list-item:hover .inner .link-icon:hover,
+.service-page .rts-car-list-area .single-car-list-item:hover .inner .link-icon,
+.service-page .rts-car-list-area .single-car-list-item:hover .inner .link-icon:hover {
+  background: var(--color-brown);
+}
+
+/* ==== Why Choose Us ==== */
+.index-page .why-choose-wrapper .why-choose-item {
+  background: var(--color-green);
+  transition: background 0.3s ease;
+}
+
+.index-page .why-choose-wrapper .why-choose-item .content .title,
+.index-page .why-choose-wrapper .why-choose-item .content .desc {
+  color: var(--color-white);
+}
+
+.index-page .why-choose-wrapper .why-choose-item:hover {
+  background: var(--color-brown);
+}
+
+/* The icon circle overhangs the card's bottom edge and its two side shapes
+   fake the curve where the card wraps around it. All three are white to
+   match the section behind the card, not the card itself, so they are left
+   alone - the notch reads the same way against green and brown. */
+
+/* The four generic why-1..4 SVGs were replaced with Font Awesome glyphs that
+   match each heading (car-wrench, steering-wheel, badge-dollar, clock).
+
+   The SVGs were 60x60 inside 11px of padding, so the circle measured 82px
+   and the notch below the card is cut for exactly that. A glyph has no
+   intrinsic size and would have collapsed the circle, so the 82px is now
+   set explicitly and the icon centred in it - the notch geometry is
+   unchanged. Tweak --why-icon-size / --why-glyph-size to resize. */
+:root {
+  --why-icon-size: 82px;
+  --why-glyph-size: 34px;
+}
+
+/* The circle is filled rather than left white. The template's white came
+   from the section behind the card, so the half of it that hangs below the
+   card edge disappeared into the page and only the top half read as round.
+   A filled badge reads as a full circle against both the card above it and
+   the white section below it, and the glyph goes white to sit on it.
+
+   The two flange shapes stay white - those really are the section showing
+   through, and they are what curves the card's edge around the badge. */
+.index-page .why-choose-wrapper .why-choose-item .icon {
+  width: var(--why-icon-size);
+  height: var(--why-icon-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-green);
+  transition: background 0.3s ease;
+
+  /* The badge now runs the same green-to-brown as the card it sits on, so
+     for the top half - the part overlapping the card - the two are the same
+     colour and the circle would read as a semicircle floating on the white
+     below. This white ring keeps its outline: it is invisible against the
+     page and draws a clean edge against the card, which is the separation
+     the template's flange shapes used to provide. */
+  box-shadow: 0 0 0 5px var(--color-white);
+}
+
+.index-page .why-choose-wrapper .why-choose-item .icon i {
+  font-size: var(--why-glyph-size);
+  line-height: 1;
+  color: var(--color-white);
+}
+
+.index-page .why-choose-wrapper .why-choose-item:hover .icon {
+  background: var(--color-brown);
+}
+
+/* The two flange shapes have to go, and they are what was flattening the
+   badge's sides.
+
+   Each one is a white block sitting at the card's bottom edge with a
+   `box-shadow: 30px 0 0 0` copy offset inwards, so the pair reach roughly
+   34px into an 82px circle from either side. They are z-index: -1, but the
+   circle sets z-index: 1 and position: absolute, so it establishes its own
+   stacking context - and a negative-z-index descendant paints ON TOP of
+   that ancestor's background, only below its content. While everything was
+   white the overlap was invisible; over a filled badge the two shapes carve
+   a white bite out of its left and right sides.
+
+   Their job was to curve the card's edge into a circle the same colour as
+   the page. A filled badge does not need that - it simply overlaps the
+   card's straight bottom edge, which the card's 73px of bottom padding
+   already leaves room for. */
+.index-page .why-choose-wrapper .why-choose-item .icon .bottom-left-shape,
+.index-page .why-choose-wrapper .why-choose-item .icon .bottom-right-shape {
+  display: none;
+}
+
+/* ==== Travel Tips ====
+   Both card sizes - the large left card and the two stacked ones - shipped
+   as white panels with a grey hairline border, so the border goes with the
+   fill or it draws a grey line around a green card. */
+.index-page .rts-blog-wrapper .single-blog,
+.index-page .rts-blog-wrapper .single-blog-sm {
+  background: var(--color-green);
+  border-color: var(--color-green);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.index-page .rts-blog-wrapper .single-blog:hover,
+.index-page .rts-blog-wrapper .single-blog-sm:hover {
+  background: var(--color-brown);
+  border-color: var(--color-brown);
+}
+
+.index-page .rts-blog-wrapper .single-blog .content .date,
+.index-page .rts-blog-wrapper .single-blog .content .title a,
+.index-page .rts-blog-wrapper .single-blog-sm .content .date,
+.index-page .rts-blog-wrapper .single-blog-sm .content .title a {
+  color: var(--color-white);
+}
+
+/* Unlike the service cards, this notch is cut out of the photo rather than
+   out of the card's outer corner - the .inner panel and the two box-shadows
+   on the arrow button are the card showing through the image. They were
+   white to match a white card, so all three have to track the fill through
+   the hover or a white L stays stamped on the photo. */
+.index-page .rts-blog-wrapper .single-blog .image-area .inner,
+.index-page .rts-blog-wrapper .single-blog-sm .image-area .inner {
+  background: var(--color-green);
+}
+
+.index-page .rts-blog-wrapper .single-blog .image-area .inner .link-icon::before,
+.index-page .rts-blog-wrapper .single-blog .image-area .inner .link-icon::after,
+.index-page .rts-blog-wrapper .single-blog-sm .image-area .inner .link-icon::before,
+.index-page .rts-blog-wrapper .single-blog-sm .image-area .inner .link-icon::after {
+  box-shadow: 16px 0 0 0 var(--color-green);
+}
+
+.index-page .rts-blog-wrapper .single-blog:hover .image-area .inner,
+.index-page .rts-blog-wrapper .single-blog-sm:hover .image-area .inner {
+  background: var(--color-brown);
+}
+
+.index-page .rts-blog-wrapper .single-blog:hover .image-area .inner .link-icon::before,
+.index-page .rts-blog-wrapper .single-blog:hover .image-area .inner .link-icon::after,
+.index-page .rts-blog-wrapper .single-blog-sm:hover .image-area .inner .link-icon::before,
+.index-page .rts-blog-wrapper .single-blog-sm:hover .image-area .inner .link-icon::after {
+  box-shadow: 16px 0 0 0 var(--color-brown);
+}
+
+/* The arrow button was --color-primary, which is now the same value as
+   --color-green - it would have vanished into the card. It carries the
+   opposite tone instead and swaps with the card on hover, so the white
+   arrow inside it stays readable either way. */
+.index-page .rts-blog-wrapper .single-blog .image-area .inner .link-icon,
+.index-page .rts-blog-wrapper .single-blog .image-area .inner .link-icon:hover,
+.index-page .rts-blog-wrapper .single-blog-sm .image-area .inner .link-icon,
+.index-page .rts-blog-wrapper .single-blog-sm .image-area .inner .link-icon:hover {
+  background: var(--color-brown);
+}
+
+.index-page .rts-blog-wrapper .single-blog:hover .image-area .inner .link-icon,
+.index-page .rts-blog-wrapper .single-blog:hover .image-area .inner .link-icon:hover,
+.index-page .rts-blog-wrapper .single-blog-sm:hover .image-area .inner .link-icon,
+.index-page .rts-blog-wrapper .single-blog-sm:hover .image-area .inner .link-icon:hover {
+  background: var(--color-green);
+}
+
+
+/* ==== Why Choose Us: room for the badge between the two rows (992-1199) ====
+   At this width the cards drop from four across to two, so there is now a
+   second row underneath. The badge hangs 35px below its card (bottom: -35px)
+   and carries a 5px white ring, and the row's g-5 gutter is only 48px - so
+   the top row's badges were landing on the cards beneath them.
+
+   Raising the row gutter clears them: 90px leaves the badge about 50px of
+   air before the next card starts. --bs-gutter-y is the right lever, as
+   Bootstrap applies it as the columns' top margin. The x gutter is
+   untouched, so the two columns keep their existing side spacing. */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .index-page .why-choose-wrapper > .row {
+    --bs-gutter-y: 90px;
+  }
+}
+
+
+/* ==== Banner content column: wider at 1024px ====
+   The banner row was built for two columns - copy on the left, the booking
+   form on the right - and the form is commented out. So col-lg-6 leaves the
+   text using half the banner while the other half sits empty. That is what
+   squeezed the headline into three lines and left the two buttons fighting
+   for room at this width.
+
+   .banner-content-col is on that column in index.html purely as a hook for
+   this rule. 75% here rather than the full width: the car in the background
+   photo sits to the right, and the copy running the whole way across would
+   read over it. Desktop keeps col-xl-6 in case the form ever comes back. */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .index-page .rts-banner-wrapper-area .row > .banner-content-col {
+    width: 75%;
+    max-width: 75%;
+    flex: 0 0 75%;
+  }
+}

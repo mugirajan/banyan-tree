@@ -5,42 +5,61 @@
    ========================================================================== */
 
 /* ==========================================================================
-   1. CTA SECTION - EQUAL SPACE ABOVE AND BELOW
+   1. CTA SECTION - OVERLAPS THE FOOTER AT EVERY WIDTH
    --------------------------------------------------------------------------
-   On desktop the green CTA box deliberately overlaps the footer:
-   .inner-cta pulls it down 150px and .footer-inner leaves 130px of
-   top padding to catch it. That trick does not survive a narrow
-   screen - the box ended up tight against the footer, with a full
-   section gap still sitting above it, so the block looked pushed down.
+   On desktop the green CTA box sits ON the footer: .inner-cta pulls it
+   down 150px and .footer-inner leaves 130px of top padding to catch it.
 
-   Below 992px the overlap is dropped. The space above the box is the
-   previous section's bottom padding (.rts-section-gap: 80 / 60 / 40px
-   by breakpoint), so the footer's top padding is set to the SAME
-   number at each breakpoint. Equal gap above and below, and it stays
-   in step with the section rhythm used everywhere else.
+   This file used to drop that overlap below 992px and stand the box in
+   its own gap above the footer instead. It now keeps the desktop
+   placement all the way down, so the box reads the same way on a phone
+   as it does on a desktop.
+
+   The pull is scaled with the breakpoints rather than left at 150px: the
+   box is taller on a narrow screen (the content stacks and centres), so
+   the same 150px would have buried the Book Now button in the footer.
+
+   The footer's top padding is what sets the space BELOW the box, and two
+   paddings stack there: .footer-inner, and .footer-wrapper-style-between's
+   own --footer-pad-top. So the visible gap is
+
+       footer-inner + --footer-pad-top - the CTA's overlap
+
+   Desktop lands on 35px that way (130 + 55 - 150). Each breakpoint below
+   is solved back to the same 35px, which is why these numbers are not
+   round - they are derived, not chosen.
    ========================================================================== */
 
 @media only screen and (max-width: 991px) {
   .rts-cta-area.inner-cta {
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    margin-bottom: -120px;
   }
 
+  /* 105 + 50 - 120 = 35 */
   .footer-inner {
-    padding-top: 80px;
+    padding-top: 105px;
   }
 }
 
 @media only screen and (max-width: 767px) {
+  .rts-cta-area.inner-cta {
+    margin-bottom: -100px;
+  }
+
+  /* 85 + 50 - 100 = 35 */
   .footer-inner {
-    padding-top: 60px;
+    padding-top: 85px;
   }
 }
 
 @media only screen and (max-width: 450px) {
+  .rts-cta-area.inner-cta {
+    margin-bottom: -80px;
+  }
+
+  /* 75 + 40 - 80 = 35; --footer-pad-top drops to 40px below 576px */
   .footer-inner {
-    padding-top: 40px;
+    padding-top: 75px;
   }
 }
 
@@ -71,7 +90,10 @@
      - blog sidebar box titles sit over left-aligned lists
      - FAQ questions are buttons with a +/- marker on the right
      - form step titles carry a numbered badge on their left
-     - the fare estimate heading sits over a left/right price table  */
+     - the fare estimate heading sits over a left/right price table
+     - the Major Milestone eyebrow sits over a left-aligned pull quote,
+       and the quote is the whole section, so a centred label above it
+       reads as belonging to something else  */
   .rts-footer-area h1,
   .rts-footer-area h2,
   .rts-footer-area h3,
@@ -94,6 +116,15 @@
   .rts-blog-wrapper .single-blog-sm .content .title,
   .rts-drives-area .drives-list li .text .title,
   .office-card .office-head .title,
+  /* Both are needed: the base rule targets the subtitle directly, so
+     left-aligning only the wrapper would leave the inline-block
+     eyebrow still centred by the more specific of the two. */
+  .rts-milestone-area .rts-section-title,
+  .rts-milestone-area .rts-section-title .subtitle,
+  /* Journey timeline cards: the points below the title are a bulleted
+     list and stay left, so a centred title sits out of step with the
+     rule and the text it heads. */
+  .journey-card .title,
   .portfolio-details-area h1,
   .portfolio-details-area h2,
   .portfolio-details-area h3,
@@ -143,22 +174,25 @@
     text-align: left;
   }
 
+  /* align-items is re-stated, not just justify-content. The base rule
+     sets it, but this selector is more specific and a partial override
+     here would leave the row on the flex default of `stretch` - which
+     is what let Know More ride higher than Book a Car instead of the
+     two sitting on one line. Stretching each button to the row height
+     as well keeps the two pills level whatever their labels do. */
   .banner-slider-one .banner-left-content-area .banner-btn-area {
     justify-content: flex-start;
+    align-items: center;
   }
 
-  /* .about-main-heading is pinned to width: 700px !important, which
-     is wider than a phone screen - so the heading overflowed to the
-     right and the centring above had no visible effect. Releasing
-     the width lets it wrap and actually centre. */
-  .about-main-heading {
-    width: auto !important;
-    max-width: 100% !important;
+  .banner-slider-one .banner-left-content-area .banner-btn-area .rts__btn {
+    align-items: center;
+    align-self: center;
   }
 
-  .about-main-heading span {
-    white-space: normal !important;
-  }
+  /* .about-main-heading releases its width and its spans' nowrap in
+     style.css now, at every screen size rather than only here, so the
+     phone-only copies of those rules have been dropped. */
 }
 
 @media only screen and (max-width: 575px) {
@@ -360,3 +394,23 @@
 
 
 
+
+/* ==========================================================================
+   7. WHY CHOOSE US - ROOM FOR THE HANGING ICON
+   --------------------------------------------------------------------------
+   Each card's icon badge is absolutely positioned at bottom: -35px, so it
+   deliberately hangs below the card edge. Side by side on desktop that is
+   fine - it drops into open space. Stacked on mobile it drops into the
+   gutter instead, and g-5 (48px) is not enough for a badge that protrudes
+   35px plus its own ring, so it crowded the card underneath.
+
+   Raising the row gutter gives the badge clear air. --bs-gutter-y is the
+   right lever: Bootstrap derives both the column margin and the row's
+   compensating negative margin from it, so the two stay in step.
+   ========================================================================== */
+
+@media only screen and (max-width: 991px) {
+  .why-choose-wrapper > .row {
+    --bs-gutter-y: 95px;
+  }
+}

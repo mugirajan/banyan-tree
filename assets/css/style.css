@@ -646,7 +646,7 @@ ol ul {
 }
 
 .rts-section-gap {
-  padding: 120px 0;
+  padding: 110px 0 130px 0;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .rts-section-gap {
@@ -16797,11 +16797,15 @@ li.has-dropdown:hover .submenu {
   line-height: 1;
   margin-bottom: 7px;
 }
+/* Brown on hover, matching every other button on the site. This rule
+   outranks the site-wide .rts__btn:hover pair further down, so it has to
+   carry the brown itself - it covers the About Us block on index.html and
+   Our Story on about.html, which share this wrapper. */
 .about-right-content-area .rts__btn:hover .rts__btn__wrap,
 .about-right-content-area .rts__btn:hover .rts__btn__icon {
-  background: var(--color-primary);
+  background: var(--color-brown);
   color: var(--color-white);
-  border-color: transparent;
+  border-color: var(--color-brown);
 }
 
 .about-letf-image-area-two {
@@ -18615,9 +18619,11 @@ li.has-dropdown:hover .submenu {
   flex-direction: column;
   gap: 40px;
 }
+/* margin-left removed: it sat on top of the row's own 24px gutter, so the
+   photo and the text were 44px apart here against 24px in the equivalent
+   About page section. Both now rely on the gutter alone and match. */
 .rts-service-area.inner .service-content-area {
   max-width: 630px;
-  margin-left: 20px;
 }
 .rts-service-area.inner .service-content-area .desc {
   margin-top: 35px;
@@ -23991,12 +23997,6 @@ footer .logo img {
 
 /* Hero and service-card styles for the homepage live in home.css. */
 
-/* The Drives section above already contributes 120px of bottom
-   padding, so this section's own 120px top padding doubled the gap
-   to 240px. Dropping it leaves one standard gap between them. */
-.rts-team-area {
-  padding-top: 0;
-}
 
 /* ==== Team cards (about page) ====
    The card's overlay badge holds a name plus a job title instead of
@@ -24007,6 +24007,846 @@ footer .logo img {
   font-size: 13px;
   font-weight: var(--f-regular);
   display: block;
+  line-height: 1.3;
+}
+
+/* ---------------------------------------------------------------
+   Company journey timeline (about.html)
+
+   A vertical timeline: one rail down the centre, a marker per era, and
+   the era cards alternating left and right of it. The year label sits
+   opposite its card, on the far side of the rail, so both halves of
+   every row carry something and the dates stay easy to scan.
+
+   Each row is a 1fr / auto / 1fr grid, so the marker column is centred
+   by construction and the rail can simply sit at left: 50%.
+
+   Below 992px there is no room for two content columns, so the rail
+   moves to the left edge and each era stacks year-then-card beside it.
+   --------------------------------------------------------------- */
+.journey-line {
+  position: relative;
+  display: grid;
+  row-gap: 50px;
+}
+/* The rail. Faded at both ends so it does not stop dead mid-air. */
+.journey-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-1px);
+  background: linear-gradient(to bottom, rgba(26, 61, 10, 0), var(--color-primary) 8%, var(--color-primary) 92%, rgba(26, 61, 10, 0));
+  opacity: 0.4;
+}
+.journey-item {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  -moz-column-gap: 40px;
+       column-gap: 40px;
+}
+.journey-slot {
+  display: flex;
+  align-items: center;
+}
+/* Content hugs the rail from either side; the 40px gutter is the stem. */
+.slot-start {
+  justify-content: flex-end;
+}
+.slot-end {
+  justify-content: flex-start;
+}
+.journey-point {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* The stem joining marker to card, drawn on whichever side the card is. */
+.journey-point::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 2px;
+  transform: translateY(-1px);
+  background: var(--color-primary);
+  opacity: 0.4;
+}
+.is-left .journey-point::before {
+  right: 100%;
+}
+.is-right .journey-point::before {
+  left: 100%;
+}
+.journey-point .dot {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 26px;
+  border-radius: 50%;
+  /* Ring in the section colour, so the marker punches a clean hole in
+     the rail. Kept in step with .rts-journey-area.bg-gray. */
+  box-shadow: 0 0 0 8px var(--color-tint-green);
+  transition: var(--transition);
+  z-index: 1;
+}
+.journey-item:hover .journey-point .dot {
+  transform: scale(1.08);
+}
+.journey-years {
+  display: inline-block;
+  padding: 9px 24px;
+  background: var(--color-white);
+  color: var(--color-primary);
+  font-size: 18px;
+  font-weight: var(--f-semi-bold);
+  letter-spacing: 1px;
+  border: 1px solid var(--color-primary);
+  border-radius: 30px;
+  transition: var(--transition);
+}
+.journey-item:hover .journey-years {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.journey-card {
+  position: relative;
+  /* Flex items size to content by default, which would leave the three
+     cards at three different widths. */
+  width: 100%;
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 30px 30px 28px;
+  box-shadow: 0px 20px 30px rgba(158, 158, 158, 0.1);
+  transition: var(--transition);
+}
+/* Pointer aimed at the rail, so each card reads as attached to its
+   marker rather than floating near it.
+
+   The left and right cards must end up identical. Two things get in the
+   way, so both are pinned here rather than left to the defaults:
+
+   - Paint order. On a left-hand card the marker is a later sibling, so
+     its stem draws over the pointer; on a right-hand card the card is
+     later and the pointer draws over the stem. z-index settles it the
+     same way on both sides.
+   - Over-constraining. Only one offset may be set, or the browser drops
+     the other and the pointer lands somewhere unintended, so each side
+     clears the opposite offset before setting its own. */
+.journey-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  background: var(--color-white);
+  transform: translateY(-50%) rotate(45deg);
+}
+.is-left .journey-card::after {
+  left: auto;
+  right: -8px;
+}
+.is-right .journey-card::after {
+  left: -8px;
+  right: auto;
+}
+.journey-item:hover .journey-card {
+  box-shadow: 0px 30px 45px rgba(158, 158, 158, 0.22);
+}
+.journey-card .title {
+  font-size: var(--h6);
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border-three);
+}
+.journey-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.journey-points li {
+  position: relative;
+  padding-left: 30px;
+  color: var(--color-body);
+  line-height: 1.7;
+}
+.journey-points li:not(:last-child) {
+  margin-bottom: 10px;
+}
+/* Absolute rather than inline, so a point that wraps to a second line
+   keeps its text aligned under the first line instead of tucking back
+   under the icon. */
+.journey-points li i {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  /* Solid diamonds read heavier than a tick at the same size, so they
+     are set smaller to sit quietly beside the text. */
+  font-size: 10px;
+  line-height: 1;
+  color: var(--color-primary);
+  transition: var(--transition);
+}
+/* Green at rest, brown on hover - the site's brand pair. Hovering the
+   whole point rather than the 10px glyph, so it is actually catchable
+   with a mouse. */
+.journey-points li:hover i {
+  color: var(--color-brown);
+}
+
+@media only screen and (max-width: 991px) {
+  .journey-line {
+    row-gap: 40px;
+  }
+  /* Rail moves to the left, through the middle of the 72px markers. */
+  .journey-line::before {
+    left: 36px;
+    transform: none;
+  }
+  .journey-item {
+    grid-template-columns: 72px 1fr;
+    grid-template-rows: auto auto;
+    -moz-column-gap: 30px;
+         column-gap: 30px;
+    align-items: start;
+  }
+  .journey-point {
+    grid-column: 1;
+    grid-row: 1/3;
+    align-items: flex-start;
+  }
+  /* No stems in this layout - the rail already does the joining. */
+  .journey-point::before {
+    display: none;
+  }
+  /* Year first, then its card, whichever slot each happens to sit in. */
+  .journey-slot {
+    grid-column: 2;
+    justify-content: flex-start;
+  }
+  .is-left .slot-start,
+  .is-right .slot-end {
+    grid-row: 2;
+  }
+  .is-left .slot-end,
+  .is-right .slot-start {
+    grid-row: 1;
+    margin-bottom: 18px;
+  }
+  .journey-point .dot {
+    box-shadow: 0 0 0 6px var(--color-tint-green);
+  }
+  /* The pointer would aim at nothing once the cards sit beside the rail. */
+  .journey-card::after {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .journey-item {
+    grid-template-columns: 56px 1fr;
+    -moz-column-gap: 18px;
+         column-gap: 18px;
+  }
+  .journey-line::before {
+    left: 28px;
+  }
+  .journey-point .dot {
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+  }
+  .journey-card {
+    padding: 26px 22px 24px;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Company growth (about.html)
+
+   Photo on the left, the five stages listed down the right. The page
+   runs long on text and icons by this point, so the image is doing the
+   work of breaking that up - and it echoes the About block at the top
+   of the page, which is also picture-beside-copy.
+
+   The stages themselves stay unboxed: a stage number, a vertical rule,
+   and the milestone. No panels, so the photo stays the only weight in
+   the section.
+   --------------------------------------------------------------- */
+.growth-split {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  gap: 50px;
+}
+.growth-visual {
+  position: relative;
+  min-height: 340px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+/* The column is stretched by the grid, so the photo can fill whatever
+   height the list next to it ends up being. */
+.growth-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+/* Same treatment as the badge on the "What Drives Us" photo, so the two
+   images on this page are furnished the same way. */
+.growth-badge {
+  position: absolute;
+  z-index: 2;
+  left: 30px;
+  bottom: 30px;
+  padding: 20px 28px;
+  background: var(--color-primary);
+  border-radius: 16px;
+  box-shadow: 0 24px 40px rgba(0, 0, 0, 0.18);
+  text-align: center;
+}
+.growth-badge .counter-no {
+  margin-bottom: 6px;
+  color: var(--color-white);
+  font-size: 40px;
+  line-height: 1;
+}
+.growth-badge p {
+  margin-bottom: 0;
+  color: var(--color-white);
+  font-family: var(--font-primary);
+  font-weight: var(--f-medium);
+  line-height: 1;
+}
+.growth-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.growth-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 78px 1fr;
+  align-items: center;
+  padding: 14px 0;
+  transition: var(--transition);
+}
+.growth-row:not(:last-child) {
+  border-bottom: 1px solid var(--color-border-three);
+}
+/* The numbers were already --color-primary, but at opacity 0.25 that read
+   as pale grey rather than green - only the hovered row showed the colour.
+   Full strength now, with the hover moving to brown instead, so the row
+   still responds to the pointer the way the rest of the site does. */
+.growth-step {
+  font-size: 30px;
+  font-weight: var(--f-bold);
+  line-height: 1;
+  color: var(--color-green);
+  opacity: 1;
+  transition: var(--transition);
+}
+.growth-row:hover .growth-step {
+  color: var(--color-brown);
+}
+/* The vertical rule between number and milestone. Drawn on the text so
+   it inherits the row's padding and always spans the full stage. */
+.growth-text {
+  margin-bottom: 0;
+  padding-left: 26px;
+  border-left: 1px solid var(--color-border-three);
+  color: var(--color-heading);
+  font-size: 18px;
+  font-weight: var(--f-medium);
+  line-height: 1.5;
+  transition: var(--transition);
+}
+/* Green at rest, brown on hover - the site's brand pair. */
+.growth-row:hover .growth-text {
+  border-left-color: var(--color-brown);
+}
+
+@media only screen and (max-width: 1199px) {
+  .growth-split {
+    gap: 36px;
+  }
+  .growth-row {
+    grid-template-columns: 64px 1fr;
+  }
+  .growth-step {
+    font-size: 30px;
+  }
+  .growth-text {
+    padding-left: 20px;
+    font-size: 17px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  /* Photo above the list once there is no room to sit beside it. */
+  .growth-split {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .growth-visual {
+    min-height: 340px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .growth-visual {
+    min-height: 260px;
+  }
+  .growth-badge {
+    left: 20px;
+    bottom: 20px;
+    padding: 16px 22px;
+  }
+  .growth-badge .counter-no {
+    font-size: 32px;
+  }
+  .growth-row {
+    grid-template-columns: 52px 1fr;
+  }
+  .growth-step {
+    font-size: 26px;
+  }
+  .growth-text {
+    padding-left: 16px;
+    font-size: 16px;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Supplier network (about.html)
+
+   The five cities are set out as stops on a route rather than as a list
+   or a grid of panels - it suits a transport company, and it keeps this
+   section distinct from the timeline, the growth split and the team
+   cards elsewhere on the page.
+
+   Five equal columns put the first pin at 10% and the last at 90%, so
+   the rail can simply run left: 10% to right: 10% and land dead centre
+   on both end pins. That relationship breaks the moment the columns
+   rewrap, which is why the rail is dropped below 992px.
+   --------------------------------------------------------------- */
+.network-lead {
+  max-width: 760px;
+  margin: 18px auto 0;
+  color: var(--color-body);
+}
+.network-route {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+/* The route line, level with the middle of the 72px pins. */
+.network-route::before {
+  content: "";
+  position: absolute;
+  top: 35px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: repeating-linear-gradient(to right, var(--color-primary) 0 10px, transparent 10px 20px);
+  opacity: 0.45;
+}
+.network-stop {
+  /* The route line is absolutely positioned, so without lifting the
+     stops above it the dashes run straight across the pins and the ring
+     below never punches its gap. Grid items take z-index directly. */
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 10px;
+}
+.stop-pin {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 26px;
+  border-radius: 50%;
+  /* Ring in the section colour, so the pin punches a clean hole in the
+     route line. Kept in step with .rts-network-area.bg-gray. */
+  box-shadow: 0 0 0 12px var(--color-tint-green);
+  transition: var(--transition);
+}
+/* Green at rest, brown on hover - the site's brand pair. */
+.network-stop:hover .stop-pin {
+  background: var(--color-brown);
+  transform: translateY(-6px);
+}
+.network-stop .title {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+.stop-note {
+  color: var(--color-body);
+  font-size: 15px;
+}
+
+@media only screen and (max-width: 991px) {
+  /* The rail only lines up while all five stops share one row. */
+  .network-route::before {
+    display: none;
+  }
+  /* Flex rather than grid once the stops wrap. Five stops never divide
+     evenly into three or two columns, so a grid would leave the last row
+     jammed against the left edge with a hole beside it. Wrapped flex
+     items centre their own row, so the remainder sits in the middle. */
+  .network-route {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px 0;
+  }
+  .network-stop {
+    flex: 0 0 33.3333%;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .network-route {
+    gap: 34px 0;
+  }
+  .network-stop {
+    flex: 0 0 50%;
+  }
+  .stop-pin {
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .network-stop .title {
+    font-size: 19px;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Primary customer (about.html)
+
+   Copy left, photograph right - the mirror of the growth section
+   above, which runs photo-left, so the two alternate down the page
+   instead of reading as the same block twice.
+
+   The names are typed, not drawn. The customer's own branding is
+   theirs to supply.
+   --------------------------------------------------------------- */
+.client-split {
+  display: grid;
+  grid-template-columns: 1.04fr 0.96fr;
+  gap: 60px;
+  /* Stretch, not centre: the photo is meant to run exactly as tall as
+     the copy beside it. */
+  align-items: stretch;
+}
+.rts-client-area .rts-section-title {
+  margin-bottom: 22px;
+}
+/* The heading is meant to hold one line in this column at every desktop
+   width, so it is kept short and stopped from wrapping. */
+.rts-client-area .heading-title {
+  white-space: nowrap;
+}
+.client-desc {
+  margin-bottom: 34px;
+  color: var(--color-body);
+  font-size: 17px;
+  line-height: 1.85;
+}
+.client-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--color-border-three);
+}
+.client-list li {
+  position: relative;
+  padding: 20px 0 20px 32px;
+  border-bottom: 1px solid var(--color-border-three);
+  color: var(--color-heading);
+  font-size: 21px;
+  font-weight: var(--f-medium);
+  line-height: 1.4;
+  transition: var(--transition);
+}
+/* Brand marker in place of a bullet, set on the cap height of the
+   first line rather than centred on a name that may wrap. */
+.client-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 30px;
+  width: 11px;
+  height: 11px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  transform: rotate(45deg);
+  transition: var(--transition);
+}
+/* Green at rest, brown on hover - the site's brand pair. */
+.client-list li:hover {
+  padding-left: 42px;
+  color: var(--color-primary);
+}
+.client-list li:hover::before {
+  background: var(--color-brown);
+}
+.client-visual {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+}
+/* Taken out of flow so the photo's own height counts for nothing: the
+   row is sized by the copy alone, and the image then fills whatever
+   that comes to. Left in flow it would push the row taller than the
+   text and the two columns would never match. */
+.client-visual img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+@media only screen and (max-width: 1199px) {
+  .client-split {
+    gap: 40px;
+  }
+  .client-list li {
+    font-size: 19px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  /* Copy above the photo once there is no room to sit beside it. */
+  .client-split {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  /* Stacked, there is no neighbouring column to take the height from,
+     so the photo needs one of its own again. */
+  .client-visual {
+    min-height: 340px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  /* Below this the heading genuinely cannot hold one line, and clipping
+     it would be worse than letting it wrap. */
+  .rts-client-area .heading-title {
+    white-space: normal;
+  }
+  .client-visual {
+    min-height: 260px;
+  }
+  .client-list li {
+    padding: 16px 0 16px 26px;
+    font-size: 17px;
+  }
+  .client-list li::before {
+    top: 24px;
+    width: 9px;
+    height: 9px;
+  }
+  .client-list li:hover {
+    padding-left: 32px;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Major milestone (about.html)
+
+   The quote is the section - there is no separate heading competing
+   with it. A ruled eyebrow, an oversized quote mark, the milestone set
+   as the largest type on the page, an attribution, then the supporting
+   copy in two columns divided by a hairline.
+
+   The quote mark is inline SVG rather than a glyph or an icon font:
+   the site's display face draws U+201C as two slashes, and at this
+   size that reads as a typo.
+   --------------------------------------------------------------- */
+/* Padding is left to .rts-section-gap - 120px top and bottom, the same
+   as every other section on the page. The height this section saves is
+   taken out of its internals instead. */
+.rts-milestone-area.rts-section-gap {
+  position: relative;
+  overflow: hidden;
+  /* Barely-there vertical wash over the flat tint. Enough to give the
+     block depth and to seat the quote at the lighter top end, not
+     enough to read as a gradient. */
+  background: linear-gradient(178deg, #F1F7EC 0%, var(--color-tint-green) 62%, #E7F0E1 100%);
+}
+/* The subtitle is the site's standard .rts-section-title .subtitle, so
+   it matches every other section. Only the trailing space is trimmed -
+   the wrapper normally sits above a heading, and there is none here. */
+.rts-milestone-area .rts-section-title {
+  margin-bottom: 0;
+}
+.milestone-quote {
+  position: relative;
+  max-width: 1240px;
+  margin: 18px 0 0;
+  padding: 0;
+}
+.milestone-quote p {
+  margin-bottom: 22px;
+  color: var(--color-heading);
+  /* Largest type in the section, ahead of any heading on it. Tight
+     leading and a touch of negative tracking keep it from sprawling. */
+  font-size: 36px;
+  font-weight: var(--f-medium);
+  line-height: 1.32;
+  letter-spacing: -0.8px;
+}
+/* The customer's name picked out in brand green, tying the quote back
+   to the Caterpillar credit directly above it. Not italic - the whole
+   quote already is, so italics here would flatten rather than lift. */
+.milestone-quote em {
+  color: var(--color-primary);
+  font-style: normal;
+  font-weight: var(--f-semi-bold);
+}
+.milestone-by {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: var(--f-semi-bold);
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+}
+.milestone-by::before {
+  content: "";
+  width: 34px;
+  height: 2px;
+  background: var(--color-primary);
+}
+.milestone-copy {
+  display: grid;
+  /* Weighted, not halved: the first paragraph is about a third longer,
+     and its column also gives up 60px to the divider, so the track has
+     to be wider still for the two to finish level. */
+  grid-template-columns: 1.45fr 1fr;
+  gap: 60px;
+  margin-top: 38px;
+  padding-top: 30px;
+  border-top: 1px solid var(--color-border-three);
+}
+.milestone-copy p {
+  margin-bottom: 0;
+  color: var(--color-body);
+  font-size: 17px;
+  line-height: 1.8;
+}
+/* Hairline dividing the two columns, set in the middle of the gutter. */
+.milestone-copy p:first-child {
+  padding-right: 60px;
+  border-right: 1px solid var(--color-border-three);
+}
+
+@media only screen and (max-width: 1199px) {
+  .milestone-quote p {
+    font-size: 33px;
+  }
+  .milestone-copy {
+    gap: 44px;
+    margin-top: 56px;
+  }
+  .milestone-copy p:first-child {
+    padding-right: 44px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .milestone-quote p {
+    font-size: 27px;
+    letter-spacing: -0.4px;
+  }
+  .milestone-copy {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 44px;
+    padding-top: 34px;
+  }
+  /* One column now, so the divider has nothing to divide. */
+  .milestone-copy p:first-child {
+    padding-right: 0;
+    border-right: 0;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .milestone-quote p {
+    font-size: 22px;
+    letter-spacing: 0;
+  }
+}
+
+/* The vehicle-category slider is driven by prev/next arrows instead of
+   pagination dots. They sit where the dots used to - centred, 50px below
+   the slider - so the section spacing is unchanged. */
+.rts-category-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 50px;
+}
+.rts-category-controls button {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  border-radius: 50%;
+  transition: var(--transition);
+}
+.rts-category-controls button:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.rts-category-controls button.swiper-button-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Degree suffix on a founder/team name - kept on its own line so a long
+   name plus qualification does not stretch the max-content card wider
+   than the photo above it. */
+.single-team .content .title .qualification {
+  display: block;
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: var(--f-regular);
+  opacity: 0.85;
   line-height: 1.3;
 }
 
@@ -24025,6 +24865,20 @@ footer .logo img {
   height: 400px;
   object-fit: cover;
   object-position: center top;
+}
+
+/* team-4 is the odd one out: she stands at about 73% of a 1500px-wide
+   landscape frame, while the other three are centred in theirs. A centred
+   crop therefore pushed her to the right edge of the card and cut her arm
+   off. Anchoring the crop to the right edge of the source brings her back
+   to the middle of the card.
+
+   Matched on the filename rather than :nth-child so it follows the photo if
+   the cards are ever reordered. `right` rather than a percentage because
+   the card's width changes with the breakpoint and the ideal figure moves
+   with it - the right edge is a clamp that cannot over-shoot. */
+.single-team .team-thumb img[src*="team-4"] {
+  object-position: right top;
 }
 
 @media only screen and (max-width: 1199px) {
@@ -24067,19 +24921,42 @@ footer .logo img {
   margin-bottom: 0;
 }
 
-/* ==== Footer: tighter gap above the divider ====
-   .footer-wrapper-style-between uses padding: 80px 0, and the
-   copyright bar adds another 24px of its own above the rule - so the
-   space between the last footer detail and the divider read as much
-   larger than the space below it. Keep the top padding (it separates
-   the footer from the CTA band) and trim only the bottom.
-   Tweak --footer-pad-bottom to adjust. */
+/* ==== Footer: overall height ====
+   The template used padding: 80px 0, and the copyright bar adds another
+   24px of its own above the rule - so the space between the last footer
+   detail and the divider read as much larger than the space below it.
+
+   Both ends are now tokens. The top no longer needs the full 80px to
+   separate the footer from the CTA band above it: that band ends on a
+   solid dark panel, which does the separating on its own.
+   Tweak --footer-pad-top / --footer-pad-bottom to adjust. */
 :root {
-  --footer-pad-bottom: 40px;
+  --footer-pad-top: 55px;
+  --footer-pad-bottom: 18px;
 }
 
 .footer-wrapper-style-between {
+  padding-top: var(--footer-pad-top);
   padding-bottom: var(--footer-pad-bottom);
+}
+
+/* The template already trimmed this padding at 991px and 576px, but those
+   rules sit earlier in the file and carry no more specificity than the one
+   above - so it would have overridden them and made the footer taller on
+   small screens than on a desktop. Setting the tokens per breakpoint keeps
+   the original scale-down. */
+@media (max-width: 991px) {
+  :root {
+    --footer-pad-top: 50px;
+    --footer-pad-bottom: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  :root {
+    --footer-pad-top: 40px;
+    --footer-pad-bottom: 14px;
+  }
 }
 
 /* ==== Footer: developer credit link ==== */
@@ -24127,6 +25004,41 @@ footer .logo img {
   border-radius: var(--service-promise-img-radius);
 }
 
+/* Same column gap as the About page's Our Story block, which sets
+   --bs-gutter-x: 60px on its row. Setting the gutter rather than a margin
+   is the idiomatic fix: Bootstrap derives both the column padding and the
+   row's compensating negative margin from it, so the outer edges of the
+   section stay put and only the space between the two columns grows.
+   Desktop only - below 992px the columns stack and the gutter would just
+   add dead space. */
+@media only screen and (min-width: 992px) {
+  .rts-service-area.inner .section-inner > .row {
+    --bs-gutter-x: 60px;
+  }
+
+  /* Photo matches the text column's height. --service-promise-img-h was a
+     fixed 520px frame, so at 1024px - where the text column is narrow and
+     runs long - the paragraph overshot the photo and left a gap beside it.
+
+     The column stretches, the wrapper grows into it, and the image fills
+     the wrapper; the fixed height becomes a min-height so a short text
+     column still cannot squash it. align-items-center came off the row in
+     the markup, since Bootstrap sets it !important and centred columns do
+     not stretch. */
+  .rts-service-area.inner .section-inner > .row > .col-lg-6:first-child {
+    display: flex;
+  }
+
+  .rts-service-area.inner .service-image-wrapper {
+    flex: 1 1 auto;
+  }
+
+  .rts-service-area.inner .service-image-wrapper img {
+    height: 100%;
+    min-height: var(--service-promise-img-h);
+  }
+}
+
 @media only screen and (max-width: 991px) {
   :root {
     --service-promise-img-h: 420px;
@@ -24151,6 +25063,17 @@ footer .logo img {
   --story-img-h: 520px;
   --story-inset-w: 240px;
   --story-inset-h: 175px;
+  /* Horizontal crop point for the main photo. The source is a 1.84:1
+     landscape squeezed into a near-square frame, so most of its width is
+     cropped away and this decides which slice survives.
+
+     It is not centred on purpose. The man stands dead centre in the
+     source, which put his head directly under the counter badge's white
+     notch in the top-right corner and clipped it. Biasing the crop past
+     centre slides him left, clear of the badge, while keeping him well
+     inside the frame. Raise it to move him further left, lower it to
+     move him right. */
+  --story-img-focus: 62%;
 }
 
 .about-letf-image-area-two {
@@ -24202,7 +25125,7 @@ footer .logo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: var(--story-img-focus) center;
 }
 
 .about-letf-image-area-two .inner-image-sm .inner-image .overlay-image img {
@@ -24236,7 +25159,7 @@ footer .logo img {
    .drives-content instead.
    Tweak --drives-img-h (the panel's minimum height) to resize. */
 :root {
-  --drives-img-h: 520px;
+  --drives-img-h: 440px;
 }
 
 /* The section uses rts-section-gap (120px top and bottom). Our Story
@@ -24263,13 +25186,28 @@ footer .logo img {
   min-height: var(--drives-img-h);
 }
 
+/* The source photo is 1500x998 landscape and the man stands at about 63%
+   of its width, but this frame is portrait - so `cover` scales to fill the
+   height and crops roughly 275px off each side. Cropping from the centre
+   kept the empty street on the left and pushed him to the right edge of
+   the frame.
+
+   Biasing the crop to 75% moves the visible window over to him: the parked
+   cars on the far left fall outside it and he lands near the middle. The
+   exact figure depends on the frame's height, which grows with the three
+   blocks in the column beside it - 75% is tuned for the desktop layout.
+   Tweak --drives-img-pos to shift him left or right. */
+:root {
+  --drives-img-pos: 75%;
+}
+
 .rts-drives-area .drives-image img {
   display: block;
   width: 100%;
   height: 100%;
   min-height: var(--drives-img-h);
   object-fit: cover;
-  object-position: center;
+  object-position: var(--drives-img-pos) center;
 }
 
 /* Orange wash, matching the Our Story image treatment. */
@@ -24310,11 +25248,11 @@ footer .logo img {
 }
 
 .rts-drives-area .drives-content {
-  padding: 55px 55px 55px 50px;
+  padding: 40px 45px 40px 42px;
 }
 
 .rts-drives-area .drives-content .rts-section-title {
-  margin-bottom: 30px;
+  margin-bottom: 22px;
 }
 
 .rts-drives-area .drives-list {
@@ -24327,7 +25265,7 @@ footer .logo img {
   display: flex;
   align-items: flex-start;
   gap: 20px;
-  padding: 22px 0;
+  padding: 15px 0;
   border-bottom: 1px solid rgba(85, 85, 85, 0.16);
 }
 
@@ -24340,10 +25278,15 @@ footer .logo img {
   border-bottom: 0;
 }
 
-/* Green sampled from the logo artwork (its dominant tone quantises
-   to #205020); lifted slightly so a white glyph reads cleanly. */
+/* The two brand tones, used as a pair across the whole site: green at rest,
+   brown on hover. Green matches --color-primary, so the buttons and cards
+   that use it sit in the same tone as the section headings and the CTA band.
+
+   Defined here, in the stylesheet every page loads, so home.css / booking.css
+   / contact.css can all use them without redeclaring. */
 :root {
-  --color-green: #2A6E2A;
+  --color-green: #1A3D0A;
+  --color-brown: #4E341B;
 }
 
 .rts-drives-area .drives-list li .icon {
@@ -24497,11 +25440,13 @@ footer .logo img {
   content: none;
 }
 
-/* Green fill on hover. The shared button's hover only slides the
-   text and arrow - it never changes colour - so both pill segments
-   need the fill, and the border has to change with them or a grey
-   outline stays visible on top of the green. Colour is set on the
-   containers so the label and arrow inherit white. */
+/* Brown fill on hover, matching every other button on the site. The
+   shared button's hover only slides the text and arrow - it never
+   changes colour - so both pill segments need the fill, and the border
+   has to change with them or a grey outline stays visible on top.
+   Colour is set on the containers so the label and arrow inherit white.
+   This rule outranks the site-wide .rts__btn:hover pair, so it carries
+   the brown itself. */
 .rts-service-area.inner .service-content-area .button-area .rts__btn .rts__btn__wrap,
 .rts-service-area.inner .service-content-area .button-area .rts__btn .rts__btn__icon {
   transition: var(--transition);
@@ -24509,8 +25454,8 @@ footer .logo img {
 
 .rts-service-area.inner .service-content-area .button-area .rts__btn:hover .rts__btn__wrap,
 .rts-service-area.inner .service-content-area .button-area .rts__btn:hover .rts__btn__icon {
-  background: var(--color-green);
-  border-color: var(--color-green);
+  background: var(--color-brown);
+  border-color: var(--color-brown);
   color: var(--color-white);
 }
 
@@ -24637,6 +25582,13 @@ footer .logo img {
   .rts-credentials-area .credential:nth-child(n + 3) {
     border-top: 1px solid rgba(85, 85, 85, 0.16);
   }
+
+
+  .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area {
+    display: block;
+    align-items: center;
+    gap: 20px;
+}
 }
 
 @media only screen and (max-width: 575px) {
@@ -24751,14 +25703,24 @@ footer .logo img {
   opacity: 0.9;
 }
 
+/* The heading used to be pinned to a hard 700px. On a wide screen the
+   column is wider than that, so the fixed box no longer matched the text
+   column - and because the split-text animation locks each line's width in
+   at the moment it splits, the long line kept its natural width and ran out
+   past the container instead of wrapping. Sizing it to the column it sits
+   in lets it wrap wherever the column ends, at any screen width.
+
+   The nowrap on spans went with it: the animation wraps every word and
+   character of the heading in a span, so forcing nowrap on all of them was
+   what stopped the overflowing line from breaking. */
 .about-main-heading {
-    width: 700px !important;
-    max-width: 700px !important;
+    width: auto !important;
+    max-width: 100% !important;
     white-space: normal !important;
 }
 
 .about-main-heading span {
-    white-space: nowrap !important;
+    white-space: normal !important;
 }
 
 /* ==========================================================================
@@ -24814,7 +25776,7 @@ footer .logo img {
 
 /* Quote Box in Blog Posts */
 .portfolio-details-area .quote-area {
-  background: var(--color-gray);
+  background: #edf4e9;
   border-left: 4px solid var(--color-primary);
   padding: 25px 30px;
   border-radius: 8px;
@@ -25257,6 +26219,22 @@ footer .logo img {
 }
 }
 
+/* Breadcrumb separator dot.
+
+   align-items: center puts the 6px dot at the middle of the link's line
+   box, which is not the same as the middle of the words in it. The line
+   box reserves descender space that "Home" and "Services" never use, so
+   its centre sits above the text's optical centre and the dot reads
+   high. A 1px nudge drops it onto the letters' midline.
+
+   Nudge, not a rewrite: the dot is already correct to the box, so this
+   is an optical correction. Raise it if the breadcrumb font ever changes
+   to one with deeper descender metrics. */
+.rts-breadcrumb-area .nav-bread-crumb .nav-inner .dot {
+  position: relative;
+  top: 1px;
+}
+
 /* Tablet view specific boost for 768px screens */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .rts-breadcrumb-area {
@@ -25341,4 +26319,925 @@ footer .logo img {
   :root {
     --breadcrumb-min-h: 320px;
   }
+}
+
+
+/* ==========================================================================
+   Buttons: green at rest, brown on hover
+   Site-wide. This started as a homepage-only block in home.css and was then
+   asked for on about, service, book-now and contact - at that point one
+   unscoped rule is simpler than five copies, and it keeps any page added
+   later on the brand pair by default.
+
+   Both pieces of .rts__btn - the text pill and the round icon - carry their
+   own background and border, so both need filling or the button reads as
+   half-coloured. The template left them transparent with a grey border and
+   only filled them on hover.
+
+   Exception: index.html's two banner buttons. style.css styles those through
+   a six-class chain that outranks anything this short, and the second one
+   runs the pair in reverse, so both are handled in home.css.
+   ========================================================================== */
+.rts__btn .rts__btn__wrap,
+.rts__btn .rts__btn__icon {
+  background: var(--color-green);
+  border: 1px solid var(--color-green);
+  color: var(--color-white);
+}
+
+.rts__btn:hover .rts__btn__wrap,
+.rts__btn:hover .rts__btn__icon {
+  background: var(--color-brown);
+  border-color: var(--color-brown);
+  color: var(--color-white);
+}
+
+/* Both labels are stacked inside the pill and swap on hover, so the second
+   one needs the white too - the base stylesheet sets it explicitly. */
+.rts__btn .rts__btn__txt-one,
+.rts__btn .rts__btn__txt-two,
+.rts__btn:hover .rts__btn__txt-two {
+  color: var(--color-white);
+}
+
+
+/* ==========================================================================
+   About feature pair: equal columns
+   The two icon blocks under the description - "24/7 Support" and
+   "Affordable Pricing" on index.html, "ISO 9001:2015 Certified" and "500+
+   Corporate Clients" on about.html - sat in a flex row with no basis, so
+   each took only as much width as its own text wanted. The first block's
+   longer sentence claimed the surplus and squeezed the second into a
+   narrow strip, breaking its heading across two lines.
+
+   flex: 1 1 0 gives both the same share whatever they contain. min-width: 0
+   is what makes that hold: without it a flex item refuses to shrink below
+   its content's intrinsic width, and the longer block goes on claiming more
+   than half. The icon keeps its size because it is set with min-width,
+   which shrinking does not override.
+
+   The gap comes down with it - 46px between two half-width columns was
+   taking room the text needed more. Unscoped because both pages use this
+   block and about.html does not load home.css, where this started.
+   ========================================================================== */
+.about-right-content-area .about-item-wrapper {
+  gap: 30px;
+}
+
+.about-right-content-area .about-item-wrapper .single-item {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* The headings still broke onto a second line once the columns were even:
+   at 20px, "ISO 9001:2015 Certified" measures a shade wider than the ~235px
+   of text width each half leaves after the icon. 17px brings it inside that
+   with room to spare, and the icon's gap comes down to hand over a little
+   more. Both index.html's pair and about.html's fit on one line at this
+   size; the paragraph below is unchanged, so the heading is still clearly
+   the heavier of the two.
+
+   Sized rather than nowrapped on purpose - white-space: nowrap would hold
+   one line by pushing the text out of its box instead, and these columns
+   get much narrower between 992px and 1200px. */
+.about-right-content-area .about-item-wrapper .single-item .content .title {
+  font-size: 17px;
+}
+
+.about-right-content-area .about-item-wrapper .single-item {
+  gap: 16px;
+}
+
+/* On a phone the pair has to stack. Half of a 425px screen leaves each
+   block about 60px of text width once its icon is subtracted, which is
+   what broke "Affordable Pricing" over two lines and ran its description
+   down one or two words per line.
+
+   flex-direction: column stacks them; flex: 0 0 auto releases the equal-
+   halves sizing above, which would otherwise still be dividing the height
+   between them. Each block keeps its own icon-beside-text row. */
+@media only screen and (max-width: 767px) {
+  .about-right-content-area .about-item-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .about-right-content-area .about-item-wrapper .single-item {
+    flex: 0 0 auto;
+  }
+}
+
+
+/* ==========================================================================
+   About page
+   ========================================================================== */
+
+/* ==== Stats ==== */
+.about-page .rts-counter-area-two .counter-inner .inner {
+  background: var(--color-green);
+  transition: background 0.3s ease;
+}
+
+.about-page .rts-counter-area-two .counter-inner .inner:hover {
+  background: var(--color-brown);
+}
+
+/* text-align matters here as much as the colour. The card centres its
+   children as boxes, so .text is centred - but .text is only as wide as its
+   widest line, the caption, and the number inside it is a block that
+   inherits left alignment. So "500+" sat against the left edge of
+   "Corporate Clients" rather than over its middle. Centring the text inside
+   .text lines the number up with the caption and the icon above it. */
+.about-page .rts-counter-area-two .counter-inner .inner .text {
+  text-align: center;
+}
+
+.about-page .rts-counter-area-two .counter-inner .inner .title,
+.about-page .rts-counter-area-two .counter-inner .inner .desc {
+  color: var(--color-white);
+}
+
+/* The four stat icons are flat dark SVGs loaded as <img>, so their fill
+   cannot be reached from CSS. brightness(0) crushes each one to solid
+   black and invert(1) flips it to solid white, which reads on both fills. */
+.about-page .rts-counter-area-two .counter-inner .inner .icon img {
+  filter: brightness(0) invert(1);
+}
+
+/* Keep the stats two-up on phones. The theme holds them at 47% down to
+   450px and then drops them to full width, which turns four cards into
+   four tall blocks and pushes the rest of the page a long way down.
+
+   The only reason they could not stay two-up was the padding - 40px a
+   side on a ~390px screen leaves almost nothing for the caption - so it
+   comes down with the type. Captions are the tight part, not the
+   numbers: "On-time Performance" is the longest and is allowed to wrap
+   onto two lines, which is why the cards are stretched to equal height
+   rather than sized by content. */
+@media only screen and (max-width: 450px) {
+  .about-page .rts-counter-area-two .counter-inner {
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .about-page .rts-counter-area-two .counter-inner .inner {
+    width: calc(50% - 8px);
+    gap: 14px;
+    padding: 26px 12px;
+  }
+
+  .about-page .rts-counter-area-two .counter-inner .inner .title {
+    font-size: 30px;
+  }
+
+  .about-page .rts-counter-area-two .counter-inner .inner .desc {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+
+/* ==== FAQ ====
+   The accordion ships transparent with a grey hairline, and the open item
+   swaps to grey - all three states are filled here so an open item does not
+   jump back to grey mid-list. */
+.about-page .rts-faq__accordion .accordion .accordion-item,
+.about-page .rts-faq__accordion .accordion .accordion-item.active {
+  background: var(--color-green);
+  border-color: transparent;
+}
+
+.about-page .rts-faq__accordion .accordion .accordion-item:hover {
+  background: var(--color-brown);
+}
+
+/* Question text, answer text and the +/- marker all sat on a light panel,
+   so each one is turned white. The marker is a ::after on the button, and
+   the open state is a separate rule in the base file with its own dark
+   circle behind it - that circle goes transparent so only the glyph shows. */
+.about-page .rts-faq__accordion .accordion .accordion-item .accordion-header .accordion-button,
+.about-page .rts-faq__accordion .accordion .accordion-item .accordion-header .accordion-button:not(.collapsed),
+.about-page .rts-faq__accordion .accordion .accordion-item .accordion-body {
+  color: var(--color-white);
+}
+
+.about-page .rts-faq__accordion .accordion .accordion-item .accordion-header .accordion-button::after,
+.about-page .rts-faq__accordion .accordion .accordion-item .accordion-header .accordion-button:not(.collapsed)::after {
+  color: var(--color-white);
+  background: transparent;
+}
+
+/* .inner-faq (the variant this page uses) re-states the marker colour on a
+   six-class chain of its own, so it has to be answered on the same chain. */
+.about-page .rts-faq__accordion.inner-faq .accordion .accordion-item .accordion-header .accordion-button:not(.callapsed)::after {
+  background: transparent;
+  color: var(--color-white);
+}
+
+
+/* ==========================================================================
+   Blog post sidebar
+   The three panels down the right of every blog-*.html page. .right-side-bar
+   only exists on those pages, so no page class is needed to scope this.
+   ========================================================================== */
+.right-side-bar .side-box {
+  background: var(--color-green);
+  border-color: transparent;
+}
+
+.right-side-bar .side-box,
+.right-side-bar .side-box h2,
+.right-side-bar .side-box p,
+.right-side-bar .side-box .blog-list li .content h3 a,
+.right-side-bar .side-box .blog-list li .content .blog-meta {
+  color: var(--color-white);
+}
+
+/* The topic chips were light grey pills; brown keeps them readable and
+   stays inside the brand pair. */
+.right-side-bar .side-box.tag-area ul li {
+  background: var(--color-brown);
+  color: var(--color-white);
+}
+
+/* "Need a Car Today?" uses .btn-primary, a plain anchor rather than the
+   two-piece .rts__btn - it has no .rts__btn__wrap for the site-wide button
+   rule to fill. It was a grey outline, which vanishes on green, so it goes
+   white with green text. The template hides an oversized circle below the
+   button and sweeps it up on hover, so recolouring that circle brown is
+   what turns the button on hover - the animation is kept, not overridden. */
+.right-side-bar .side-box .rts__btn.btn-primary {
+  background: var(--color-white);
+  border-color: var(--color-white);
+  color: var(--color-green);
+}
+
+.right-side-bar .side-box .rts__btn.btn-primary::before {
+  background: var(--color-brown);
+}
+
+.right-side-bar .side-box .rts__btn.btn-primary:hover {
+  color: var(--color-white);
+  border-color: var(--color-brown);
+}
+
+
+/* ==========================================================================
+   Social icons: green badge, brown on hover
+   Header (.header-social) and footer (.footer-social) on every page. Both
+   shipped as bare icons with no background, so each link becomes a circular
+   badge and the glyph inside it goes white.
+   ========================================================================== */
+/* One size for both rows. The glyph is roughly 45% of the badge, which is
+   what keeps the circles from looking empty - move the two together. */
+:root {
+  --social-badge: 30px;
+  --social-glyph: 13px;
+}
+
+.header-social li a,
+.copyright-area .copyright-area-inner .footer-social li a {
+  width: var(--social-badge);
+  height: var(--social-badge);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-green);
+  transition: background 0.3s ease;
+}
+
+.header-social li a:hover,
+.copyright-area .copyright-area-inner .footer-social li a:hover {
+  background: var(--color-brown);
+}
+
+/* The header icons are separate .svg files loaded as <img>, so their fill
+   cannot be reached from CSS. The markup now points at the -w variants -
+   solid white glyphs with no outline ring, which is what makes them read as
+   bold inside the badge; the plain files are thin line art wrapped in a ring
+   of their own. The filter stays as a backstop: brightness(0) crushes any
+   icon to solid black and invert(1) flips it to white, so a non-white file
+   dropped in later still reads on both badge colours.
+
+   The -w files are not square (the "f" is 9x15, the X 15x13), so
+   object-fit: contain fits each one inside the same box without distorting
+   it - they end up optically matched rather than stretched to fill. */
+.header-social li a img,
+.copyright-area .copyright-area-inner .footer-social li a img {
+  width: var(--social-glyph);
+  height: var(--social-glyph);
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+
+/* ==========================================================================
+   Footer fixes
+   ========================================================================== */
+
+/* ---- 1. Contact Us column was too narrow for its content ----------------
+   The three footer columns are fixed at 270 / 150 / 180px, but the Contact
+   column holds two-per-row items (width: calc(50% - 10px)) carrying long
+   values - support@baniyantravels.com and a full street address. At 180px
+   each cell was ~85px, so the phone and email blocks overlapped and the
+   address broke one character per line.
+
+   Letting the column take the leftover width fixes the cause rather than
+   the symptom: with ~600px available the 2x2 grid has room again.
+   min-width: 0 is required - a flex item defaults to min-width: auto and
+   refuses to shrink below its content, which is what pushed the column
+   past the container edge in the first place. */
+/* The :last-child variant is included deliberately. style.css also has
+   `.single-wized:nth-child(3):last-child { flex: 0 0 500px }`, and Contact
+   Us IS the last child - that selector carries one more pseudo-class than
+   a plain :nth-child(3), so it outranked the rule below and pinned the
+   column at 500px. That is what left ~300px stranded at the right edge. */
+.footer-wrapper-style-between .single-wized:nth-child(3),
+.footer-wrapper-style-between .single-wized:nth-child(3):last-child {
+  flex: 1 1 auto;
+  max-width: none;
+  min-width: 0;
+}
+
+/* break-word was fighting the narrow column by breaking mid-word. With the
+   column widened it is no longer needed - anywhere only breaks a word that
+   genuinely cannot fit, so emails stay intact. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a {
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Below 1200px only. The template pins these links with white-space: nowrap
+   and exempts just the maps address, so support@baniyantravels.com could
+   not wrap however narrow the column got - it ran past the container edge
+   and was clipped. Releasing it lets the address wrap instead of overflow.
+
+   Deliberately not applied on desktop: there the column is wide enough for
+   every value to sit on one line, so the template's nowrap changes nothing
+   visually and is left exactly as it was. */
+@media only screen and (max-width: 1199px) {
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li .text a {
+    white-space: normal;
+  }
+}
+
+/* ---- 2. Footer links: brown on hover -----------------------------------
+   Matches the social badges, which already use --color-brown. */
+.footer-wrapper-style-between .single-wized .body a:hover,
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a:hover {
+  color: var(--color-brown);
+}
+
+.footer-wrapper-style-between .single-wized .body a:hover .link-arrow {
+  color: var(--color-brown);
+}
+
+.copyright-area .copyright-area-inner p a:hover {
+  color: var(--color-brown);
+}
+
+/* ---- 3. Column spacing --------------------------------------------------
+   justify-content: space-between splits any leftover width into the gaps
+   between columns, so the three blocks drifted apart instead of sitting in
+   a tidy row - that was the space between Quick Links and Contact Us.
+   flex-start keeps them adjacent and makes `gap` the only thing separating
+   them, so the spacing is one number rather than a by-product of the
+   column widths. Contact Us still grows to take the remainder, so nothing
+   is left stranded at the right edge. */
+.footer-wrapper-style-between {
+  justify-content: flex-start;
+  gap: 34px;
+}
+
+/* margin-right rather than a bigger `gap`: gap applies to every column
+   break equally, so raising it would push Contact Us out too. The margin
+   widens only the first break, leaving the Quick Links to Contact Us gap
+   at the 55px set above. */
+.footer-wrapper-style-between .single-wized:nth-child(1) {
+  flex: 0 1 300px;
+  max-width: 300px;
+  margin-right: 60px;
+}
+
+/* Same reasoning as the first column: a margin widens only this break,
+   so the two gaps stay independently adjustable.
+
+   This margin is what set the Quick Links to Contact Us distance. It is 0
+   now: that break is down to the row's 34px gap alone, and every pixel
+   taken out of it goes to Contact Us, which is the column that was running
+   past the container edge. The gap still reads wider than 34px because the
+   column is sized for its box, not its text - "Services" falls well short
+   of 150px, so the column's empty tail is read as part of the gap. */
+.footer-wrapper-style-between .single-wized:nth-child(2) {
+  flex: 0 0 150px;
+  max-width: 150px;
+  margin-right: 0;
+}
+
+/* Working Hours is the one contact value that was never a link - it pointed
+   at "#". It is a <span> now, so it takes the same styling as the anchors
+   beside it (size, line height, block display) without the pointer cursor
+   or the brown hover that implies something happens on click. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text .static-value {
+  display: block;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--color-body);
+}
+
+/* ---- Column heads line up with the logo, content with the paragraph ----
+   The first column opens with the logo (58px tall, --logo-h-footer) and a
+   25px gap; the other two open with a 20px heading and a 30px gap. So the
+   two blocks were different heights - 83px against ~54px - and every list
+   below them started about 30px above the paragraph beside it.
+
+   Giving the heading the logo's height as a min-height, and the same gap
+   below it as the logo, makes both openings measure exactly the same, so
+   Quick Links and Contact Us begin on the same line as the paragraph's
+   first line.
+
+   The heading is centred inside that 58px box, so it sits against the
+   middle of the logo rather than its top edge.
+
+   One gap token drives both columns: raising or lowering it moves the
+   logo's paragraph and the two lists together, so they cannot drift out
+   of line with each other. */
+:root {
+  --footer-head-gap: 14px;
+}
+
+.footer-wrapper-style-between .single-wized .title {
+  min-height: var(--logo-h-footer);
+  margin-bottom: var(--footer-head-gap);
+  display: flex;
+  align-items: center;
+}
+
+.footer-wrapper-style-between .single-wized.logo-area .logo {
+  margin-bottom: var(--footer-head-gap);
+}
+
+/* The copyright bar below the divider carried 24px above and below its one
+   line of text. The social badges set the bar's real height at 30px, so the
+   padding was doing more than the content - trimmed to 14px, which keeps
+   the badges clear of the rule without the bar reading as its own band.
+   Tweak --copyright-pad-y to adjust. */
+:root {
+  --copyright-pad-y: 14px;
+}
+
+.copyright-area {
+  padding: var(--copyright-pad-y) 0;
+}
+
+/* The description wrapped very unevenly - "individuals," ended one line on
+   its own while the next ran the full width - because a 300px column is
+   narrow enough that a single long word swings each line's break point.
+   Widening it to 360px and justifying evens both edges out; at this width
+   justification has enough words per line to spread the slack thinly rather
+   than opening rivers between them.
+
+   hyphens: none keeps the browser from hyphenating to help the justify -
+   a hyphenated brand name in a footer reads as a typo. */
+.footer-wrapper-style-between .single-wized.logo-area {
+  flex-basis: 360px;
+  max-width: 360px;
+}
+
+.footer-wrapper-style-between .single-wized.logo-area .desc {
+  text-align: justify;
+  hyphens: none;
+}
+
+/* ---- 4. Breathing room inside the Contact Us column ---------------------
+   Four blocks in a 2x2 grid, each an icon beside a label and its values.
+   The row gap does most of the work - the values wrap onto two lines, so
+   without it the blocks read as one continuous list. */
+/* 40px between the two columns pushed the email column far enough right
+   that support@baniyantravels.com ran past the container's edge - the
+   values cannot wrap on desktop (the template pins them with nowrap, left
+   in place there deliberately), so the overflow had nowhere to go. 20px
+   pulls the whole right-hand column back inside. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul {
+  gap: 26px 20px;
+}
+
+/* display: block so each value starts a new line. .single-wized .body a is
+   inline-flex (it carries the chevron in Quick Links), which let the two
+   phone numbers sit side by side whenever they happened to fit - the two
+   emails only stacked because they were too long to share a line. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- 5. Contact Us: a real 2x2 grid ------------------------------------
+   The items were flex with width: calc(50% - 10px). Two of those plus the
+   30px column gap comes to 100% + 10px, so they could never share a row -
+   the column silently fell back to one item per row.
+
+   Grid takes the arithmetic out of it: 1fr columns are measured AFTER the
+   gap is subtracted, so two always fit whatever the gap is set to. The
+   flex width has to be cleared or it fights the track sizing. */
+/* The two columns are no longer equal. The left one carries the phone
+   numbers and the full street address, the right one an email pair and a
+   one-line opening time - so an even split left the address breaking across
+   five lines while the right column sat half empty. 1.4fr against 1fr hands
+   the surplus to the side that needs it, and takes three of those five
+   lines out of the footer's height as a side effect. */
+/* The ratio now favours the RIGHT column. The addresses in the left one
+   wrap happily across two or three lines, but the values in the right one
+   cannot wrap at all on desktop (the template's nowrap is kept there), so
+   support@baniyantravels.com has to be given a track wide enough to hold
+   it or it spills out of the container. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: start;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li {
+  width: auto;
+  max-width: none;
+}
+
+/* Stays 2x2 on phones too. The cells are narrow there (~150px), so the
+   column gap comes right down and the icon moves above its text instead
+   of beside it - that hands the full cell width to the values, which is
+   what keeps support@baniyantravels.com readable rather than breaking
+   across four lines. */
+@media only screen and (max-width: 576px) {
+  .footer-wrapper-style-between .single-wized.get-in-touch ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 26px 14px;
+  }
+
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li .text a,
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li .text .static-value {
+    font-size: 15px;
+  }
+}
+
+
+/* ==========================================================================
+   Light green tint: header, and the sections that share its colour
+   A soft tint of the brand green (#1A3D0A over white), light enough that
+   dark text keeps its contrast and the green badges and buttons still read
+   as filled shapes against it.
+
+   ---- The header ----
+
+   Three selectors because the header paints itself in three states: the bar
+   in normal flow, .header-inner (the fixed wrapper) and .sticky (the shrunk
+   bar after scrolling), the last two of which hardcoded white. Each carries
+   one more class than the rule it overrides, so the tint holds through the
+   scroll rather than flashing back to white.
+
+   The logo is a transparent PNG, so it sits on the tint cleanly.
+   One token drives every surface below, so they cannot drift apart.
+   Tweak --color-tint-green to adjust them all at once.
+   ========================================================================== */
+:root {
+  --color-tint-green: #EDF4E9;
+}
+
+.header-one,
+.header-one .header-inner,
+.header-one.header--sticky.sticky {
+  background: var(--color-tint-green);
+}
+
+/* The small tiles behind the phone / email / location icons in the top row
+   were --color-gray, a dull grey patch once the bar behind them is tinted.
+   They now match the footer's Contact Us tiles exactly - filled green with
+   a white glyph - so the same three details read the same way at both ends
+   of the page. */
+.header-one .header-top .inner .get-touch-area .map-area .icon {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.header-one .header-top .inner .get-touch-area .map-area .icon i {
+  color: var(--color-white);
+}
+
+
+/* ---- Sections sharing the header's tint ----
+   Each of these shipped on --color-gray (#F6F6F6) or a background image.
+   They all carry dark text on a light panel already, so only the surface
+   colour changes - nothing inside needs recolouring. */
+
+/* Homepage testimonials. .bg-gray is a one-class utility, so this needs the
+   section class alongside it to win. */
+.rts-testiomonials-area.bg-gray {
+  background: var(--color-tint-green);
+}
+
+/* About: "What Drives Us". The tint goes on the rounded panel rather than
+   the section, which is what the grey was doing - the panel is the shape
+   the eye reads, and the photo fills its left half. */
+.rts-drives-area .drives-panel {
+  background: var(--color-tint-green);
+}
+
+/* About: "Certifications & Recognition". */
+.rts-credentials-area.bg-gray {
+  background: var(--color-tint-green);
+}
+
+/* About: "Company's Journey" timeline. */
+.rts-journey-area.bg-gray {
+  background: var(--color-tint-green);
+}
+
+/* About: "Our Network" supplier cities. */
+.rts-network-area.bg-gray {
+  background: var(--color-tint-green);
+}
+
+/* About: "Major Milestone". */
+.rts-milestone-area.bg-gray {
+  background: var(--color-tint-green);
+}
+
+/* Contact page form panel. */
+.rts-contact-form {
+  background: var(--color-tint-green);
+}
+
+/* Footer. The template loaded footer-bg.webp through data-bg-src, which
+   main.js turns into an INLINE background-image - inline styles beat a
+   stylesheet, so a rule here could only have won with !important. The
+   attribute is removed from the markup on all 12 pages instead, which
+   leaves this as the only thing painting the footer. */
+.rts-footer-area.footer-bg {
+  background: var(--color-tint-green);
+}
+
+
+/* ---- Homepage banner: the gutters either side ----
+   The banner is inset with `margin: 0 60px` and rounded off, so those 60px
+   strips are the page behind it - white, against a tinted header directly
+   above. They cannot be painted from the banner itself: it sets
+   overflow: hidden, which clips any pseudo-element reaching past its edge.
+   So index.html wraps the section in .banner-outer and the tint goes there.
+
+   The banner has no vertical margin, so the wrapper is exactly its height -
+   no green band appears above or below it. */
+.banner-outer {
+  background: var(--color-tint-green);
+}
+
+/* ---- Homepage banner: the pager panel ----
+   The vertical dots sit in a white tab notched into the banner's left edge,
+   which is the page showing through - so against a tinted page it read as a
+   white block. The tab and both of its notch shapes take the tint instead.
+
+   The shapes are box-shadow, not background: they are transparent boxes
+   whose shadow paints the curve that joins the tab to the page above and
+   below it, so the colour has to be set on the shadow. */
+.banner-slider-one .rts-banner-pagination-wrapper {
+  background: var(--color-tint-green);
+}
+
+.banner-slider-one .rts-banner-pagination-wrapper .inner-banner::before,
+.banner-slider-one .rts-banner-pagination-wrapper .inner-banner::after {
+  box-shadow: -20px 0 0 0 var(--color-tint-green);
+}
+
+
+/* ---- Contact icon tiles: circles, not rounded squares ----
+   The header's top row (phone / email / location) and the footer's Contact
+   Us block both used a 6px-radius square, which sat oddly next to the round
+   social badges at the other end of each bar. Both are already square boxes
+   (38px and 32px), so 50% turns them into true circles rather than ovals. */
+.header-one .header-top .inner .get-touch-area .map-area .icon,
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .icon {
+  border-radius: 50%;
+}
+
+
+/* ---- Footer at tablet-landscape widths (992-1199px) ----
+   The three columns are sized for a 1300px+ container: 300px + 60px margin,
+   150px + 12px margin, 55px row gaps, and Contact Us taking what is left.
+   Inside a 960px container that leaves Contact Us about 330px, which its
+   2x2 grid then halves - and support@baniyantravels.com does not fit in
+   165px. The fixed parts come down so the flexible column keeps enough.
+
+   min-width: 0 on the grid cells is the part that actually stops the
+   overflow: a grid item defaults to min-width: auto, so it refuses to
+   shrink below its longest word no matter what overflow-wrap says, and the
+   column pushes past the container instead of wrapping inside it. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul li,
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text {
+  min-width: 0;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  /* Budget for the 960px container at this breakpoint:
+       320 (col 1) + 16 margin + 24 gap + 120 (Quick Links) + 24 gap
+       = 504, leaving 456 for Contact Us. Its grid then halves that to
+       222px a cell - enough for support@baniyantravels.com on one line.
+     The row gap and the first column's margin come down to pay for the
+     wider first column; the grid's own column gap drops to 12px, which
+     is the other half of what buys those 222px. */
+  .footer-wrapper-style-between {
+    gap: 24px;
+  }
+
+  .footer-wrapper-style-between .single-wized:nth-child(1) {
+    flex-basis: 320px;
+    max-width: 320px;
+    margin-right: 16px;
+  }
+
+  .footer-wrapper-style-between .single-wized:nth-child(2) {
+    flex: 0 0 120px;
+    max-width: 120px;
+    margin-right: 0;
+  }
+
+  /* The grid runs 1.4fr / 1fr on wide screens, where the address needed the
+     extra room. In a 456px column that split leaves the left cell 261px and
+     the right only 187px - and it is the RIGHT cell that holds the two long
+     email addresses, which is why they kept breaking mid-word however much
+     the font came down. The address is the one that can afford to wrap, so
+     the ratio tips the other way here. */
+  .footer-wrapper-style-between .single-wized.get-in-touch ul {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 20px 8px;
+  }
+
+  /* Every pixel between the icon and its text is a pixel the email cannot
+     use, so this comes down too. */
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li {
+    gap: 10px;
+  }
+
+  /* One size for the footer's body text at this breakpoint: the
+     description, the Quick Links entries and the contact values all sit at
+     14px, down from 16px.
+
+     It also keeps the email on one line. With the 1fr / 1.1fr split the
+     right-hand cell is about 235px, and its icon plus gap take 42 of those,
+     leaving roughly 193px of text width. support@baniyantravels.com
+     measures about 205px at 16px - hence the mid-word break - and about
+     182px at 14px, so it now fits. The labels above the values keep their
+     own size, so the hierarchy is unchanged. */
+  .footer-wrapper-style-between .single-wized.logo-area .desc,
+  .footer-wrapper-style-between .single-wized .body a,
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li .text a,
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li .text .static-value {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Justified text needs a certain number of words per line to spread the
+     slack thinly. In this column it has too few, so it opens rivers between
+     words instead - left-aligned reads better at this width. */
+  .footer-wrapper-style-between .single-wized.logo-area .desc {
+    text-align: left;
+  }
+}
+
+
+/* ---- About page team: 2 x 2 at tablet-landscape widths ----
+   The cards are col-xl-3 col-lg-4 col-md-6, so between 992px and 1199px
+   they run three across and leave the fourth alone on its own row. Half
+   width puts them in a 2x2 block instead. Overriding `width` is what
+   works here: Bootstrap's col-lg-4 sets flex: 0 0 auto and a width, so a
+   flex-basis alone would be ignored. */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .rts-team-wrapper > .row > [class*="col-"] {
+    width: 50%;
+  }
+}
+
+
+/* ---- Forced line breaks that only apply on desktop ----
+   .break-lg marks a <br> that exists to control where a heading splits in
+   a two-column layout. Once the columns stack the heading has the full
+   width to itself, and the break just strands the last word on a line of
+   its own - so it is switched off below 992px and the text wraps where it
+   needs to. display: none on a <br> removes the break entirely. */
+@media only screen and (max-width: 991px) {
+  br.break-lg {
+    display: none;
+  }
+}
+
+
+/* ---- The .rts__btn arrow must stay a circle ----
+   The button is a flex row of two pieces: the text pill and this 52px
+   round icon. The icon had no flex-shrink: 0, so when the row ran out of
+   width - the banner at 1024px, where the two buttons sit side by side in
+   a half-width column - the browser squeezed it horizontally and the circle
+   rendered as an oval.
+
+   Only the icon is pinned. Pinning the text pill as well left the pair
+   unable to give at all, so instead of shrinking they overflowed their
+   column and were clipped at its edge. The pill is the piece that can
+   safely lose a few pixels. */
+.rts__btn__icon {
+  flex-shrink: 0;
+}
+
+/* ---- Banner buttons: a real gap once they wrap ----
+   display: flex is the fix. An earlier rule in this file switches this
+   container to `display: block` below 992px while still declaring a gap -
+   and `gap` does nothing on a block container, so the two buttons were
+   stacking as inline boxes with only their line spacing between them.
+
+   Restoring flex makes the declared gap apply again: 20px between them
+   side by side, 18px once they wrap onto separate lines. */
+@media only screen and (max-width: 991px) {
+  .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 20px;
+  }
+}
+
+/* ---- Header at tablet-landscape widths (992-1199px) ----
+   The row is logo / nav / social icons, and at 1024px the nav's 20px-a-side
+   link padding made it wide enough to crowd the social block off the end -
+   so the content stopped well short of the container's right edge while
+   sitting hard against its left, which is the uneven margin.
+
+   Trimming the link padding gives the three blocks room to sit inside the
+   container properly. The first link keeps its padding-left: 0 from the
+   base file, so the logo and the menu still start on the container's edge. */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .nav-area ul li.main-nav a:first-child {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+
+/* ---- Banner buttons at tablet-landscape widths (992-1199px) ----
+   The pair shares a half-width column - about 480px inside a 960px
+   container. Each button is a 170px minimum pill plus a 52px icon, so two
+   of them with the 20px gap between comes to roughly 484px: just over, so
+   the row was overflowing and the pills were being cut at the column edge.
+
+   The pill's floor comes down to 140px here, which brings the pair to
+   about 424px and back inside the column.
+
+   nowrap keeps them on one line, as they are on desktop. With the icons
+   pinned and the pills free to shrink, any remaining shortfall is taken
+   out of the pills rather than dropping the second button onto its own
+   row - so the two stay side by side however the labels measure. */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area {
+    flex-wrap: nowrap;
+  }
+
+  .banner-slider-one .banner-left-content-area .banner-btn-area .rts__btn .rts__btn__wrap {
+    min-width: 140px;
+  }
+}
+
+
+/* ---- Phone: guaranteed gap between the two banner buttons ----
+   The `gap` above depends on the container actually being a flex box, and
+   this container is switched between flex and block at several points in
+   this file and in mobile.css - so the gap kept disappearing depending on
+   which rule won. A margin on the first button does not care what display
+   mode the container is in, so the space holds either way.
+
+   Scoped to phones, where the two are stacked. Above 768px they sit side by
+   side and a bottom margin on one of them would knock the pair out of
+   line. */
+@media only screen and (max-width: 767px) {
+  .rts-banner-wrapper-area .banner-left-content-area .banner-btn-area .rts__btn:not(:last-child) {
+    margin-bottom: 18px;
+  }
+}
+
+
+/* ---- Blog post quote box: tighter top ----
+   The box opens with a quote-mark icon in its own .image div carrying the
+   mb--20 utility, so the text started 25px of padding + the icon + 20px of
+   margin down the box - a deep band of empty space above the sentence,
+   made worse by the icon rendering small and pale against the panel.
+   The padding comes in and the icon's margin halves, so the quote begins
+   near the top of its box. */
+.portfolio-details-area .quote-area {
+  padding-top: 0px;
+}
+
+.portfolio-details-area .quote-area .image {
+  margin-bottom: 8px;
+  line-height: 1;
 }

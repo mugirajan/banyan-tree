@@ -433,3 +433,76 @@
     text-align: center;
   }
 }
+
+
+/* ==========================================================================
+   Green form blocks
+   The four step panels were white cards on a white page. They now carry the
+   brand green, matching the cards on the homepage. Both brand tokens come
+   from style.css.
+   ========================================================================== */
+.booking-form .form-block {
+  background: var(--color-green);
+  border-color: transparent;
+}
+
+/* Everything that was dark text on white has to flip. The inputs, the
+   choice cards and the add-on cards keep their white fill, so they read as
+   well on green as they did before and are left alone. */
+.booking-form .form-block > .block-title {
+  color: var(--color-white);
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+
+/* The step badge was --color-green, which would now disappear into the
+   panel behind it, so it takes the brown instead. */
+.booking-form .form-block > .block-title .step {
+  background: var(--color-brown);
+}
+
+.booking-form .form-block .single-input label,
+.booking-form .form-block .single-input label .req {
+  color: var(--color-white);
+}
+
+.booking-form .form-block .single-input .hint {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* The fare panel and the buttons sit outside the step blocks, on the page's
+   own white background, so they are untouched. */
+
+/* ==========================================================================
+   Form buttons: wrap and centre on mobile
+   --------------------------------------------------------------------------
+   .form-actions is locked to `flex-wrap: nowrap !important` with
+   `justify-content: flex-start`, so the three buttons stayed on one line and
+   Book Now ran off the right edge of a phone screen.
+
+   The 575px block above tries to squeeze all three onto one row, but it
+   targets .btn-ghost - a class the markup does not use (the buttons are
+   .rts__btn, one of them .rts__btn.btn-book) - so only Book Now was ever
+   affected and the other two kept their natural widths.
+
+   Letting the row wrap is the honest fix at this width: three labels of this
+   length cannot share 355px without becoming unreadable. Centring means the
+   button that drops to the second line sits under the middle of the pair
+   above it rather than hanging off to the left.
+
+   !important throughout because the rules being overridden use it.
+   ========================================================================== */
+
+@media only screen and (max-width: 767px) {
+  .booking-form .form-actions {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+
+  /* Keep each button at its natural width so the labels are never
+     compressed - wrapping handles the overflow instead. */
+  .booking-form .form-actions .rts__btn,
+  .booking-form .form-actions .rts__btn.btn-book {
+    flex: 0 0 auto !important;
+  }
+}
