@@ -25671,10 +25671,16 @@ footer .logo img {
   white-space: normal;
 }
 
+/* This attribute selector is what kept the long address on one line - it
+   outranks the .text a rule above, so releasing nowrap there had no effect
+   on the emails specifically and muruganantham.g@baniyantravels.com carried
+   on past the container's edge. It wraps now like every other value. */
 @media only screen and (min-width: 768px) {
   .footer-wrapper-style-between .single-wized.get-in-touch ul li .text a[href^="mailto:"] {
     font-size: 16px;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
 }
 
@@ -26668,18 +26674,17 @@ footer .logo img {
   overflow-wrap: anywhere;
 }
 
-/* Below 1200px only. The template pins these links with white-space: nowrap
-   and exempts just the maps address, so support@baniyantravels.com could
-   not wrap however narrow the column got - it ran past the container edge
-   and was clipped. Releasing it lets the address wrap instead of overflow.
+/* Every width, not just below 1200px. The template pins these links with
+   white-space: nowrap and exempts only the maps address, so a value that
+   does not fit cannot wrap - it simply runs on past the container's edge,
+   which is what muruganantham.g@baniyantravels.com was doing on desktop.
 
-   Deliberately not applied on desktop: there the column is wide enough for
-   every value to sit on one line, so the template's nowrap changes nothing
-   visually and is left exactly as it was. */
-@media only screen and (max-width: 1199px) {
-  .footer-wrapper-style-between .single-wized.get-in-touch ul li .text a {
-    white-space: normal;
-  }
+   It had been left pinned above 1200px on the assumption the column was
+   always wide enough; the longer address proved otherwise. Releasing it
+   everywhere means the worst case is a value on two lines rather than one
+   outside the footer - and where a value does fit, nothing changes. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text a {
+  white-space: normal;
 }
 
 /* ---- 2. Footer links: brown on hover -----------------------------------
@@ -26717,7 +26722,7 @@ footer .logo img {
 .footer-wrapper-style-between .single-wized:nth-child(1) {
   flex: 0 1 300px;
   max-width: 300px;
-  margin-right: 60px;
+  margin-right: 45px;
 }
 
 /* Same reasoning as the first column: a margin widens only this break,
@@ -26800,9 +26805,13 @@ footer .logo img {
 
    hyphens: none keeps the browser from hyphenating to help the justify -
    a hyphenated brand name in a footer reads as a typo. */
+/* 320 rather than 360: the two contact columns split whatever is left of
+   the row evenly, so every pixel taken off the description column is
+   ~27px added to each of them - which is what decides whether the long
+   email address fits on one line before the wrap above has to catch it. */
 .footer-wrapper-style-between .single-wized.logo-area {
-  flex-basis: 360px;
-  max-width: 360px;
+  flex-basis: 320px;
+  max-width: 320px;
 }
 
 .footer-wrapper-style-between .single-wized.logo-area .desc {
@@ -26820,7 +26829,7 @@ footer .logo img {
    in place there deliberately), so the overflow had nowhere to go. 20px
    pulls the whole right-hand column back inside. */
 .footer-wrapper-style-between .single-wized.get-in-touch ul {
-  gap: 26px 20px;
+  column-gap: 12px;
 }
 
 /* display: block so each value starts a new line. .single-wized .body a is
@@ -26850,20 +26859,47 @@ footer .logo img {
    five lines while the right column sat half empty. 1.4fr against 1fr hands
    the surplus to the side that needs it, and takes three of those five
    lines out of the footer's height as a side effect. */
-/* The ratio now favours the RIGHT column. The addresses in the left one
-   wrap happily across two or three lines, but the values in the right one
-   cannot wrap at all on desktop (the template's nowrap is kept there), so
-   support@baniyantravels.com has to be given a track wide enough to hold
-   it or it spills out of the container. */
+/* ---- Two columns that pack independently ----
+   A grid shares its row tracks across both columns, so the second row could
+   not start until the tallest cell in the first row had finished. The phone
+   block carries three numbers and the email block only two addresses, so
+   Working Hours sat waiting on the phones and left a band of dead space
+   under the emails.
+
+   CSS multi-column has no rows at all: each column fills top to bottom on
+   its own, so Working Hours now starts directly under the second email.
+
+   break-after on the second item is what keeps the pairing. Multi-column
+   balances by height on its own and would otherwise decide the split for
+   itself; forcing the break after Our Location pins Call + Location to the
+   left and Email + Working Hours to the right. The markup order was changed
+   to match - the list reads Call, Location, Email, Working now, because
+   columns fill down rather than across.
+
+   The gaps move too: `gap` belongs to grid, so the vertical spacing is a
+   margin on each item and the horizontal spacing is column-gap. */
 .footer-wrapper-style-between .single-wized.get-in-touch ul {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  align-items: start;
+  display: block;
+  columns: 2;
+  column-gap: 12px;
 }
 
 .footer-wrapper-style-between .single-wized.get-in-touch ul li {
   width: auto;
   max-width: none;
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+  margin-bottom: 26px;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li:nth-child(2) {
+  -webkit-column-break-after: always;
+  break-after: column;
+}
+
+.footer-wrapper-style-between .single-wized.get-in-touch ul li:nth-child(2),
+.footer-wrapper-style-between .single-wized.get-in-touch ul li:last-child {
+  margin-bottom: 0;
 }
 
 /* Stays 2x2 on phones too. The cells are narrow there (~150px), so the
@@ -26873,8 +26909,7 @@ footer .logo img {
    across four lines. */
 @media only screen and (max-width: 576px) {
   .footer-wrapper-style-between .single-wized.get-in-touch ul {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 26px 14px;
+    column-gap: 14px;
   }
 
   .footer-wrapper-style-between .single-wized.get-in-touch ul li {
@@ -27073,9 +27108,15 @@ footer .logo img {
      email addresses, which is why they kept breaking mid-word however much
      the font came down. The address is the one that can afford to wrap, so
      the ratio tips the other way here. */
+  /* Multi-column splits evenly, so the ratio that used to favour the email
+     side is gone - both columns are half of ~456px here. The gap comes
+     right down to give each of them as much of that as possible. */
   .footer-wrapper-style-between .single-wized.get-in-touch ul {
-    grid-template-columns: 1fr 1.1fr;
-    gap: 20px 8px;
+    column-gap: 8px;
+  }
+
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li {
+    margin-bottom: 20px;
   }
 
   /* Every pixel between the icon and its text is a pixel the email cannot
@@ -27241,4 +27282,86 @@ footer .logo img {
 .portfolio-details-area .quote-area .image {
   margin-bottom: 8px;
   line-height: 1;
+}
+
+
+/* ---- Contact Us below 1200px: rows line up again ----
+   On desktop the block is a multi-column list so each side packs its own
+   items - that is what pulls Working Hours up under the emails.
+
+   On a phone or tablet the emails wrap to three or four lines, so that same
+   independent packing pushed Working Hours well below Our Location and the
+   second row stopped reading as a row at all. Here a grid is the better
+   fit: its rows are shared, so both second items start on the same line
+   whatever the first ones did.
+
+   grid-auto-flow: column with two rows is what keeps the pairing. The
+   markup reads Call, Location, Email, Working - the order multi-column
+   needs, filling downwards - so a normal row-major grid would put Location
+   beside Call. Filling by column instead lands Call + Location on the left
+   and Email + Working on the right, matching the desktop arrangement. */
+@media only screen and (max-width: 1199px) {
+  .footer-wrapper-style-between .single-wized.get-in-touch ul {
+    columns: auto;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    align-items: start;
+    row-gap: 24px;
+  }
+
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li {
+    margin-bottom: 0;
+    -webkit-column-break-after: auto;
+    break-after: auto;
+  }
+}
+
+
+/* ---- Desktop only: wider break before Contact Us ----
+   A margin on the Quick Links column rather than a bigger row `gap`: gap
+   applies to every column break equally, so raising it would push the
+   description column across as well. This widens just the one break, from
+   the row's 34px to 69px.
+
+   35px is as far as it goes safely. Whatever comes off this break comes off
+   the Contact block, which splits it evenly between its two columns - and
+   the right one only has about 45px to spare before the long email address
+   wraps to a second line. */
+@media only screen and (min-width: 1200px) {
+  .footer-wrapper-style-between .single-wized:nth-child(2) {
+    margin-right: 35px;
+  }
+}
+
+
+/* ---- Desktop only: rebalance the footer row ----
+   Wider break between the description and Quick Links (34 + 70 = 104px),
+   and a tighter gap between the two halves of Contact Us (12px to 4px).
+
+   Both of those take width from the Contact block, which is where the long
+   email address lives - so the two fixed columns pay for them: the
+   description comes down from 320px to 280px and Quick Links from 150px to
+   120px ("About Us" is the longest entry and needs about 90px). Net, the
+   Contact block gains roughly 50px, about 25px per half, which is what
+   pulls muruganantham.g@baniyantravels.com back onto one line. */
+@media only screen and (min-width: 1200px) {
+  .footer-wrapper-style-between .single-wized.logo-area {
+    flex-basis: 280px;
+    max-width: 280px;
+  }
+
+  .footer-wrapper-style-between .single-wized:nth-child(1) {
+    margin-right: 70px;
+  }
+
+  .footer-wrapper-style-between .single-wized:nth-child(2) {
+    flex: 0 0 120px;
+    max-width: 120px;
+  }
+
+  .footer-wrapper-style-between .single-wized.get-in-touch ul {
+    column-gap: 4px;
+  }
 }

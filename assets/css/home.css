@@ -451,12 +451,19 @@
   }
 }
 
-/* On index.html the cards sit in a plain Bootstrap row, so the columns
-   already stretch to the tallest of them and the card can simply fill its
-   column - real equal heights rather than reserved ones. service.html
-   cannot use this: Isotope positions its cards absolutely, which is what
-   the line reserve above is for. */
-.index-page .rts-car-list-area .single-car-list-item {
+/* Both pages now lay these out as a plain Bootstrap row, so the columns
+   stretch to the tallest card and each card simply fills its column - real
+   equal heights, whatever the text does.
+
+   service.html could not do this while Isotope was running: it positions
+   every card absolutely, so a card can only be as tall as its own content
+   and no amount of stretching reaches it. Isotope was only ever there for
+   the service filter buttons, which are commented out on that page, so the
+   `main-isotop` hook came off its wrapper and the row lays out normally.
+   The line reserve above stays as a floor - harmless now that the cards
+   stretch, and still doing the work on any layout that cannot. */
+.index-page .rts-car-list-area .single-car-list-item,
+.service-page .rts-car-list-area .single-car-list-item {
   height: 100%;
 }
 
@@ -864,4 +871,30 @@
     max-width: 75%;
     flex: 0 0 75%;
   }
+}
+
+
+/* ==== Testimonials: equal-height cards ====
+   Swiper gives every slide the height of its own content, so a two-line
+   quote produced a visibly shorter card than a four-line one sitting beside
+   it. Making each slide a flex container lets the card stretch to the
+   tallest in the row, the same treatment the category slider already uses.
+
+   The quote takes the slack (flex: 1) rather than the card padding, so the
+   author sits on the card's bottom edge in every one of them - otherwise
+   the names would float at different heights and the row would still read
+   as uneven. */
+.index-page .rts-testimonials-item-slider .swiper-slide {
+  height: auto;
+  display: flex;
+}
+
+.index-page .rts-testimonials-item-slider .single-testimonials-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.index-page .rts-testimonials-item-slider .single-testimonials-item .desc {
+  flex: 1 1 auto;
 }
