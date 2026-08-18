@@ -25150,6 +25150,50 @@ footer .logo img {
   }
 }
 
+/* ==== About page: Our Story founder credit ====
+   Sits directly under the section title, above the story copy. The
+   left accent bar and the "Founder" label keep it reading as an
+   attribution rather than another body paragraph. The title already
+   carries 30px of bottom margin, so this only adds its own gap below. */
+.about-founder {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 0;
+  margin-bottom: 26px;
+  padding-left: 18px;
+  border-left: 3px solid var(--color-primary);
+}
+
+.about-founder .label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.about-founder .name {
+  font-family: var(--font-primary);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-heading);
+}
+
+.about-founder .qualification {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--color-body);
+}
+
+@media only screen and (max-width: 575px) {
+  .about-founder .name {
+    font-size: 18px;
+  }
+}
+
 /* ==== About page: Mission / Vision / Values ====
    One rounded panel: photo full-bleed down the left half, tinted
    content area on the right. overflow: hidden on the panel is what
