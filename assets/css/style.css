@@ -24432,110 +24432,163 @@ footer .logo img {
 /* ---------------------------------------------------------------
    Supplier network (about.html)
 
-   The five cities are set out as stops on a route rather than as a list
-   or a grid of panels - it suits a transport company, and it keeps this
-   section distinct from the timeline, the growth split and the team
-   cards elsewhere on the page.
+   A photograph carries this section rather than a plain background. It
+   was set several ways first - pins on a rail, a card grid, ruled rows,
+   large type - and next to the photographed sections above and below it
+   the band read as unfinished whichever arrangement it used.
 
-   Five equal columns put the first pin at 10% and the last at 90%, so
-   the rail can simply run left: 10% to right: 10% and land dead centre
-   on both end pins. That relationship breaks the moment the columns
-   rewrap, which is why the rail is dropped below 992px.
+   The photo is the full-width bed, under a green overlay that deepens as
+   it falls: lightest at the top where the picture should read, heaviest
+   at the bottom behind the cards. A flat overlay has to be strong enough
+   for its darkest job everywhere, which blacks the photo out; grading it
+   lets the top stay open and the foot stay solid.
+
+   Tune the three stops together - the top governs how much photograph
+   shows, the foot how cleanly the white cards separate from it.
    --------------------------------------------------------------- */
-.network-lead {
-  max-width: 760px;
-  margin: 18px auto 0;
-  color: var(--color-body);
-}
-.network-route {
+.netb-band {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  padding: 70px 0;
+  background: url("../images/about/supplier.webp") center/cover no-repeat;
+  border-radius: 24px;
+  overflow: hidden;
 }
-/* The route line, level with the middle of the 72px pins. */
-.network-route::before {
+.netb-band::before {
   content: "";
   position: absolute;
-  top: 35px;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: repeating-linear-gradient(to right, var(--color-primary) 0 10px, transparent 10px 20px);
-  opacity: 0.45;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 28, 5, 0.58) 0%, rgba(12, 28, 5, 0.78) 45%, rgba(12, 28, 5, 0.9) 100%);
 }
-.network-stop {
-  /* The route line is absolutely positioned, so without lifting the
-     stops above it the dashes run straight across the pins and the ring
-     below never punches its gap. Grid items take z-index directly. */
+/* Lifted above the scrim, which is absolutely positioned over the bed. */
+.netb-inner {
   position: relative;
   z-index: 1;
-  text-align: center;
-  padding: 0 10px;
+  padding: 0 44px;
 }
-.stop-pin {
-  width: 72px;
-  height: 72px;
+/* The shared section-title styles paint for a light background, so the
+   heading, its highlight span and the kicker are all restated here.
+
+   Scoped through .rts-section-title rather than straight off .netb-band:
+   the stylesheet sets the highlight span back to the brand green some
+   1600 lines further down, at equal specificity, so a shorter selector
+   here loses on source order and the word renders green on green. */
+.netb-band .rts-section-title .subtitle,
+.netb-band .rts-section-title .heading-title,
+.netb-band .rts-section-title .heading-title span {
+  color: var(--color-white);
+}
+/* The 3px rule under the highlighted word is drawn in the brand green by
+   the same late block, and is just as invisible on this band. */
+.netb-band .rts-section-title .heading-title span::after {
+  background: var(--color-white);
+}
+.netb-lead {
+  max-width: 700px;
+  margin: 16px auto 0;
+  color: var(--color-white);
+}
+.netb-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 46px;
+}
+/* Solid white on the dark band. The blur that the translucent version
+   needed is gone with it - there is nothing to see through any more. */
+.netb-card {
+  padding: 28px 22px;
+  text-align: center;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-three);
+  border-radius: 16px;
+  transition: var(--transition);
+}
+.netb-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  transform: translateY(-6px);
+}
+/* Same treatment as every other icon on the site - the 60px green disc
+   with a white glyph and a soft shadow used by the What We Stand For
+   list above. It reads on this band because the scrim takes the bed well
+   below the brand green, so the disc sits lighter than its surround
+   rather than darker as it does on the light sections. */
+.netb-pin {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 20px;
-  background: var(--color-primary);
-  color: var(--color-white);
-  font-size: 26px;
+  margin: 0 auto 18px;
+  background: var(--color-green);
   border-radius: 50%;
-  /* Ring in the section colour, so the pin punches a clean hole in the
-     route line. Kept in step with .rts-network-area.bg-gray. */
-  box-shadow: 0 0 0 12px var(--color-tint-green);
+  box-shadow: 0 10px 20px rgba(132, 132, 132, 0.14);
+}
+.netb-pin i {
+  color: var(--color-white);
+  font-size: 24px;
+  line-height: 1;
+}
+/* Card text is dark now that the card is white - the heading takes the
+   site default rather than the white it needed against the band. */
+.netb-card .title {
+  margin-bottom: 8px;
+  color: var(--color-heading);
+  font-size: 19px;
+}
+/* All five cards link now: three to a street address, and Hosur and
+   Bangalore to their city, since no street address has been given for
+   those two. The <p> selector is kept so a card can fall back to plain
+   text without losing its styling. */
+.netb-card a,
+.netb-card p {
+  display: block;
+  margin-bottom: 0;
+  color: var(--color-body);
+  font-size: 14px;
+  line-height: 1.65;
   transition: var(--transition);
 }
-/* Green at rest, brown on hover - the site's brand pair. */
-.network-stop:hover .stop-pin {
-  background: var(--color-brown);
-  transform: translateY(-6px);
+.netb-card a:hover {
+  color: var(--color-brown);
 }
-.network-stop .title {
-  font-size: 22px;
-  margin-bottom: 4px;
-}
-.stop-note {
-  color: var(--color-body);
-  font-size: 15px;
+
+@media only screen and (max-width: 1199px) {
+  .netb-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media only screen and (max-width: 991px) {
-  /* The rail only lines up while all five stops share one row. */
-  .network-route::before {
-    display: none;
+  .netb-inner {
+    padding: 0 28px;
   }
-  /* Flex rather than grid once the stops wrap. Five stops never divide
-     evenly into three or two columns, so a grid would leave the last row
-     jammed against the left edge with a hole beside it. Wrapped flex
-     items centre their own row, so the remainder sits in the middle. */
-  .network-route {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px 0;
-  }
-  .network-stop {
-    flex: 0 0 33.3333%;
+}
+
+@media only screen and (max-width: 767px) {
+  .netb-cards {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media only screen and (max-width: 575px) {
-  .network-route {
-    gap: 34px 0;
+  .netb-band {
+    padding: 46px 0;
   }
-  .network-stop {
-    flex: 0 0 50%;
+  .netb-inner {
+    padding: 0 20px;
   }
-  .stop-pin {
-    width: 60px;
-    height: 60px;
-    font-size: 22px;
-    margin-bottom: 16px;
+  .netb-cards {
+    grid-template-columns: 1fr;
+    margin-top: 34px;
   }
-  .network-stop .title {
+  /* Same step-down the drives list takes at this width. */
+  .netb-pin {
+    width: 46px;
+    height: 46px;
+  }
+  .netb-pin i {
     font-size: 19px;
   }
 }
@@ -27010,6 +27063,17 @@ footer .logo img {
   color: var(--color-white);
 }
 
+/* The tile is an <a> to the same place as the detail beside it, so the
+   obvious thing to click is clickable. It needs the underline killed and
+   its own hover, neither of which a <div> ever wanted. */
+.header-one .header-top .inner .get-touch-area .map-area a.icon {
+  text-decoration: none;
+  transition: var(--transition);
+}
+.header-one .header-top .inner .get-touch-area .map-area a.icon:hover {
+  background: var(--color-brown);
+}
+
 
 /* ---- Sections sharing the header's tint ----
    Each of these shipped on --color-gray (#F6F6F6) or a background image.
@@ -27407,5 +27471,79 @@ footer .logo img {
 
   .footer-wrapper-style-between .single-wized.get-in-touch ul {
     column-gap: 4px;
+  }
+}
+
+
+/* ---- Tablet portrait: keep the long email on one line -------------------
+   Between 768px and 991px the Contact block sits on its own full-width row
+   and its list is a two-column grid, so each cell is about 354px. The icon
+   and its gap take 44 of those, leaving roughly 310px of text width.
+
+   muruganantham.g@baniyantravels.com measures about 315px at 16px - over by
+   a hair, which is why it broke with a single character on the second line.
+   At 15px it comes to about 295px and fits with room to spare.
+
+   Only the mailto values move. The labels above them and the phone numbers
+   beside them keep their size, so the hierarchy is unchanged. This mirrors
+   what the 992-1199px block already does for the same reason, where the
+   cells are narrower still and the values go to 14px.
+
+   Wrapping is deliberately left enabled rather than forced off with
+   nowrap: if a longer address is ever added it should break onto a second
+   line, not run out past the footer's edge. */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .footer-wrapper-style-between .single-wized.get-in-touch ul li .text a[href^="mailto:"] {
+    font-size: 15px;
+  }
+}
+
+/* ---- Supplier band photo on phones: hold the figure in frame -----------
+   The band is a tall narrow box once the five cards stack, so `cover`
+   scales the 1500x1000 photo to the height and the width overflows by a
+   long way - only a narrow vertical slice of the picture is ever on
+   screen. Centred, that slice falls on the car door and the man with the
+   laptop sits outside it entirely.
+
+   He stands at roughly 60% across the source image, so aligning that point
+   with 60% of the band brings him into the slice and leaves him a little
+   right of centre, clear of the cards' left edge.
+
+   Phones only. From 768px up the band is wide enough that the crop is
+   shallow and the default centre is correct. */
+@media only screen and (max-width: 767px) {
+  .netb-band {
+    background-position: 60% center;
+  }
+}
+
+/* ---- Supplier cards on tablet: two per row, last one centred ----------
+   Between 768px and 1199px the five cards run two to a row - 2, 2, then a
+   single card - with that last card centred rather than sitting against
+   the left edge.
+
+   Two columns cannot centre one card: it would have to span half a track
+   either side. Four columns can. Every card spans two, which still gives
+   two per row, and starting the fifth at column 2 leaves one clear track
+   on each side of it.
+
+   Card widths are unchanged by the substitution. With a uniform gap, two
+   tracks plus the gap between them come to exactly one column of a plain
+   two-column grid, so this governs placement only.
+
+   Bounded to tablet: below 768px the grid is already two across with its
+   own rules, and from 1200px all five sit on a single row. */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .netb-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .netb-card {
+    grid-column: span 2;
+  }
+
+  /* the fifth card is the odd one out now, not the fourth */
+  .netb-card:nth-child(5) {
+    grid-column: 2 / span 2;
   }
 }
