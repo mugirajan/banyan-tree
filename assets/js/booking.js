@@ -1,21 +1,15 @@
 /**
  * Booking form - Baniyan Tours and Travels (book-now.html)
  *
- * Four jobs:
+ * Three jobs:
  *   1. show only the fields that apply to the chosen options
  *      (date/time for a scheduled ride, km for a point-to-point trip,
  *      hours for an hourly rental)
  *   2. work out a fare ESTIMATE from the rate table below
- *   3. for online payment, collect the booking advance through
- *      Razorpay Checkout before the booking is placed
- *   4. post the booking to php/booking.php over AJAX
+ *   3. post the booking to php/booking.php over AJAX
  *
- * Payment note: the amount and the keys live in
- * php/razorpay-config.php. This file never decides what to charge -
- * it asks php/razorpay-order.php to create the order, and the
- * signature that comes back is verified by php/booking.php. So a
- * visitor editing this script cannot change the price or fake a
- * payment.
+ * No payment is taken on the site: the booking is a request, and the
+ * team confirms the fare and collects payment directly.
  *
  * ---------------------------------------------------------------
  * FARE RATES - EDIT THESE
@@ -49,9 +43,6 @@
     var CHILD_SEAT_CHARGE = 250;   // one-off, only when the add-on is ticked
     var GST_RATE = 0.05;           // 5% on car rental
     var MIN_HOURLY_PACKAGE = 4;    // hourly bookings are billed for at least this many hours
-
-    var ORDER_URL = 'php/razorpay-order.php';
-    var PREPAID_METHODS = ['online'];   // must match PREPAID_METHODS in razorpay-config.php
 
     var messages = $('#booking-messages');
     var submitBtn = form.find('.btn-book');
@@ -102,14 +93,6 @@
 
         $('#distance-field').toggleClass('is-hidden', hourly);
         $('#hours-field').toggleClass('is-hidden', !hourly);
-    }
-
-    function currentPaymentMethod() {
-        return form.find('input[name="payment_method"]:checked').val() || '';
-    }
-
-    function isPrepaid(method) {
-        return $.inArray(method, PREPAID_METHODS) !== -1;
     }
 
     form.on('change', 'input[name="service_type"]', syncServiceType);
@@ -213,10 +196,8 @@
     /* ---------------------------------------------------------------
      * 4. Submit
      *
-     * Cash / corporate  ->  place the booking straight away.
-     * Card / UPI        ->  create an order, take the advance through
-     *                       Razorpay Checkout, and only place the
-     *                       booking once the payment succeeds.
+     * The booking is posted straight to php/booking.php - there is no
+     * payment step.
      * ------------------------------------------------------------- */
     var busyLabel = null;
 
@@ -235,15 +216,9 @@
     }
 
 
-    /** Post the whole form, plus the payment fields when there are any. */
-    function placeBooking(payment) {
+    /** Post the whole form to php/booking.php. */
+    function placeBooking() {
         var data = form.serialize();
-
-        if (payment) {
-            data += '&razorpay_payment_id=' + encodeURIComponent(payment.razorpay_payment_id)
-                + '&razorpay_order_id=' + encodeURIComponent(payment.razorpay_order_id)
-                + '&razorpay_signature=' + encodeURIComponent(payment.razorpay_signature);
-        }
 
         setBusy('Sending...');
 
@@ -285,88 +260,10 @@
                 }
 
                 var res = xhr.responseJSON;
-                var fallback = payment
-                    // Money has already moved, so never tell the customer to just try again.
-                    ? 'Your payment went through but we could not save the booking. Please call us on +91 98412 11173 and quote payment ' + payment.razorpay_payment_id + '.'
-                    : 'Sorry, something went wrong. Please call us on +91 98412 11173.';
 
-                showMessage((res && res.message) || fallback, true);
+                showMessage((res && res.message) || 'Sorry, something went wrong. Please call us on +91 98412 11173.', true);
             })
             .always(clearBusy);
-    }
-
-    /** Ask the server for an order, then hand it to Razorpay Checkout. */
-    function payThenBook() {
-        if (typeof Razorpay === 'undefined') {
-            showMessage('The payment window could not load. Please check your connection, or choose Cash Payment.', true);
-            clearBusy();
-            return;
-        }
-
-        setBusy('Opening payment...');
-
-        $.ajax({
-            type: 'POST',
-            url: ORDER_URL,
-            data: {
-                payment_method: currentPaymentMethod(),
-                name: form.find('input[name="name"]').val(),
-                phone: form.find('input[name="phone"]').val()
-            },
-            dataType: 'json'
-        })
-            .done(function (order) {
-                if (!order || order.status !== 'success') {
-                    showMessage((order && order.message) || 'We could not start the payment. Please choose Cash Payment or call us.', true);
-                    clearBusy();
-                    return;
-                }
-
-                var checkout = new Razorpay({
-                    key: order.key_id,
-                    order_id: order.order_id,
-                    amount: order.amount,
-                    currency: order.currency,
-                    name: 'Baniyan Tours and Travels',
-                    description: 'Booking advance',
-                    image: 'assets/images/logo/logo.webp',
-                    prefill: {
-                        name: form.find('input[name="name"]').val(),
-                        email: form.find('input[name="email"]').val(),
-                        contact: form.find('input[name="phone"]').val()
-                        // No `method` here on purpose: the customer picks UPI,
-                        // card, netbanking or a wallet inside Razorpay's window.
-                    },
-                    theme: { color: '#1A3D0A' },
-                    modal: {
-                        ondismiss: function () {
-                            showMessage('Payment was cancelled, so no booking has been made. You can try again or choose Cash Payment.', true);
-                            clearBusy();
-                        }
-                    },
-                    handler: function (payment) {
-                        // Razorpay says it succeeded; php/booking.php
-                        // checks the signature before believing it.
-                        placeBooking(payment);
-                    }
-                });
-
-                checkout.on('payment.failed', function (resp) {
-                    var reason = resp && resp.error && resp.error.description
-                        ? ' (' + resp.error.description + ')'
-                        : '';
-                    showMessage('The payment did not go through' + reason + '. No booking has been made. Please try again or choose Cash Payment.', true);
-                    clearBusy();
-                });
-
-                setBusy('Waiting for payment...');
-                checkout.open();
-            })
-            .fail(function (xhr) {
-                var res = xhr.responseJSON;
-                showMessage((res && res.message) || 'We could not reach the payment gateway. Please choose Cash Payment or call us on +91 98412 11173.', true);
-                clearBusy();
-            });
     }
 
     form.on('submit', function (e) {
@@ -381,14 +278,6 @@
             return;
         }
 
-        // No client-side gate on online payment: php/razorpay-order.php
-        // is the authority on whether it can run, and its reply says
-        // exactly what is wrong. Guessing here only produced a vaguer
-        // message when the real problem was elsewhere.
-        if (isPrepaid(currentPaymentMethod())) {
-            payThenBook();
-        } else {
-            placeBooking(null);
-        }
+        placeBooking();
     });
 })(jQuery);

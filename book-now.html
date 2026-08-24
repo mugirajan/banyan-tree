@@ -417,23 +417,6 @@
                             placeholder="Any special instructions for the driver or specific requirements"></textarea>
                     </div>
                 </div>
-                <!-- Step 4: payment -->
-                <div class="form-block">
-                    <h3 class="block-title"><span class="step">4</span> Payment Information</h3>
-                    <div class="single-input full-width">
-                        <label>Payment Method <span class="req">*</span></label>
-                        <div class="choice-group">
-                            <label class="choice">
-                                <input type="radio" name="payment_method" value="cash" checked>
-                                <span>Cash Payment</span>
-                            </label>
-                            <label class="choice">
-                                <input type="radio" name="payment_method" value="online">
-                                <span>Online Payment (UPI, Card, Netbanking)</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
                 <!-- Fare estimate + actions -->
                 <div class="fare-result is-hidden" id="fare-result">
                     <h4 class="fare-title">Fare Estimate</h4>
@@ -443,12 +426,6 @@
                 </div>
                 <input type="hidden" name="fare_estimate" value="">
                 <div class="form-actions">
-                    <button type="button" class="rts__btn" id="calculate-fare">
-                        <div class="rts__btn__wrap">
-                            <span class="rts__btn__txt-one">Calculate Fare</span>
-                            <span class="rts__btn__txt-two">Calculate Fare</span>
-                        </div>
-                    </button>
                     <button type="button" class="rts__btn" id="reset-form">
                         <div class="rts__btn__wrap">
                             <span class="rts__btn__txt-one">Reset Form</span>
@@ -531,7 +508,7 @@
                                         <div class="text">
                                             <p>Call Us Now</p>
                                             <a href="tel:+919841211173">+91 98412 11173</a>
-                                            <a href="tel:+919566281183">+91 95662 81183</a>
+                                           <a href="tel:+919566281173">+91 95662 81173</a>
                                             <a href="tel:+919003253444">+91 90032 53444</a>
                                         </div>
                                     </li>
@@ -684,11 +661,6 @@
     <script src="assets/js/vendor/waypoint.js"></script>
     <!-- main js here -->
     <script src="assets/js/main.js"></script>
-    <!-- Razorpay Checkout - opens the payment window for Card and UPI.
-         Loaded from Razorpay's CDN as they require; it must not be
-         self-hosted or the payment window will stop working when they
-         update it. -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="assets/js/booking.js"></script>
 </body>
 

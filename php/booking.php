@@ -26,9 +26,6 @@ require __DIR__ . '/vendor/phpmailer/phpmailer/src/Exception.php';
 require __DIR__ . '/vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require __DIR__ . '/vendor/phpmailer/phpmailer/src/SMTP.php';
 
-// Keys, advance amount and which methods must prepay.
-require __DIR__ . '/razorpay-config.php';
-
 /* ---------------------------------------------------------------
  * SETTINGS - keep in step with php/contact.php
  * ------------------------------------------------------------- */
@@ -97,7 +94,6 @@ $name           = field('name');
 $phone          = field('phone');
 $email          = field('email');
 $company        = field('company');
-$payment        = field('payment_method');
 $fare_estimate  = field('fare_estimate');
 
 // The instructions box keeps its line breaks.
@@ -135,49 +131,8 @@ if ($service_type === 'scheduled' && ($pickup_date === '' || $pickup_time === ''
     reply('error', 'Please choose the pick-up date and time for a scheduled booking.');
 }
 
-if ($payment === '') {
-    reply('error', 'Please choose how you would like to pay.');
-}
-
 if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     reply('error', 'Please enter a valid email address.');
-}
-
-/* ---- Payment ---------------------------------------------------
- * Online payments go through Razorpay Checkout before this file is
- * reached. The browser then posts the three razorpay_* values back,
- * and the signature is checked HERE - a success message from the
- * browser alone proves nothing, since anyone can post to this
- * endpoint.
- *
- * Cash settles after the trip, so it passes straight through with
- * no payment attached.
- * -------------------------------------------------------------- */
-$rzp_payment_id = field('razorpay_payment_id');
-$rzp_order_id   = field('razorpay_order_id');
-$rzp_signature  = field('razorpay_signature');
-
-$needs_prepay = in_array($payment, PREPAID_METHODS, true) && razorpay_is_configured();
-$payment_status = 'Not applicable - settled after the trip';
-
-if ($needs_prepay) {
-    if ($rzp_payment_id === '' || $rzp_order_id === '' || $rzp_signature === '') {
-        reply('error', 'We did not receive the payment confirmation. Please try the payment again, or choose Cash Payment.');
-    }
-
-    // Razorpay signs "order_id|payment_id" with the key secret.
-    $expected = hash_hmac('sha256', $rzp_order_id . '|' . $rzp_payment_id, RAZORPAY_KEY_SECRET);
-
-    if (!hash_equals($expected, $rzp_signature)) {
-        error_log('Booking payment signature mismatch for order ' . $rzp_order_id);
-        reply('error', 'We could not verify your payment. No booking has been made. Please contact us on +91 98412 11173 before trying again.');
-    }
-
-    $payment_status = 'PAID - advance of ₹' . number_format(BOOKING_ADVANCE_INR)
-        . ' received (payment ' . $rzp_payment_id . ')';
-} elseif (in_array($payment, PREPAID_METHODS, true)) {
-    // Keys are not in place yet, so no money could have moved.
-    $payment_status = 'Online payment not configured - collect from the customer';
 }
 
 /* ---- Readable labels ----------------------------------------- */
@@ -200,11 +155,6 @@ $trip_type_label = label_for($trip_type, array(
     'oneway'    => 'One Way',
     'roundtrip' => 'Round Trip',
     'hourly'    => 'Hourly Rental',
-));
-
-$payment_label = label_for($payment, array(
-    'cash'   => 'Cash Payment',
-    'online' => 'Online Payment (UPI / Card / Netbanking)',
 ));
 
 $when = $service_type === 'scheduled'
@@ -234,9 +184,6 @@ $booking = array(
     'Company'          => $company !== '' ? $company : '-',
     'Extras'           => $addons_text,
     'Instructions'     => $instructions !== '' ? $instructions : '-',
-    'Payment method'   => $payment_label,
-    'Payment status'   => $payment_status,
-    'Razorpay order'   => $rzp_order_id !== '' ? $rzp_order_id : '-',
 );
 
 /* ---------------------------------------------------------------
@@ -244,8 +191,7 @@ $booking = array(
  * ---------------------------------------------------------------
  * The booking is appended to the log BEFORE the email is attempted,
  * so a confirmed booking is never lost when SMTP is slow, blocked or
- * misconfigured - which matters most for a paid booking, where the
- * money has already moved.
+ * misconfigured.
  *
  * On a live server move this file outside the web root (or block it
  * in .htaccess): it holds customer names and phone numbers.
@@ -381,10 +327,7 @@ This email was generated automatically from the website booking form.
 
     $mail->send();
 
-    reply('success', $needs_prepay
-        ? 'Payment received, thank you! Your advance of ₹' . number_format(BOOKING_ADVANCE_INR)
-            . ' is confirmed and your booking is placed. Our team will call you shortly to confirm the car and the balance fare.'
-        : 'Thank you! Your booking request has been received. Our team will call you shortly to confirm the car and the fare.');
+    reply('success', 'Thank you! Your booking request has been received. Our team will call you shortly to confirm the car and the fare.');
 
 } catch (Exception $ex) {
     // Log the real reason; the visitor gets something useful instead.
@@ -392,8 +335,7 @@ This email was generated automatically from the website booking form.
 
     // The booking itself is already written to booking-submissions.log,
     // so the notification failed - not the booking. Telling the
-    // customer to start again would create a duplicate, and for a paid
-    // booking it would be plainly wrong: the money is already taken.
+    // customer to start again would only create a duplicate.
     if ($logged) {
         reply('success', 'Thank you! Your booking has been saved and our team will call you to confirm. '
             . 'If you do not hear from us within 30 minutes, please call +91 98412 11173.');
