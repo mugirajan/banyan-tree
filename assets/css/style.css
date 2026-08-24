@@ -24946,12 +24946,16 @@ footer .logo img {
    (col-xl-3 -> col-lg-4 -> col-md-6 -> full width), so a single fixed height
    turns the portrait crop progressively squarer, and below 768px - where the
    card goes full-bleed at up to 516px - outright landscape. Each step below
-   raises the height to hold the crop near a 0.7 width/height ratio. Card
-   widths are container + g-5 gutters: 288/243 (xl), 280 (lg), 324 (md),
-   366-516 (below md). */
+   raises the height to hold the crop portrait. Card widths are container +
+   g-5 gutters: 288/243 (xl), 280 (lg), 324 (md), 366-516 (below md).
+
+   The lg band runs the tallest crop of the ladder: the container is pinned
+   at 960px across the whole band, so col-lg-4 is a constant 280px - the
+   narrowest card anywhere - and it needs the extra height to not look
+   stunted on landscape tablets (1024px). */
 @media only screen and (max-width: 1199px) {
   :root {
-    --team-img-h: 440px;
+    --team-img-h: 500px;
   }
 }
 
