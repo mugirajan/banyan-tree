@@ -24907,18 +24907,26 @@ footer .logo img {
    rendered at its intrinsic size and floated small inside the
    column. Filling the column width and fixing a height gives the
    four cards a consistent portrait crop.
-   Tweak --team-img-h to resize. */
+   Tweak --team-img-h to resize - it is the single source of truth for
+   the card height at every breakpoint. */
 :root {
-  --team-img-h: 280px;
+  --team-img-h: 400px;
 }
 
 .single-team .team-thumb img {
   display: block;
   width: 100%;
-  height: 400px;
+  height: var(--team-img-h);
   object-fit: cover;
   object-position: center top;
 }
+
+/* The founder photo (sriram.jpeg) was shot with his crown running off the top
+   edge of the frame, so `center top` had nothing above his hair to show and the
+   head read as cut. The headroom is baked into the image itself - the crown is
+   rebuilt and ~170px of wall added above it - rather than fixed here, because no
+   crop can recover pixels the source never had. sriram-original.jpeg is the
+   untouched shot. Do not re-crop this card expecting to gain headroom. */
 
 /* team-4 is the odd one out: she stands at about 73% of a 1500px-wide
    landscape frame, while the other three are centred in theirs. A centred
@@ -24934,15 +24942,38 @@ footer .logo img {
   object-position: right top;
 }
 
+/* Card height per breakpoint. As the viewport narrows the column gets WIDER
+   (col-xl-3 -> col-lg-4 -> col-md-6 -> full width), so a single fixed height
+   turns the portrait crop progressively squarer, and below 768px - where the
+   card goes full-bleed at up to 516px - outright landscape. Each step below
+   raises the height to hold the crop near a 0.7 width/height ratio. Card
+   widths are container + g-5 gutters: 288/243 (xl), 280 (lg), 324 (md),
+   366-516 (below md). */
 @media only screen and (max-width: 1199px) {
   :root {
-    --team-img-h: 300px;
+    --team-img-h: 440px;
   }
 }
 
-@media only screen and (max-width: 575px) {
+@media only screen and (max-width: 991px) {
   :root {
-    --team-img-h: 320px;
+    --team-img-h: 480px;
+  }
+}
+
+/* Below 768px no column class applies, so the card stretches the full 516px
+   container and no height alone could keep it portrait - the width swings
+   from 366px on a phone to 551px at the top of the range. Capping the card
+   and centring it pins the ratio, and the taller image then reads as a
+   deliberate portrait rather than a stretched banner. */
+@media only screen and (max-width: 767px) {
+  :root {
+    --team-img-h: 520px;
+  }
+  .single-team {
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
