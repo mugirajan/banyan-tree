@@ -175,8 +175,15 @@
    Letting the photo absorb the leftover height fixes it: the column becomes
    a flex box, and `flex: 1 1 0` keeps the image out of the row's own height
    calculation so the TEXT sets the height and the photo follows. The fixed
-   height has to become auto or it wins over the flex sizing; --about-img-h
-   stays on as a min-height, so a short text column cannot squash the photo.
+   height has to become auto or it wins over the flex sizing.
+
+   No min-height either. --about-img-h (560px) was still holding the floor,
+   and past ~1200px the text column drops below that - 512px at 1440px - so
+   the photo hung 48px below the text and the two columns no longer lined
+   up. Without it the frame tracks the text exactly at every width. The
+   photo is 3:2 and the man with the keys sits mid-frame, so the deeper
+   crop that comes with a shorter frame takes background off the sides and
+   leaves him alone. --about-img-h still sets the stacked frame below 992px.
 
    The row's align-items-center class came off the markup - Bootstrap sets
    that with !important, and centred columns do not stretch. Same treatment
@@ -190,7 +197,6 @@
   .rts-about-area .about-letf-image-area .about-image-area {
     flex: 1 1 0;
     height: auto;
-    min-height: var(--about-img-h);
   }
 }
 
