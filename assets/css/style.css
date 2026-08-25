@@ -25141,29 +25141,24 @@ footer .logo img {
   }
 }
 
-/* ==== About page: Our Story images ====
-   Both photos are 3:2, so in a half-width column the main image
-   rendered short next to the text. Fixed frames with object-fit:
-   cover make it taller without distorting, and give the small inset
-   photo a definite size instead of inheriting the old placeholder's
-   242x149. The wrapper was max-width: max-content, which pinned it
-   to the image's natural size - it needs to fill the column first.
-   Tweak --story-img-h / --story-inset-w to adjust. */
+/* ==== About page: Our Story image ====
+   One photo now - the founder's portrait; the template's inset thumbnail
+   has been removed from the markup. The frame height is no longer a fixed
+   token: it comes from the text column, and the photo file was rebuilt to
+   that aspect so filling it costs almost no crop. See the frame rule below.
+   The wrapper was max-width: max-content, which pinned it to the image's
+   natural size; it needs to fill the column first. */
 :root {
-  --story-img-h: 520px;
-  --story-inset-w: 240px;
-  --story-inset-h: 175px;
-  /* Horizontal crop point for the main photo. The source is a 1.84:1
-     landscape squeezed into a near-square frame, so most of its width is
-     cropped away and this decides which slice survives.
-
-     It is not centred on purpose. The man stands dead centre in the
-     source, which put his head directly under the counter badge's white
-     notch in the top-right corner and clipped it. Biasing the crop past
-     centre slides him left, clear of the badge, while keeping him well
-     inside the frame. Raise it to move him further left, lower it to
-     move him right. */
-  --story-img-focus: 62%;
+  /* Metrics for the "25+ Years of Experience" badge. The template card was
+     drawn for a full-bleed hero - 24px/45px of padding around a 54px
+     number - and over a half-column portrait it read as oversized. Its
+     height also sets how much plain wall has to sit above his head in the
+     photo before he clears it, so shrinking the card is what let that top
+     space come down too. Everything scales from here. */
+  --story-badge-pad-y: 10px;
+  --story-badge-pad-x: 22px;
+  --story-badge-no: 26px;
+  --story-badge-label: 13px;
 }
 
 .about-letf-image-area-two {
@@ -25171,20 +25166,68 @@ footer .logo img {
   max-width: 100%;
 }
 
-.about-letf-image-area-two .about-image-area {
-  height: var(--story-img-h);
+/* ==== About page: Our Story section height ====
+   Two levers, because the section's height is two things added together:
+   its own top padding, and the height of the text column (which the image
+   column then matches). rts-section-gapTop ships 120px for full-bleed
+   sections; this one sits directly under the breadcrumb and does not need
+   it. The rest comes off the gaps between the text blocks - the type
+   itself is untouched. Scoped to .rts-about-area so no other section that
+   shares these classes moves. */
+.rts-about-area.rts-section-gapTop {
+  padding-top: 80px;
 }
 
-/* Match the image column to the text column.
-   Bootstrap rows stretch their columns by default, so the left
-   column already has the row's full height - the image just was not
-   using it. Making the wrapper a flex column and giving the image
-   `flex: 1 1 0` lets it absorb whatever height the text column sets.
-   A zero flex-basis keeps the image out of the row's own height
-   calculation, so the TEXT drives the height and the image follows;
-   min-height keeps --story-img-h as a floor when the text is short.
-   (The row's align-items-center class had to come off the markup -
-   centred columns do not stretch, and Bootstrap sets it !important.) */
+.rts-about-area .about-right-content-area .rts-section-title {
+  margin-bottom: 22px;
+}
+
+.rts-about-area .about-founder {
+  margin-bottom: 20px;
+}
+
+/* .mt--45 is a utility carrying !important, so this has to match it. */
+.rts-about-area .about-right-content-area .rts__btn.mt--45 {
+  margin-top: 32px !important;
+}
+
+.rts-about-area .about-right-content-area .about-item-wrapper.mt--30 {
+  margin-top: 24px !important;
+}
+
+/* The image column matches the text column's height, and the portrait is
+   not visibly cropped. Those two only hold together if the photo's own
+   aspect ratio is close to the frame's, so the file was rebuilt to suit:
+   780x997 (0.78:1) against a frame that lands near 570x700 in this layout.
+   `cover` then has almost nothing to remove - roughly the bottom 30px,
+   which is jacket hem, not subject.
+
+   Anchoring to the top is what keeps his head clear of the counter badge
+   in the top-right corner. It also means the trim always comes off the
+   bottom: if the text column runs short the hem trims further, and if it
+   runs long the photo simply fills more of its own height. Bottom
+   anchoring would preserve the hem but slide his head up under the badge,
+   which is the worse failure.
+
+   Bootstrap rows stretch their columns by default, so the column already
+   has the row's full height - the image just was not using it. Flexing the
+   wrapper and giving the frame `flex: 1 1 0` lets it absorb whatever
+   height the text sets. A zero flex-basis keeps the image out of the row's
+   height calculation, so the TEXT drives the height and the image follows.
+   (The row's align-items-center class had to come off the markup - centred
+   columns do not stretch, and Bootstrap sets it !important.) */
+.about-letf-image-area-two .about-image-area {
+  height: auto;
+}
+
+.about-letf-image-area-two .about-image-area img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
 @media only screen and (min-width: 992px) {
   /* Space between the image and the text column. Bootstrap's default
      gutter is only 24px, which reads as cramped now that the image
@@ -25206,39 +25249,137 @@ footer .logo img {
 
   .about-letf-image-area-two .about-image-area {
     flex: 1 1 0;
-    height: auto;
-    min-height: var(--story-img-h);
   }
 }
 
+/* ==== About page: Our Story photo, the taller canvas ====
+   The two columns are the same height at every width, which is what the
+   flex fill above is for. Filling only works while the frame stays near
+   the photo's own aspect, though, and the original shot is square
+   (780x785) against a frame that is 435x710 at 1024px - `cover` was
+   slicing ~19% off each side, shoulders and all.
+
+   founder-story-tall.webp is that portrait on a 780x1300 canvas (0.60,
+   narrower than any frame this layout produces): the 80 rows of plain
+   wall above his head are stretched to the new top edge, blurred, and
+   crossfaded into the real photo, so the join is invisible and the result
+   reads as a shot with more headroom. Rebuild it with
+   assets/images/about/originals/build-founder-tall.php, run from the
+   project root, if the portrait is ever replaced.
+
+   Anchoring to the BOTTOM is what makes it work: the frame is never
+   narrower than the canvas, so the crop is always vertical and always
+   comes off the fabricated wall at the top. At 1024px it takes almost
+   nothing; at 1440px it takes the wall back off and leaves the original
+   framing. The <picture> in about.html serves this file to the
+   side-by-side layout only - stacked, the square original is already a
+   full-width banner with nothing cropped. */
 .about-letf-image-area-two .about-image-area img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: var(--story-img-focus) center;
+  object-position: center bottom;
 }
 
-.about-letf-image-area-two .inner-image-sm .inner-image .overlay-image img {
-  display: block;
-  width: var(--story-inset-w);
-  height: var(--story-inset-h);
-  object-fit: cover;
-  object-position: center;
-}
+/* ==== About page: Our Story photo height at tablet and small laptop ====
+   Both of these ranges were letting the portrait run much taller than it
+   needs to be, for the same underlying reason: the frame takes its height
+   from the photo rather than the other way round.
 
-@media only screen and (max-width: 1199px) {
-  :root {
-    --story-img-h: 460px;
+   768-991px is the stacked layout, where the frame is a full-width banner
+   with no height of its own, so it took the whole of whichever canvas it
+   was served - 920px at 768px wide with the phone file, which carries
+   270px of fabricated wall above his head. Capping the frame instead only
+   moved the problem: cropping to that cap took the jacket off the bottom
+   and left the bare wall on top, so it showed his face and nothing else.
+
+   The fix is upstream, in the <picture>: this range gets the source shot
+   as taken, whose 90px of headroom needs no crop at all. Full column
+   width puts it near 750px tall, framed like desktop.
+
+   7/6 then trims that to ~640px. Anchored to the top, which is the whole
+   point: against the source shot the crop comes off the jacket hem at the
+   bottom and leaves his headroom - and so the badge's clearance - exactly
+   as it was. It was the phone canvas that made a cap here look broken.
+
+   992-1399px is the side-by-side layout, and the image fills the column,
+   so the two columns are exactly the same height. Two things had to give
+   for that to look right.
+
+   First, `flex: 1 1 0` was meant to let the text column set the height,
+   but a flex item's default min-height is auto - its content's minimum -
+   and for the image that is the photo's own scaled height (~725px at
+   1024, ~900px at 1200). So the photo was setting the section's height
+   rather than following it. min-height: 0 lifts that floor.
+
+   Second, the source. The column here is around 435x730 - a 0.6 frame -
+   and the tall canvas is 0.6 itself, so filling it cropped nothing and
+   showed all 605px of headroom: a field of wall with him at the bottom.
+   The <picture> serves the shot as taken instead, whose 90px of headroom
+   scales to about 85px on screen. Filling a 0.6 frame with a square photo
+   means the crop lands on the WIDTH: he is framed head-and-shoulders,
+   with the outer jacket trimmed. That is the trade at this size - the
+   height is fixed by the text column, so the only way to lose the wall
+   above him is to let the sides go.
+
+   Above 1400px the xxl container widens the column enough that the tall
+   canvas fills it with its own bottom-anchored crop, so the <picture>
+   hands the tall file back and nothing here applies. */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .about-letf-image-area-two .about-image-area {
+    aspect-ratio: 7 / 6;
+  }
+
+  .about-letf-image-area-two .about-image-area img {
+    object-position: center top;
   }
 }
 
-@media only screen and (max-width: 575px) {
-  :root {
-    --story-img-h: 360px;
-    --story-inset-w: 180px;
-    --story-inset-h: 130px;
+@media only screen and (min-width: 992px) and (max-width: 1399px) {
+  .about-letf-image-area-two .about-image-area {
+    min-height: 0;
+  }
+
+  /* Top, not bottom: the crop here is horizontal, and what little vertical
+     crop there is should come off the jacket rather than his headroom -
+     that headroom is what keeps the counter badge off his head. */
+  .about-letf-image-area-two .about-image-area img {
+    object-position: center top;
   }
 }
+
+/* ==== About page: Our Story counter badge ====
+   Sizes come from the tokens above. The notch pseudo-elements are left
+   alone: they are keyed to the plate's 20px corner radius, not to the
+   card's own dimensions, so they still meet the frame cleanly.
+   These sit after the template's own rules (and after the 450px override
+   further up the file), so the small-screen values are restated below
+   rather than inherited. */
+.about-letf-image-area-two .about-counter-area .inner {
+  padding: var(--story-badge-pad-y) var(--story-badge-pad-x);
+}
+
+.about-letf-image-area-two .about-counter-area .inner .counter-no {
+  font-size: var(--story-badge-no);
+  margin-bottom: 4px;
+}
+
+.about-letf-image-area-two .about-counter-area .inner .counter-no .count-plus {
+  bottom: 4px;
+}
+
+.about-letf-image-area-two .about-counter-area .inner p {
+  font-size: var(--story-badge-label);
+}
+
+@media only screen and (max-width: 450px) {
+  :root {
+    --story-badge-pad-y: 8px;
+    --story-badge-pad-x: 16px;
+    --story-badge-no: 22px;
+    --story-badge-label: 12px;
+  }
+}
+
+
+
 
 /* ==== About page: Our Story founder credit ====
    Sits directly under the section title, above the story copy. The
@@ -25291,9 +25432,10 @@ footer .logo img {
    and --bs-gutter-x: 0 removes Bootstrap's column padding so there
    is no gap between the photo and the panel edge. Spacing comes from
    .drives-content instead.
-   Tweak --drives-img-h (the panel's minimum height) to resize. */
+   --drives-img-ratio is the photo's own aspect - update it if the file is
+   ever swapped for one of a different shape (values.webp is 1536x1024). */
 :root {
-  --drives-img-h: 440px;
+  --drives-img-ratio: 1536 / 1024;
 }
 
 /* The section uses rts-section-gap (120px top and bottom). Our Story
@@ -25314,49 +25456,69 @@ footer .logo img {
   align-items: stretch;
 }
 
+/* The photo fills the column edge to edge.
+
+   From 992px up the frame stretches to the panel's full height and the
+   photo covers it. values.webp is landscape (1536x1024) against a column
+   that runs 388x716 at 1024px and 544x585 at 1440px, so covering costs
+   width: 38% of it at 1024px, 28% at 1440px. Which width goes is what
+   --drives-img-pos-x decides.
+
+   24% is where the two things that matter both just fit at 1440px and
+   above: the MISSION / VISION / VALUES signpost starts 9% in from the
+   left edge and the car ends at 71%, and a 62%-wide window placed at 24%
+   lands on exactly 9%-71%. Dead centre cut the signpost off - it is the
+   picture's whole point, and the car reads fine either way, so below
+   1400px, where the window is too narrow to hold both, this keeps the
+   signpost and gives up the front of the car.
+
+   Below 992px the panel stacks and the photo becomes a banner across the
+   top. There it takes the photo's own ratio (--drives-img-ratio) rather
+   than an arbitrary height, so it fills that frame with nothing cropped
+   at all. */
 .rts-drives-area .drives-image {
   position: relative;
-  height: 100%;
-  min-height: var(--drives-img-h);
+  width: 100%;
+  aspect-ratio: var(--drives-img-ratio);
+  overflow: hidden;
 }
 
-/* The source photo is 1500x998 landscape and the man stands at about 63%
-   of its width, but this frame is portrait - so `cover` scales to fill the
-   height and crops roughly 275px off each side. Cropping from the centre
-   kept the empty street on the left and pushed him to the right edge of
-   the frame.
+@media only screen and (min-width: 992px) {
+  .rts-drives-area .drives-image {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+}
 
-   Biasing the crop to 75% moves the visible window over to him: the parked
-   cars on the far left fall outside it and he lands near the middle. The
-   exact figure depends on the frame's height, which grows with the three
-   blocks in the column beside it - 75% is tuned for the desktop layout.
-   Tweak --drives-img-pos to shift him left or right. */
 :root {
-  --drives-img-pos: 75%;
+  --drives-img-pos-x: 24%;
 }
 
 .rts-drives-area .drives-image img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
-  min-height: var(--drives-img-h);
   object-fit: cover;
-  object-position: var(--drives-img-pos) center;
+  object-position: var(--drives-img-pos-x) center;
+  z-index: 1;
 }
 
-/* Orange wash, matching the Our Story image treatment. */
-.rts-drives-area .drives-image::before {
+/* Orange wash, matching the Our Story image treatment. Over the photo,
+   under the badge. */
+.rts-drives-area .drives-image::after {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(255, 54, 0, 0.14);
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
 }
 
 .rts-drives-area .drives-badge {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   left: 30px;
   bottom: 30px;
   padding: 20px 28px;
@@ -25454,31 +25616,21 @@ footer .logo img {
 
 
 @media only screen and (max-width: 1199px) {
-  :root {
-    --drives-img-h: 460px;
-  }
-
   .rts-drives-area .drives-content {
     padding: 45px 40px;
   }
 }
 
 @media only screen and (max-width: 991px) {
-  /* Stacked: the photo becomes a banner across the panel top. */
-  :root {
-    --drives-img-h: 340px;
-  }
-
+  /* Stacked: the photo becomes a banner across the panel top, still at its
+     own ratio and now the full width of the panel - nothing cropped here
+     either, so no height variable to tune. */
   .rts-drives-area .drives-content {
     padding: 40px 32px;
   }
 }
 
 @media only screen and (max-width: 575px) {
-  :root {
-    --drives-img-h: 280px;
-  }
-
   .rts-drives-area .drives-content {
     padding: 32px 22px;
   }
@@ -26294,8 +26446,11 @@ footer .logo img {
   }
 }
 
-/* Hide header social icons next to hamburger button on tablet & mobile */
-@media only screen and (max-width: 1199px) {
+/* Hide the header social icons next to the hamburger button. The cut-off is
+   992px, where the hamburger takes over from the nav: above it the full menu
+   is on show and there is room for the icons beside it, so 992-1199px keeps
+   them. Below it the icons would only crowd the burger. */
+@media only screen and (max-width: 991px) {
   .social-area-transparent,
   .header-social,
   .header-wrapper-area .header-right .bottom .bottom-right .social-area-transparent {
@@ -26778,6 +26933,28 @@ footer .logo img {
   filter: brightness(0) invert(1);
 }
 
+/* ---- Optical size: circular marks ----
+   --social-glyph sets one bounding box for every glyph, which matches them
+   geometrically but not visually. Instagram is a rounded square and fills
+   its box corner to corner; WhatsApp is a circle, and a circle inscribed in
+   a box covers only ~78% of it (pi/4). Equal boxes therefore read as an
+   Instagram icon and a smaller WhatsApp one.
+
+   The WhatsApp viewBox is already cropped to the glyph's exact bounds, so
+   there is no padding left to remove - the remaining correction has to come
+   from the box itself. 15px lands the circle's diameter ~10% over the
+   square's side, which is the usual compensation, and keeps the glyph at
+   ~47% of the 30px badge - the ratio the block above is built around.
+   Matched on src so no markup carries a modifier class. */
+:root {
+  --social-glyph-round: 15px;
+}
+
+.header-social li a img[src*="whatsapp"],
+.copyright-area .copyright-area-inner .footer-social li a img[src*="whatsapp"] {
+  width: var(--social-glyph-round);
+  height: var(--social-glyph-round);
+}
 
 /* ==========================================================================
    Footer fixes

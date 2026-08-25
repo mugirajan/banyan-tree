@@ -34,7 +34,7 @@
     <meta name="twitter:description"
         content="ISO 9001:2015 certified corporate transport company serving 500+ clients across 10+ Indian cities with 1000+ vehicles.">
     <meta name="twitter:image" content="https://www.baniyantravels.com/assets/images/about/drivencars.webp">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo/logo-lg.webp">
+    <link rel="icon" type="image/png" href="assets/images/logo/favicon.png?v=2">
     <!-- ========== AEO / GEO: structured data ========== -->
     <script type="application/ld+json">
     {
@@ -148,7 +148,7 @@
     <link rel="stylesheet" href="assets/css/plugins/magnifying-popup.css">
     <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/rt-icon.css">
-    <link rel="stylesheet" href="assets/css/style.css?v=20260819-ab">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260825-s5">
     <link rel="stylesheet" href="assets/css/icons.css">
     <link rel="stylesheet" href="assets/css/mobile.css">
 </head>
@@ -265,23 +265,13 @@
                                         <!-- Social Icons -->
                                         <ul class="header-social">
                                             <li>
-                                                <a href="#">
-                                                    <img src="assets/images/icon/twitter-x-w.svg" alt="Twitter">
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img src="assets/images/icon/linkedin-w.svg" alt="LinkedIn">
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <img src="assets/images/icon/facebook-w.svg" alt="Facebook">
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://www.instagram.com/baniyan2006/">
+                                                <a href="https://www.instagram.com/baniyan2006/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                                                     <img src="assets/images/icon/instagram-w.svg" alt="Instagram">
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://wa.me/919841211173" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                                                    <img src="assets/images/icon/whatsapp-w.svg?v=2" alt="WhatsApp">
                                                 </a>
                                             </li>
                                         </ul>
@@ -330,15 +320,22 @@
                                 </div>
                             </div>
                             <div class="about-image-area">
-                                <img src="assets/images/about/about7.webp" alt="">
-                            </div>
-                            <div class="inner-image-sm">
-                                <div class="inner-image">
-                                    <div class="overlay-image">
-                                        <img src="assets/images/about/about-ban.webp"
-                                            alt="Chauffeur-driven corporate travel">
-                                    </div>
-                                </div>
+                                <picture>
+                                    <!-- Wide desktop: the taller canvas, so the photo can match
+                                         the text column's height without cropping him. -->
+                                    <source media="(min-width: 1400px)"
+                                        srcset="assets/images/about/founder-story-tall.webp?v=6">
+                                    <!-- Tablet and small laptop: the source shot as taken. Its
+                                         column is narrow and tall here, so the taller canvas
+                                         would have shown a field of wall above his head. -->
+                                    <source media="(min-width: 768px) and (max-width: 1399px)"
+                                        srcset="assets/images/about/founder-story.webp?v=6">
+                                    <!-- Phones: 180px more wall above him than the source photo,
+                                         so the "25+" badge in the top-right corner clears his
+                                         head once the photo is drawn this small. -->
+                                    <img src="assets/images/about/founder-story-mobile.webp?v=6"
+                                        alt="G Muruganantham, Founder of Baniyan Tours and Travels">
+                                </picture>
                             </div>
                         </div>
                     </div>
@@ -351,8 +348,7 @@
                             </div>
                             <p class="about-founder wow fadeInUp" data-wow-delay="0.15s">
                                 <span class="label">Founder</span>
-                                <span class="name">G Muruganantham <span class="qualification">
-                                    </span></span>
+                                <span class="name">G Muruganantham <span class="qualification"></span></span>
                             </p>
                             <p class="desc wow fadeInUp" data-wow-delay="0.2s">
                                 Founded in 2000, we set out to make corporate transport reliable, safe, and
@@ -450,7 +446,12 @@
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="drives-image">
-                            <img src="assets/images/about/about2-ban.webp" alt="Chauffeur-driven corporate travel">
+                            <picture>
+                                <!-- Stacked layout only (mobile and tablet). Desktop keeps values.webp. -->
+                                <source media="(max-width: 991px)" srcset="assets/images/about/mobile.webp">
+                                <img src="assets/images/about/values.webp"
+                                    alt="Chauffeur-driven corporate travel">
+                            </picture>
                             <div class="drives-badge">
                                 <h3 class="counter-no"><span class="counter">5</span><span class="count-plus">+</span>
                                 </h3>
@@ -733,18 +734,7 @@
             </div>
             <div class="rts-team-wrapper mt--60">
                 <div class="row g-5 justify-content-center">
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="single-team">
-                            <div class="team-thumb">
-                                <img src="assets/images/about/founder.png" alt="team">
-                            </div>
-                            <div class="content">
-                                <h3 class="title">Mr G Muruganantham <span class="qualification">D.M.E</span>
-                                </h3>
-                                <span class="role">FOUNDER</span>
-                            </div>
-                        </div>
-                    </div>
+                  
 
                     <div class="col-xl-3 col-lg-4 col-md-6">
                         <div class="single-team">
@@ -1109,23 +1099,13 @@
                                     rel="noopener noreferrer">Black I Technologies and Solutions</a></p>
                             <ul class="footer-social">
                                 <li>
-                                    <a href="#" aria-label="Twitter">
-                                        <img src="assets/images/icon/twitter-x-w.svg" alt="Twitter">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-label="LinkedIn">
-                                        <img src="assets/images/icon/linkedin-w.svg" alt="LinkedIn">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-label="Facebook">
-                                        <img src="assets/images/icon/facebook-w.svg" alt="Facebook">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://www.instagram.com/baniyan2006/" aria-label="Instagram">
+                                    <a href="https://www.instagram.com/baniyan2006/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                                         <img src="assets/images/icon/instagram-w.svg" alt="Instagram">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://wa.me/919841211173" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                                        <img src="assets/images/icon/whatsapp-w.svg?v=2" alt="WhatsApp">
                                     </a>
                                 </li>
                             </ul>
@@ -1153,23 +1133,13 @@
             <div class="rts-social-style-one pl--20 mt--50">
                 <ul>
                     <li>
-                        <a href="#">
-                            <i class="fa-brands fa-facebook-f"></i>
+                        <a href="https://www.instagram.com/baniyan2006/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fa-brands fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-brands fa-youtube"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-brands fa-linkedin-in"></i>
+                        <a href="https://wa.me/919841211173" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
                         </a>
                     </li>
                 </ul>

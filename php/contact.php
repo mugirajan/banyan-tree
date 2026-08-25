@@ -35,7 +35,7 @@ const SMTP_PASS = 'Contact@bits#737';
 
 // The mailbox that receives enquiries. TODO: change to the client's
 // real inbox (e.g. support@baniyantravels.com) before going live.
-const MAIL_TO      = 'support@baniyantravels.com';
+const MAIL_TO      = 'vasanthi.m@baniyantravels.com';
 const MAIL_TO_NAME = 'Baniyan Tours and Travels';
 
 // Must be an address on the authenticated domain, or the SMTP server
