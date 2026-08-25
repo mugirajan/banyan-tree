@@ -24903,77 +24903,79 @@ footer .logo img {
   line-height: 1.3;
 }
 
-/* The base style only rounds the photo - no width or height - so it
-   rendered at its intrinsic size and floated small inside the
-   column. Filling the column width and fixing a height gives the
-   four cards a consistent portrait crop.
-   Tweak --team-img-h to resize - it is the single source of truth for
-   the card height at every breakpoint. */
+/* The seven team photos arrived with no common aspect ratio - they ran from
+   0.47:1 (team-5, a full-length standing shot) to 1:1 (team-4) - so a single
+   card shape could only fill edge-to-edge by cropping each one differently,
+   which is what lopped off arms and heads.
+
+   That is fixed in the source files rather than here: every photo in
+   assets/images/about/ is now exactly 3:4. The wide ones were centre-cropped,
+   losing only surplus side background; the two tall ones were WIDENED - their
+   own edge pixels stretched outward and blurred - so no pixel of a person was
+   removed. assets/images/about/originals/ holds the untouched shots, and
+   scripts/normalize-team-photos.php regenerates the whole set from them.
+
+   Because the files already match the card, `cover` fills the frame completely
+   and crops nothing. Keep --team-card-ratio and the source files in step: change
+   this and the photos need regenerating at the new ratio, or cropping returns. */
 :root {
-  --team-img-h: 400px;
+  --team-card-ratio: 3 / 4;
+}
+
+.single-team .team-thumb {
+  position: relative;
+  aspect-ratio: var(--team-card-ratio);
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #eceff1;
 }
 
 .single-team .team-thumb img {
   display: block;
   width: 100%;
-  height: var(--team-img-h);
+  height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
+  border-radius: 0;
 }
 
-/* The founder photo (sriram.jpeg) was shot with his crown running off the top
-   edge of the frame, so `center top` had nothing above his hair to show and the
-   head read as cut. The headroom is baked into the image itself - the crown is
-   rebuilt and ~170px of wall added above it - rather than fixed here, because no
-   crop can recover pixels the source never had. sriram-original.jpeg is the
-   untouched shot. Do not re-crop this card expecting to gain headroom. */
+/* founder.png is framed so tight that the top of his hair runs off the frame.
+   Nothing here can undo that - the pixels were never captured - and painting a
+   crown back was tried and rejected: at every size it read as extra hair that
+   is not his. It needs a re-shot or uncropped source photo, not a CSS fix. */
 
-/* team-4 is the odd one out: she stands at about 73% of a 1500px-wide
-   landscape frame, while the other three are centred in theirs. A centred
-   crop therefore pushed her to the right edge of the card and cut her arm
-   off. Anchoring the crop to the right edge of the source brings her back
-   to the middle of the card.
+/* The name badge is `max-width: max-content`, so it sizes to its text with no
+   idea how wide the card is - a long title simply runs off both edges. The
+   longest one, "Technology Support Team", needs about 260px at 16px/600 once
+   the padding is counted, and between 1200px and 1399px the column is only
+   243px wide, so it overhung the photo on both sides.
 
-   Matched on the filename rather than :nth-child so it follows the photo if
-   the cards are ever reordered. `right` rather than a percentage because
-   the card's width changes with the breakpoint and the ideal figure moves
-   with it - the right edge is a clamp that cannot over-shoot. */
-.single-team .team-thumb img[src*="team-4"] {
-  object-position: right top;
+   Capping it at the card width less a gutter keeps a strip of photo visible
+   either side at every breakpoint, and a title with nowhere left to go wraps
+   inside the badge instead of overflowing it. The side padding comes down from
+   34px to 24px so the long titles still hold one line on a full-width desktop
+   card and only wrap on the narrow band where nothing else would fit. */
+:root {
+  --team-badge-gutter: 32px;
 }
 
-/* Card height per breakpoint. As the viewport narrows the column gets WIDER
-   (col-xl-3 -> col-lg-4 -> col-md-6 -> full width), so a single fixed height
-   turns the portrait crop progressively squarer, and below 768px - where the
-   card goes full-bleed at up to 516px - outright landscape. Each step below
-   raises the height to hold the crop portrait. Card widths are container +
-   g-5 gutters: 288/243 (xl), 280 (lg), 324 (md), 366-516 (below md).
-
-   The lg band runs the tallest crop of the ladder: the container is pinned
-   at 960px across the whole band, so col-lg-4 is a constant 280px - the
-   narrowest card anywhere - and it needs the extra height to not look
-   stunted on landscape tablets (1024px). */
-@media only screen and (max-width: 1199px) {
-  :root {
-    --team-img-h: 500px;
-  }
+.single-team .content {
+  /* max-content keeps the badge shrink-to-fit - the base rule's `width: 100%`
+     would otherwise stretch every one of them into a full-width bar and lose
+     the pill shape - while max-width stops it growing past the card. */
+  width: max-content;
+  max-width: calc(100% - var(--team-badge-gutter));
+  padding: 14px 24px;
 }
 
-@media only screen and (max-width: 991px) {
-  :root {
-    --team-img-h: 480px;
-  }
+.single-team .content .title {
+  line-height: 1.3;
 }
 
-/* Below 768px no column class applies, so the card stretches the full 516px
-   container and no height alone could keep it portrait - the width swings
-   from 366px on a phone to 551px at the top of the range. Capping the card
-   and centring it pins the ratio, and the taller image then reads as a
-   deliberate portrait rather than a stretched banner. */
+/* Below 768px no column class applies, so the card would stretch the full
+   516px container. Capping it and centring keeps the portrait shape and
+   stops the row from turning into one giant photo per screen. */
 @media only screen and (max-width: 767px) {
-  :root {
-    --team-img-h: 520px;
-  }
   .single-team {
     max-width: 380px;
     margin-left: auto;
