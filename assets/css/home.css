@@ -135,69 +135,131 @@
   margin-bottom: 35px;
 }
 
-/* ==== About Us image height ====
-   The source photo is 3:2 landscape, so it rendered short next to the
-   text column. Fixing a taller frame and cropping with object-fit
-   keeps the full column width without stretching the image.
-   Tweak --about-img-h to resize. */
-:root {
-  --about-img-h: 560px;
-}
-
-/* padding-right: 0 is what evens the gap up with the About page's Our Story
-   block. Both rows run a 60px Bootstrap gutter (set in style.css), but this
-   wrapper also carried 30px of its own padding on the right - left over
-   from a template layout that put a second image there - so the photo
-   stopped 90px short of the text instead of 60px. About page's equivalent
-   wrapper has no such padding, which is why the two never matched. */
+/* ==== About Us photo ====
+   padding-right: 0 evens the gap up with the About page's Our Story block.
+   Both rows run a 60px Bootstrap gutter (set in style.css), but this
+   wrapper also carried 30px of its own - left over from a template layout
+   that put a second image there - so the photo stopped 90px short of the
+   text instead of 60px. */
 .rts-about-area .about-letf-image-area {
   width: 100%;
   max-width: 100%;
   padding-right: 0;
 }
 
-.rts-about-area .about-letf-image-area .about-image-area {
-  height: var(--about-img-h);
-}
+/* ==== About Us photo: covers the frame, and no one gets cropped out ====
+   Two things are being asked of one frame. The photo has to be the same
+   height as the text beside it and fill that frame edge to edge, and it is
+   a group shot - 1376x768, everyone shoulder to shoulder, faces running
+   from 14% to 89% of the width - against a frame that is 623x512 at 1440px
+   and 435x618 at 1024px. Covering the original meant cutting the people on
+   both ends out of the picture, whatever the crop position.
 
-.rts-about-area .about-letf-image-area .about-image-area img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-/* ==== About Us: photo matches the text column's height ====
-   --about-img-h was a fixed frame, so at narrower desktop widths - 1024px
-   especially - the text column grew taller than the photo and the row ended
-   with a gap under the image.
-
-   Letting the photo absorb the leftover height fixes it: the column becomes
-   a flex box, and `flex: 1 1 0` keeps the image out of the row's own height
-   calculation so the TEXT sets the height and the photo follows. The fixed
-   height has to become auto or it wins over the flex sizing.
-
-   No min-height either. --about-img-h (560px) was still holding the floor,
-   and past ~1200px the text column drops below that - 512px at 1440px - so
-   the photo hung 48px below the text and the two columns no longer lined
-   up. Without it the frame tracks the text exactly at every width. The
-   photo is 3:2 and the man with the keys sits mid-frame, so the deeper
-   crop that comes with a shorter frame takes background off the sides and
-   leaves him alone. --about-img-h still sets the stacked frame below 992px.
-
-   The row's align-items-center class came off the markup - Bootstrap sets
-   that with !important, and centred columns do not stretch. Same treatment
-   the About page's Our Story block already uses. */
+   tems-tall.webp is that shot on a 1376x1600 canvas: the ceiling above
+   them is stretched to the new top edge, blurred, and crossfaded into the
+   real one, and a short band of bare floor is stretched below - it reads
+   as a taller hall. Nearly all the added height goes above the group, not
+   under it: ceiling is what a tall frame should fill with, empty floor
+   just reads as a gap. The canvas is narrower than any frame this layout
+   produces, so `cover` takes its crop out of that fabricated space and
+   never off the sides. Rebuild it with
+   assets/images/about/originals/build-team-tall.php, run from the project
+   root, if the photo is ever replaced. */
 @media only screen and (min-width: 992px) {
   .rts-about-area .about-letf-image-area {
     display: flex;
     flex-direction: column;
   }
 
+  /* flex-basis 0 keeps the photo out of the row's height calculation, so
+     the TEXT sets the height and the frame matches it exactly. */
   .rts-about-area .about-letf-image-area .about-image-area {
     flex: 1 1 0;
     height: auto;
   }
+}
+
+.rts-about-area .about-letf-image-area .about-image-area {
+  height: auto;
+}
+
+/* The template's orange wash is a ::before on this frame, and being
+   absolutely positioned it paints over the photo. Left alone: a 20%
+   orange film over a room full of faces reads as a colour cast rather
+   than a treatment. Drop this rule to bring it back. */
+.rts-about-area .about-letf-image-area .about-image-area::before {
+  display: none;
+}
+
+.rts-about-area .about-letf-image-area .about-image-area img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 74%, not centre. The real photo sits at rows 712-1480 of the 1600px
+     canvas, and at 1440px the frame shows a 71% slice of it - centred, that
+     slice ran past the photo's bottom edge and left a band of empty floor
+     under the group. 74% puts the bottom of the slice on the bottom of the
+     photo, so the height that has to be filled goes into ceiling instead. */
+  object-position: center 74%;
+}
+
+/* ==== Stacked layout: a taller photo ====
+   Left to its own shape the banner came out 330x184 on a phone - a thin
+   strip, with the group too small to make out. These give the frame a real
+   height and let `cover` fill it; the crop is vertical, off the canvas's
+   fabricated ceiling and floor, so no one is lost off the sides.
+
+   84% here rather than the 74% desktop uses: these frames are much wider
+   than they are tall, so the visible slice of the canvas is a short band -
+   it has to sit low to hold the group, or their feet drop out of shot. */
+@media only screen and (max-width: 991px) {
+  :root {
+    --about-img-h-stacked: 440px;
+  }
+
+  .rts-about-area .about-letf-image-area .about-image-area {
+    height: var(--about-img-h-stacked);
+  }
+
+  .rts-about-area .about-letf-image-area .about-image-area img {
+    object-position: center 84%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  :root {
+    --about-img-h-stacked: 380px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  :root {
+    --about-img-h-stacked: 320px;
+  }
+}
+
+/* ==== About Us: the "Happy Trips" plate ====
+   It was sized for a full-height photo and read as the loudest thing in
+   the section - 48px figure on 24px/45px padding. These bring it back to
+   a caption on the image. The white notch squares are keyed to the
+   plate's 20px corner radius rather than its size, so they still meet the
+   frame cleanly. */
+.rts-about-area .about-letf-image-area .about-counter-area .inner {
+  padding: 14px 28px;
+}
+
+.rts-about-area .about-letf-image-area .about-counter-area .inner .counter-no {
+  font-size: 34px;
+  margin-bottom: 4px;
+}
+
+.rts-about-area .about-letf-image-area .about-counter-area .inner .counter-no .count-plus {
+  bottom: 4px;
+}
+
+.rts-about-area .about-letf-image-area .about-counter-area .inner p {
+  font-size: 15px;
 }
 
 /* The About Us feature pair used to be equalised here. It moved to
@@ -496,25 +558,9 @@
 }
 
 /* ==== Responsive ==== */
-@media only screen and (max-width: 1199px) {
-  :root {
-    --about-img-h: 500px;
-  }
-}
-
 @media only screen and (max-width: 991px) {
-  :root {
-    --about-img-h: 460px;
-  }
-
   .banner-slider-one .banner-left-content-area .banner-subtitle {
     font-size: 18px;
-  }
-}
-
-@media only screen and (max-width: 575px) {
-  :root {
-    --about-img-h: 380px;
   }
 }
 
