@@ -727,6 +727,32 @@
   background: var(--color-brown);
 }
 
+/* The services grid holds an odd number of cards, so the final row is left
+   with a single card sitting hard against the left edge. Auto side margins
+   centre it inside its own flex line - Bootstrap 5 wraps .row, and auto
+   margins on a flex item resolve per line, so only the orphan moves.
+
+   The :nth-child guard is what keeps this from breaking when a card is
+   added later: it fires only when the last card actually starts a fresh
+   line (every 3rd column on desktop, every 2nd on tablet). With an even
+   card count the last card shares its line and is left alone. Below 768px
+   each card is already full width, so there is no free space to centre. */
+@media only screen and (min-width: 992px) {
+  .index-page .rts-car-list-area .portfolio-feed > [class*="col-"]:nth-child(3n + 1):last-child,
+  .service-page .rts-car-list-area .portfolio-feed > [class*="col-"]:nth-child(3n + 1):last-child {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .index-page .rts-car-list-area .portfolio-feed > [class*="col-"]:nth-child(2n + 1):last-child,
+  .service-page .rts-car-list-area .portfolio-feed > [class*="col-"]:nth-child(2n + 1):last-child {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 /* ==== Why Choose Us ==== */
 .index-page .why-choose-wrapper .why-choose-item {
   background: var(--color-green);
