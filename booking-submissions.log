@@ -90,3 +90,75 @@
     Extras:             Air Conditioning
     Instructions:       testinggggggggggggggggg
 
+[2026-08-27 08:01:35] BOOKING
+    Booking type:       Book Now (Immediate)
+    Pick-up when:       As soon as possible
+    Pick-up location:   chennai
+    Drop location:      salem
+    Vehicle:            SUV
+    Passengers:         1
+    Trip type:          Round Trip
+    Distance / hours:   700 km (approx., round trip)
+    Worked out from:    14 hour(s) x 50 km/hr, office to office and back
+    Fare estimate:      Not calculated
+    Passenger name:     test
+    Phone:              +916789079898
+    Email:              test@gmail.com
+    Company:            bits
+    Extras:             Air Conditioning
+    Instructions:       testingggggggggggggggggg
+
+[2026-08-27 08:05:57] BOOKING
+    Booking type:       Book Now (Immediate)
+    Pick-up when:       As soon as possible
+    Pick-up location:   chennai
+    Drop location:      salem
+    Vehicle:            Sedan
+    Passengers:         1
+    Trip type:          Round Trip
+    Distance / hours:   700 km (approx., round trip)
+    Worked out from:    14 hour(s) x 50 km/hr, office to office and back
+    Fare estimate:      Not calculated
+    Passenger name:     test
+    Phone:              +916789079898
+    Email:              test@gmail.com
+    Company:            bits
+    Extras:             Air Conditioning
+    Instructions:       testingggggggggggggg
+
+[2026-08-27 08:08:21] BOOKING
+    Booking type:       Book Now (Immediate)
+    Pick-up when:       As soon as possible
+    Pick-up location:   chennai
+    Drop location:      salem
+    Vehicle:            SUV
+    Passengers:         1
+    Trip type:          Round Trip
+    Distance / hours:   700 km (approx., round trip)
+    Worked out from:    14 hour(s) x 50 km/hr, office to office and back
+    Fare estimate:      Not calculated
+    Passenger name:     test
+    Phone:              +916789079898
+    Email:              test@gmail.com
+    Company:            bits
+    Extras:             Air Conditioning
+    Instructions:       testinggggggggggggggg
+
+[2026-08-27 08:09:34] BOOKING
+    Booking type:       Book Now (Immediate)
+    Pick-up when:       As soon as possible
+    Pick-up location:   chennai
+    Drop location:      salem
+    Vehicle:            Sedan
+    Passengers:         1
+    Trip type:          Round Trip
+    Distance / hours:   700 km (approx., round trip)
+    Worked out from:    14 hour(s) x 50 km/hr, office to office and back
+    Fare estimate:      Not calculated
+    Passenger name:     test
+    Phone:              +916789079898
+    Email:              test@gmail.com
+    Company:            bits
+    Extras:             Air Conditioning
+    Instructions:       testinggggggggg
+

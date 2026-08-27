@@ -266,7 +266,12 @@ try {
     }
 
     $mail->isHTML(true);
-    $mail->Subject = 'Ride booking: ' . $vehicle_label . ' - ' . $name . ' (' . $when . ')';
+    /* Just the vehicle. The name, the route and "As soon as possible"
+     * all read as noise in the inbox list, and every one of them is in
+     * the mail itself. A scheduled ride keeps its date and time, since
+     * that is the one thing worth seeing before opening it. */
+    $mail->Subject = 'New booking: ' . $vehicle_label
+        . ($service_type === 'scheduled' ? ' (' . $when . ')' : '');
 
     $mail->Body = '<!DOCTYPE html>
 <html>
