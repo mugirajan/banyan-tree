@@ -506,3 +506,10 @@
     flex: 0 0 auto !important;
   }
 }
+
+/* The distance box is filled in by the form, not the customer, so it reads as
+   a result rather than an empty field waiting for input. */
+.booking-form .single-input input[readonly] {
+  background: var(--color-gray);
+  cursor: default;
+}

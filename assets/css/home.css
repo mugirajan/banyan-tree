@@ -950,3 +950,34 @@
 .index-page .rts-testimonials-item-slider .single-testimonials-item .desc {
   flex: 1 1 auto;
 }
+
+/* The author line now carries a name, a company and a city, so the theme's
+   24px name loomed over the quote it belongs to and pushed the longer roles
+   onto a second line. Shrinking both keeps the card's emphasis on what the
+   customer actually said. */
+.index-page .rts-testimonials-item-slider .single-testimonials-item .author-area .author-content .author-name {
+  font-size: 18px;
+}
+
+.index-page .rts-testimonials-item-slider .single-testimonials-item .author-area .author-content .author-role {
+  font-size: 14px;
+}
+
+/* The avatar is a flex item next to the name and role. When a role runs long
+   (a title plus a company plus a city), the row squeezes the photo's width
+   while object-fit holds its height, so the circle flattens into an oval.
+   Locking flex-shrink keeps it a circle no matter how long the role gets. */
+.single-testimonials-item .author-area .author-thumb {
+  flex-shrink: 0;
+}
+
+.single-testimonials-item .author-area .author-thumb img {
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+/* Quote text: 18px down to 17px, so the longer customer quotes sit better
+   against the shrunk author line below them. */
+.single-testimonials-item .desc {
+  font-size: 17px;
+}

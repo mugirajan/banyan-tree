@@ -89,6 +89,8 @@ $vehicle        = field('vehicle_type');
 $passengers     = field('passengers');
 $trip_type      = field('trip_type');
 $distance_km    = field('distance_km');
+$avg_speed      = field('avg_speed_kmph');
+$travel_hours   = field('travel_time_hours');
 $duration_hours = field('duration_hours');
 $name           = field('name');
 $phone          = field('phone');
@@ -152,7 +154,6 @@ $vehicle_label = label_for($vehicle, array(
 ));
 
 $trip_type_label = label_for($trip_type, array(
-    'oneway'    => 'One Way',
     'roundtrip' => 'Round Trip',
     'hourly'    => 'Hourly Rental',
 ));
@@ -161,9 +162,18 @@ $when = $service_type === 'scheduled'
     ? trim($pickup_date . ' at ' . $pickup_time)
     : 'As soon as possible';
 
+// Both kinds of trip are quoted on hours x average speed, office to office.
+// Only the box the hours came from differs.
+$hours_used = $trip_type === 'hourly' ? $duration_hours : $travel_hours;
+
 $trip_size = $trip_type === 'hourly'
-    ? ($duration_hours !== '' ? $duration_hours . ' hour(s)' : '-')
-    : ($distance_km !== '' ? $distance_km . ' km (approx.)' : '-');
+    ? (($duration_hours !== '' ? $duration_hours . ' hour(s)' : '-')
+        . ($distance_km !== '' ? ' / ' . $distance_km . ' km (approx.)' : ''))
+    : ($distance_km !== '' ? $distance_km . ' km (approx., round trip)' : '-');
+
+$trip_basis = ($avg_speed !== '' && $hours_used !== '')
+    ? $hours_used . ' hour(s) x ' . $avg_speed . ' km/hr, office to office and back'
+    : '-';
 
 /* ---------------------------------------------------------------
  * THE BOOKING, IN ONE PLACE
@@ -177,6 +187,7 @@ $booking = array(
     'Passengers'       => $passengers !== '' ? $passengers : '-',
     'Trip type'        => $trip_type_label,
     'Distance / hours' => $trip_size,
+    'Worked out from'  => $trip_basis,
     'Fare estimate'    => $fare_estimate !== '' ? $fare_estimate : 'Not calculated',
     'Passenger name'   => $name,
     'Phone'            => $phone,

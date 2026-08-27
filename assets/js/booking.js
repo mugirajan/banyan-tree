@@ -91,12 +91,39 @@
     function syncTripType() {
         var hourly = form.find('input[name="trip_type"]:checked').val() === 'hourly';
 
-        $('#distance-field').toggleClass('is-hidden', hourly);
+        // Speed and the derived distance apply to both kinds of trip; only the
+        // box the hours go into changes.
+        $('#travel-time-field').toggleClass('is-hidden', hourly);
         $('#hours-field').toggleClass('is-hidden', !hourly);
+        syncDistance();
+    }
+
+    /* The customer never types a distance. We quote garage to garage, so the
+     * only two things they can sensibly state are how long the car is out for
+     * and the average speed it runs at; the kilometres fall out of those.
+     * Round trip: Chennai -> Salem -> Chennai, 14 hours at 50 km/hr, is 700 km.
+     * Hourly: 8 hours at 40 km/hr is 320 km. Either way the hours cover the
+     * whole run, our office to the destination and back again. */
+    function syncDistance() {
+        var hourly = form.find('input[name="trip_type"]:checked').val() === 'hourly';
+        var hoursField = hourly ? 'duration_hours' : 'travel_time_hours';
+        var speed = parseFloat(form.find('input[name="avg_speed_kmph"]').val());
+        var hours = parseFloat(form.find('input[name="' + hoursField + '"]').val());
+        var $distance = form.find('input[name="distance_km"]');
+
+        if (!speed || speed <= 0 || !hours || hours <= 0) {
+            $distance.val('');
+            return;
+        }
+
+        $distance.val(Math.round(speed * hours));
     }
 
     form.on('change', 'input[name="service_type"]', syncServiceType);
     form.on('change', 'input[name="trip_type"]', syncTripType);
+    form.on('input change',
+        'input[name="avg_speed_kmph"], input[name="travel_time_hours"], input[name="duration_hours"]',
+        syncDistance);
     syncServiceType();
     syncTripType();
 
@@ -133,12 +160,13 @@
         } else {
             var km = parseFloat(form.find('input[name="distance_km"]').val());
             if (!km || km <= 0) {
-                showMessage('Please enter the approximate distance in kilometres.', true);
+                showMessage('Please enter the average speed and the total travel time so we can work out the distance.', true);
                 return;
             }
             if (tripType === 'roundtrip') {
-                km = km * 2;
-                lines.push(['Round trip - distance counted both ways', 0]);
+                // speed x time already covers office -> destination -> office,
+                // so there is nothing left to double here.
+                lines.push(['Round trip - office to office, both ways counted', 0]);
             }
             var kmCharge = km * rate.perKm;
 
