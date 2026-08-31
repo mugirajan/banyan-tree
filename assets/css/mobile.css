@@ -126,6 +126,14 @@
      list and stay left, so a centred title sits out of step with the
      rule and the text it heads. */
   .journey-card .title,
+  /* Testimonial author: the name is an h3 and the role beneath it is a
+     span, so the rule above centred the name while the role stayed
+     left. Both sit in a flex row beside the round photo, which is hard
+     left itself, so the block reads as left aligned everywhere below
+     992px. The .author-content box is listed as well as the name so the
+     role is left by rule rather than only by default. */
+  .index-page .single-testimonials-item .author-area .author-content,
+  .index-page .single-testimonials-item .author-area .author-content .author-name,
   .portfolio-details-area h1,
   .portfolio-details-area h2,
   .portfolio-details-area h3,
@@ -416,6 +424,57 @@
 @media only screen and (max-width: 991px) {
   .why-choose-wrapper>.row {
     --bs-gutter-y: 95px;
+  }
+}
+
+/* ==========================================================================
+   8. TESTIMONIALS - THE AUTHOR LINE RAN UNDER THE QUOTE BADGE
+   --------------------------------------------------------------------------
+   .inner-icon is the round quote mark in the card's bottom-right corner.
+   It is absolutely positioned (right: 0; bottom: 0) with an opaque grey
+   panel behind it - 20px of padding plus a 60px circle, so 80px wide -
+   and nothing in the flow reserves room for it. The author row is the
+   last thing in the card, so on a narrow card a long role ("Former CEO,
+   Child Trust, Nungambakkam") simply ran underneath the panel and was
+   cut off mid-word.
+
+   The card's own side padding already absorbs part of that 80px, so the
+   panel only covers the content box by (80 - card padding). The reserve
+   below is that overlap plus a few px of air, which is why the two
+   breakpoints differ - the card's padding drops from 30px to 20px at
+   576px, so the panel eats 10px more of the content there.
+
+   min-width: 0 matters as much as the padding: .author-content is a flex
+   item, and a flex item defaults to min-width: auto, meaning it refuses
+   to shrink below its longest word and would push straight back out
+   under the badge instead of wrapping.
+
+   Everything here is scoped to .index-page (the home page's body class).
+   The testimonial card markup only appears on the home page today, but
+   this file is shared by every page, so the scope keeps a card dropped
+   onto another page later from inheriting these numbers by surprise.
+   ========================================================================== */
+
+@media only screen and (max-width: 991px) {
+  .index-page .single-testimonials-item .author-area {
+    padding-right: 58px;
+  }
+
+  .index-page .single-testimonials-item .author-area .author-content {
+    min-width: 0;
+  }
+
+  /* Place names run long and there is not much width left to give them,
+     so let one break rather than poke out from the card. */
+  .index-page .single-testimonials-item .author-area .author-content .author-name,
+  .index-page .single-testimonials-item .author-area .author-content .author-role {
+    overflow-wrap: break-word;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .index-page .single-testimonials-item .author-area {
+    padding-right: 68px;
   }
 }
 
