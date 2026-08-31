@@ -94,7 +94,7 @@
     .rts-category-wrapper .single-category-item {
         background: var(--color-bg-three);
 
-        .icon {
+        .vehicle-thumb {
             background: transparent;
         }
 
@@ -108,13 +108,6 @@
             }
         }
 
-        &:hover {
-            .icon {
-                img {
-                    filter: brightness(0) invert(1);
-                }
-            }
-        }
     }
 
     .rts-car-list-area .rts-car-list-wrapper .single-car-list-item {

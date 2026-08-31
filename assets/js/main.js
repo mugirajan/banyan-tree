@@ -205,7 +205,7 @@
       $(document).ready(function () {
         var swiper = new Swiper(".category-slider", {
           spaceBetween: 30,
-          slidesPerView: 6,
+          slidesPerView: 4,
           loop: true,
           speed: 1000,
           autoplay: {
@@ -216,8 +216,11 @@
             prevEl: ".category-prev",
           },
           breakpoints: {
+            // 4 across on every desktop width. The theme showed 6 above
+            // 1500px, which left each card about 250px wide - too narrow for
+            // "Toyota Fortuner" to sit on one line under its photo.
             1500: {
-              slidesPerView: 6,
+              slidesPerView: 4,
             },
             1440: {
               slidesPerView: 4,
