@@ -29,10 +29,11 @@ require __DIR__ . '/vendor/phpmailer/phpmailer/src/SMTP.php';
 /* ---------------------------------------------------------------
  * SETTINGS - keep in step with php/contact.php
  * ------------------------------------------------------------- */
-const SMTP_HOST = 'smtp.hostinger.com';
+const SMTP_HOST = 'smtp.gmail.com';
 const SMTP_PORT = 587;
-const SMTP_USER = 'contact@blackitechs.com';
-const SMTP_PASS = 'Contact@bits#737';
+const SMTP_USER = 'travelbookings@baniyantravels.com';
+// Gmail App Password (normal account password does not work over SMTP)
+const SMTP_PASS = 'gzygsawehzlakgvw';
 
 // The mailbox that receives bookings. TODO: change to the client's
 // real inbox before going live.
@@ -41,7 +42,7 @@ const MAIL_TO_NAME = 'Baniyan Tours and Travels';
 
 // Must be an address on the authenticated domain, or the SMTP server
 // will reject it. The customer goes in Reply-To instead.
-const MAIL_FROM      = 'contact@blackitechs.com';
+const MAIL_FROM      = 'travelbookings@baniyantravels.com';
 const MAIL_FROM_NAME = 'Baniyan Tours and Travels Website';
 
 // 0 = off. Set to 2 to write the SMTP conversation to the PHP error
