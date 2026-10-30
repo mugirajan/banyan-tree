@@ -27076,6 +27076,21 @@ footer .logo img {
   color: var(--color-body);
 }
 
+/* Footer address on fixed lines: "LIG-660, 14th Cross Street," then
+   "ERI Scheme, Mogappair West,". Phones keep normal wrapping - the
+   footer cells there are too narrow to hold either line unbroken. */
+@media only screen and (min-width: 768px) {
+  .footer-wrapper-style-between .single-wized.get-in-touch .nowrap {
+    white-space: nowrap;
+  }
+}
+
+/* GSTIN / UDYAM sit under the address - a little gap so they read as
+   registration details rather than another address line. */
+.footer-wrapper-style-between .single-wized.get-in-touch ul li .text .static-value.reg-id {
+  margin-top: 6px;
+}
+
 /* ---- Column heads line up with the logo, content with the paragraph ----
    The first column opens with the logo (58px tall, --logo-h-footer) and a
    25px gap; the other two open with a 20px heading and a 30px gap. So the
@@ -27688,13 +27703,17 @@ footer .logo img {
     max-width: 280px;
   }
 
+  /* Column breaks tightened (104px -> 54px, 69px -> 34px) so the ~85px
+     goes to Contact Us - each half gains ~42px, enough for the address
+     and the GSTIN / UDYAM lines to sit on fewer, wider lines. */
   .footer-wrapper-style-between .single-wized:nth-child(1) {
-    margin-right: 70px;
+    margin-right: 20px;
   }
 
   .footer-wrapper-style-between .single-wized:nth-child(2) {
     flex: 0 0 120px;
     max-width: 120px;
+    margin-right: 0;
   }
 
   .footer-wrapper-style-between .single-wized.get-in-touch ul {
