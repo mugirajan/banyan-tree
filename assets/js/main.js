@@ -73,6 +73,21 @@
             stagger: 0.02,
           });
         });
+
+        // Trigger points are measured before the lazy images load, and those
+        // images move everything below them - so a heading could sit in view
+        // with its trigger still waiting somewhere else, leaving the text at
+        // opacity 0 ("How It Works" lost its heading this way). Re-measure
+        // once the page and each late image have loaded.
+        let refreshTimer;
+        const refreshTriggers = () => {
+          clearTimeout(refreshTimer);
+          refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 100);
+        };
+        window.addEventListener("load", refreshTriggers);
+        document.querySelectorAll("img").forEach((img) => {
+          if (!img.complete) img.addEventListener("load", refreshTriggers, { once: true });
+        });
       }
     },
     jarallax: function (e) {
