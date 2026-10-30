@@ -28033,3 +28033,46 @@ footer .logo img {
 
 
 
+
+/* ---- Wide desktop: equal space between all four footer columns ----------
+   From 1400px the container is fixed (1311px of content), and Contact Us
+   had more room than it needed - its two halves split it 50/50, so the
+   spare width collected as one big gap between Our Location and Send Us
+   Email while the other breaks stayed tight.
+
+   Each column is now sized to its content instead. The row spreads the
+   leftover across the two outer breaks (space-between), and the Contact
+   grid's column gap is set to match: 1311 - 280 (description) - ~100
+   (Quick Links) - ~300 (Location) - ~342 (Email) leaves ~290, a third of
+   which is ~96px per break. */
+@media only screen and (min-width: 1400px) {
+  .footer-wrapper-style-between {
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .footer-wrapper-style-between .single-wized:nth-child(1),
+  .footer-wrapper-style-between .single-wized:nth-child(2) {
+    margin-right: 0;
+  }
+
+  .footer-wrapper-style-between .single-wized:nth-child(2) {
+    flex: 0 0 auto;
+    max-width: none;
+  }
+
+  .footer-wrapper-style-between .single-wized:nth-child(3),
+  .footer-wrapper-style-between .single-wized:nth-child(3):last-child {
+    flex: 0 0 auto;
+  }
+
+  .footer-wrapper-style-between .single-wized.get-in-touch ul {
+    display: grid;
+    columns: auto;
+    grid-auto-flow: column;
+    grid-template-rows: auto auto;
+    grid-template-columns: max-content max-content;
+    column-gap: 96px;
+    row-gap: 0;
+  }
+}
